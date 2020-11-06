@@ -17,9 +17,11 @@ let make = (~children) => {
     </div>
   | (false, false) =>
     <div className="flex items-center justify-center h-screen">
-      <button onClick={_ => loginWithRedirect()}>
-        {React.string("Log in")}
-      </button>
+      <div className="ml-auto mr-auto">
+        <Layout.Button onClick={_ => loginWithRedirect()}>
+          {React.string("Log in")}
+        </Layout.Button>
+      </div>
     </div>
   | (false, true) =>
     <ReasonRelay.Context.Provider
