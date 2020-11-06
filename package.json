@@ -5,7 +5,7 @@
     "build": "bsb -make-world",
     "start": "cross-env BS_WATCH_CLEAR=true bsb -make-world -w",
     "clean": "bsb -clean-world",
-    "test": "is-ci \"test:ci\" \"test:watch\"",
+    "test": "is-ci test:ci test:watch",
     "test:ci": "jest",
     "test:watch": "jest --watch",
     "webpack": "webpack -w",
