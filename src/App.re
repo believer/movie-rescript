@@ -9,14 +9,19 @@ let make = () => {
     {switch (isAuthenticated, user) {
      | (false, _)
      | (true, None) =>
-       <button onClick={_ => loginWithRedirect()}>
+       <Layout.Button onClick={_ => loginWithRedirect()}>
          {React.string("Log in")}
-       </button>
+       </Layout.Button>
      | (true, Some(user)) =>
        <div className="mt-8 grid grid-md">
-         <div className="flex justify-between">
-           <Link to_=Feed> {React.string("Movies")} </Link>
-           <div className="flex">
+         <div className="flex">
+           <Link to_=Feed> <Icon.Movie /> </Link>
+           <div className="ml-8">
+             <Router.Link to_=AddMovie>
+               {React.string("Add movie")}
+             </Router.Link>
+           </div>
+           <div className="flex ml-auto">
              {switch (user.picture) {
               | Some(src) => <img className="w-8 h-8 mr-4 rounded-full" src />
               | None => React.null

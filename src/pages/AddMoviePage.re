@@ -123,9 +123,9 @@ let make = () => {
     |> ignore;
   };
 
-  <div className="grid grid-md">
-    <div className="flex space-x-8">
-      <div className="space-y-4">
+  <div className="mt-10 grid grid-md">
+    <div className="flex flex-wrap md:space-x-8">
+      <div className="w-full md:w-auto space-y-4">
         <Form.TextField
           label="IMDb ID"
           name="imdb-id"
@@ -159,12 +159,10 @@ let make = () => {
          | NotCalled => React.null
          | Loading => React.string("Loading")
          | Data(movie) =>
-           <button
-             className="inline-block px-5 py-2 mt-4 text-blue-800 bg-blue-300 rounded-md"
-             disabled={rating === ""}
-             onClick={_ => handleAddMovie(movie)}>
+           <Layout.Button
+             disabled={rating === ""} onClick={_ => handleAddMovie(movie)}>
              {React.string("Add")}
-           </button>
+           </Layout.Button>
          }}
       </div>
       {switch (movie) {
@@ -173,7 +171,7 @@ let make = () => {
        | NotCalled => React.null
        | Loading => React.string("Loading")
        | Data(movie) =>
-         <div className="flex-1 p-5 mt-8 text-xs bg-gray-200">
+         <div className="flex-1 p-5 mt-8 text-xs bg-gray-200 md:mt-0">
            <h1 className="mb-4 text-2xl font-bold">
              {React.string(movie.title)}
            </h1>

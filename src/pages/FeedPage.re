@@ -67,12 +67,13 @@ let make = () => {
        ->React.array}
     </div>
     {hasNext
-       ? <button
-           className="inline-block px-5 py-2 mt-8 ml-auto mr-auto text-blue-800 bg-blue-300 disabled:bg-gray-100 disabled:text-gray-600 rounded-md"
-           disabled=isLoadingNext
-           onClick={_ => loadNext(~count=16, ()) |> ignore}>
-           {(isLoadingNext ? "Loading..." : "More") |> React.string}
-         </button>
+       ? <div className="ml-auto mr-auto">
+           <Layout.Button
+             disabled=isLoadingNext
+             onClick={_ => loadNext(~count=16, ()) |> ignore}>
+             {(isLoadingNext ? "Loading..." : "More") |> React.string}
+           </Layout.Button>
+         </div>
        : React.null}
   </div>;
 };
