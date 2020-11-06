@@ -123,23 +123,6 @@ let make = () => {
     |> ignore;
   };
 
-  React.useEffect2(
-    () => {
-      if (imdbId !== "") {
-        let id = imdbId->Js.String2.match([%re "/tt\\d+/"]);
-
-        switch (id) {
-        | Some([|id|]) => getMovie(id)
-        | Some(_)
-        | None => ()
-        };
-      };
-
-      None;
-    },
-    (imdbId, getMovie),
-  );
-
   <div className="grid grid-md">
     <div className="flex space-x-8">
       <div className="space-y-4">
@@ -148,8 +131,15 @@ let make = () => {
           name="imdb-id"
           onChange={event => {
             let id = event->ReactEvent.Form.target##value;
+            let id = id->Js.String2.match([%re "/tt\\d+/"]);
 
-            setImdbId(id);
+            switch (id) {
+            | Some([|id|]) =>
+              getMovie(id);
+              setImdbId(_ => id);
+            | Some(_)
+            | None => ()
+            };
           }}
           value=imdbId
         />
