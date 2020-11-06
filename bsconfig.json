@@ -1,0 +1,35 @@
+{
+  "name": "web",
+  "reason": {
+    "react-jsx": 3
+  },
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "commonjs",
+      "in-source": true
+    }
+  ],
+  "suffix": ".bs.js",
+  "namespace": true,
+  "ppx-flags": ["reason-relay/ppx"],
+  "bs-dependencies": [
+    "reason-react",
+    "reason-relay",
+    "reason-promise",
+    "bs-fetch",
+    "re-classnames",
+    "rescript-request",
+    "rescript-future"
+  ],
+  "refmt": 3,
+  "warnings": {
+    "number": "+A-9-33-40-41-42-44-48",
+    "error": "+A-3-33-40-41-42-44-102"
+  }
+}

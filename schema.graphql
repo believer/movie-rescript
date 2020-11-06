@@ -1,0 +1,3185 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+scalar date
+
+"""
+expression to compare columns of type date. All fields are combined with logical 'AND'.
+"""
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date!]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date!]
+}
+
+"""
+columns and relationships of "genre"
+"""
+type genre implements Node {
+  id: ID!
+  name: String!
+}
+
+"""
+aggregated selection of "genre"
+"""
+type genre_aggregate {
+  aggregate: genre_aggregate_fields
+  nodes: [genre!]!
+}
+
+"""
+aggregate fields of "genre"
+"""
+type genre_aggregate_fields {
+  avg: genre_avg_fields
+  count(columns: [genre_select_column!], distinct: Boolean): Int
+  max: genre_max_fields
+  min: genre_min_fields
+  stddev: genre_stddev_fields
+  stddev_pop: genre_stddev_pop_fields
+  stddev_samp: genre_stddev_samp_fields
+  sum: genre_sum_fields
+  var_pop: genre_var_pop_fields
+  var_samp: genre_var_samp_fields
+  variance: genre_variance_fields
+}
+
+"""
+order by aggregate values of table "genre"
+"""
+input genre_aggregate_order_by {
+  avg: genre_avg_order_by
+  count: order_by
+  max: genre_max_order_by
+  min: genre_min_order_by
+  stddev: genre_stddev_order_by
+  stddev_pop: genre_stddev_pop_order_by
+  stddev_samp: genre_stddev_samp_order_by
+  sum: genre_sum_order_by
+  var_pop: genre_var_pop_order_by
+  var_samp: genre_var_samp_order_by
+  variance: genre_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "genre"
+"""
+input genre_arr_rel_insert_input {
+  data: [genre_insert_input!]!
+  on_conflict: genre_on_conflict
+}
+
+"""aggregate avg on columns"""
+type genre_avg_fields {
+  id: Float
+}
+
+"""
+order by avg() on columns of table "genre"
+"""
+input genre_avg_order_by {
+  id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "genre". All fields are combined with a logical 'AND'.
+"""
+input genre_bool_exp {
+  _and: [genre_bool_exp]
+  _not: genre_bool_exp
+  _or: [genre_bool_exp]
+  id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "genre"
+"""
+enum genre_constraint {
+  """unique or primary key constraint"""
+  genre_name_key
+
+  """unique or primary key constraint"""
+  genre_pkey
+}
+
+"""
+input type for incrementing integer column in table "genre"
+"""
+input genre_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "genre"
+"""
+input genre_insert_input {
+  id: Int
+  name: String
+}
+
+"""aggregate max on columns"""
+type genre_max_fields {
+  id: Int
+  name: String
+}
+
+"""
+order by max() on columns of table "genre"
+"""
+input genre_max_order_by {
+  id: order_by
+  name: order_by
+}
+
+"""aggregate min on columns"""
+type genre_min_fields {
+  id: Int
+  name: String
+}
+
+"""
+order by min() on columns of table "genre"
+"""
+input genre_min_order_by {
+  id: order_by
+  name: order_by
+}
+
+"""
+response of any mutation on the table "genre"
+"""
+type genre_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [genre!]!
+}
+
+"""
+input type for inserting object relation for remote table "genre"
+"""
+input genre_obj_rel_insert_input {
+  data: genre_insert_input!
+  on_conflict: genre_on_conflict
+}
+
+"""
+on conflict condition type for table "genre"
+"""
+input genre_on_conflict {
+  constraint: genre_constraint!
+  update_columns: [genre_update_column!]!
+  where: genre_bool_exp
+}
+
+"""
+ordering options when selecting data from "genre"
+"""
+input genre_order_by {
+  id: order_by
+  name: order_by
+}
+
+"""
+primary key columns input for table: "genre"
+"""
+input genre_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "genre"
+"""
+enum genre_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "genre"
+"""
+input genre_set_input {
+  id: Int
+  name: String
+}
+
+"""aggregate stddev on columns"""
+type genre_stddev_fields {
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "genre"
+"""
+input genre_stddev_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type genre_stddev_pop_fields {
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "genre"
+"""
+input genre_stddev_pop_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type genre_stddev_samp_fields {
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "genre"
+"""
+input genre_stddev_samp_order_by {
+  id: order_by
+}
+
+"""aggregate sum on columns"""
+type genre_sum_fields {
+  id: Int
+}
+
+"""
+order by sum() on columns of table "genre"
+"""
+input genre_sum_order_by {
+  id: order_by
+}
+
+"""
+update columns of table "genre"
+"""
+enum genre_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+"""aggregate var_pop on columns"""
+type genre_var_pop_fields {
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "genre"
+"""
+input genre_var_pop_order_by {
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type genre_var_samp_fields {
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "genre"
+"""
+input genre_var_samp_order_by {
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type genre_variance_fields {
+  id: Float
+}
+
+"""
+order by variance() on columns of table "genre"
+"""
+input genre_variance_order_by {
+  id: order_by
+}
+
+"""
+A Relay Connection object on "genre"
+"""
+type genreConnection {
+  edges: [genreEdge!]!
+  pageInfo: PageInfo!
+}
+
+type genreEdge {
+  cursor: String!
+  node: genre!
+}
+
+"""
+expression to compare columns of type Int. All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+scalar job
+
+"""
+expression to compare columns of type job. All fields are combined with logical 'AND'.
+"""
+input job_comparison_exp {
+  _eq: job
+  _gt: job
+  _gte: job
+  _in: [job!]
+  _is_null: Boolean
+  _lt: job
+  _lte: job
+  _neq: job
+  _nin: [job!]
+}
+
+"""
+columns and relationships of "movie"
+"""
+type movie implements Node {
+  created_at: timestamp!
+  id: ID!
+  imdb_id: String!
+  imdb_rating: String
+
+  """An array relationship"""
+  movie_genres(
+    """distinct select on columns"""
+    distinct_on: [movie_genre_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_genre_order_by!]
+
+    """filter the rows returned"""
+    where: movie_genre_bool_exp
+  ): [movie_genre!]!
+
+  """An aggregated array relationship"""
+  movie_genres_aggregate(
+    """distinct select on columns"""
+    distinct_on: [movie_genre_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_genre_order_by!]
+
+    """filter the rows returned"""
+    where: movie_genre_bool_exp
+  ): movie_genre_aggregate!
+
+  """An array relationship connection"""
+  movie_genres_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [movie_genre_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_genre_order_by!]
+
+    """filter the rows returned"""
+    where: movie_genre_bool_exp
+  ): movie_genreConnection!
+
+  """An array relationship"""
+  movie_people(
+    """distinct select on columns"""
+    distinct_on: [movie_person_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_person_order_by!]
+
+    """filter the rows returned"""
+    where: movie_person_bool_exp
+  ): [movie_person!]!
+
+  """An aggregated array relationship"""
+  movie_people_aggregate(
+    """distinct select on columns"""
+    distinct_on: [movie_person_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_person_order_by!]
+
+    """filter the rows returned"""
+    where: movie_person_bool_exp
+  ): movie_person_aggregate!
+
+  """An array relationship connection"""
+  movie_people_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [movie_person_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_person_order_by!]
+
+    """filter the rows returned"""
+    where: movie_person_bool_exp
+  ): movie_personConnection!
+
+  """
+  A computed field, executes function "movie_original_id"
+  """
+  original_id: Int
+  overview: String
+  poster: String
+
+  """An array relationship"""
+  ratings(
+    """distinct select on columns"""
+    distinct_on: [rating_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rating_order_by!]
+
+    """filter the rows returned"""
+    where: rating_bool_exp
+  ): [rating!]!
+
+  """An aggregated array relationship"""
+  ratings_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rating_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rating_order_by!]
+
+    """filter the rows returned"""
+    where: rating_bool_exp
+  ): rating_aggregate!
+
+  """An array relationship connection"""
+  ratings_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [rating_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rating_order_by!]
+
+    """filter the rows returned"""
+    where: rating_bool_exp
+  ): ratingConnection!
+  release_date: date
+  runtime: Int!
+  tagline: String
+  title: String!
+  updated_at: timestamp!
+
+  """
+  A computed field, executes function "movie_year"
+  """
+  year: String
+}
+
+"""
+aggregated selection of "movie"
+"""
+type movie_aggregate {
+  aggregate: movie_aggregate_fields
+  nodes: [movie!]!
+}
+
+"""
+aggregate fields of "movie"
+"""
+type movie_aggregate_fields {
+  avg: movie_avg_fields
+  count(columns: [movie_select_column!], distinct: Boolean): Int
+  max: movie_max_fields
+  min: movie_min_fields
+  stddev: movie_stddev_fields
+  stddev_pop: movie_stddev_pop_fields
+  stddev_samp: movie_stddev_samp_fields
+  sum: movie_sum_fields
+  var_pop: movie_var_pop_fields
+  var_samp: movie_var_samp_fields
+  variance: movie_variance_fields
+}
+
+"""
+order by aggregate values of table "movie"
+"""
+input movie_aggregate_order_by {
+  avg: movie_avg_order_by
+  count: order_by
+  max: movie_max_order_by
+  min: movie_min_order_by
+  stddev: movie_stddev_order_by
+  stddev_pop: movie_stddev_pop_order_by
+  stddev_samp: movie_stddev_samp_order_by
+  sum: movie_sum_order_by
+  var_pop: movie_var_pop_order_by
+  var_samp: movie_var_samp_order_by
+  variance: movie_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "movie"
+"""
+input movie_arr_rel_insert_input {
+  data: [movie_insert_input!]!
+  on_conflict: movie_on_conflict
+}
+
+"""aggregate avg on columns"""
+type movie_avg_fields {
+  id: Float
+  runtime: Float
+}
+
+"""
+order by avg() on columns of table "movie"
+"""
+input movie_avg_order_by {
+  id: order_by
+  runtime: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "movie". All fields are combined with a logical 'AND'.
+"""
+input movie_bool_exp {
+  _and: [movie_bool_exp]
+  _not: movie_bool_exp
+  _or: [movie_bool_exp]
+  created_at: timestamp_comparison_exp
+  id: Int_comparison_exp
+  imdb_id: String_comparison_exp
+  imdb_rating: String_comparison_exp
+  movie_genres: movie_genre_bool_exp
+  movie_people: movie_person_bool_exp
+  overview: String_comparison_exp
+  poster: String_comparison_exp
+  ratings: rating_bool_exp
+  release_date: date_comparison_exp
+  runtime: Int_comparison_exp
+  tagline: String_comparison_exp
+  title: String_comparison_exp
+  updated_at: timestamp_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "movie"
+"""
+enum movie_constraint {
+  """unique or primary key constraint"""
+  movie_imdb_id_key
+
+  """unique or primary key constraint"""
+  movie_pkey
+}
+
+"""
+columns and relationships of "movie_genre"
+"""
+type movie_genre implements Node {
+  """An object relationship"""
+  genre: genre!
+  genre_id: Int!
+  id: ID!
+  movie_id: Int!
+}
+
+"""
+aggregated selection of "movie_genre"
+"""
+type movie_genre_aggregate {
+  aggregate: movie_genre_aggregate_fields
+  nodes: [movie_genre!]!
+}
+
+"""
+aggregate fields of "movie_genre"
+"""
+type movie_genre_aggregate_fields {
+  avg: movie_genre_avg_fields
+  count(columns: [movie_genre_select_column!], distinct: Boolean): Int
+  max: movie_genre_max_fields
+  min: movie_genre_min_fields
+  stddev: movie_genre_stddev_fields
+  stddev_pop: movie_genre_stddev_pop_fields
+  stddev_samp: movie_genre_stddev_samp_fields
+  sum: movie_genre_sum_fields
+  var_pop: movie_genre_var_pop_fields
+  var_samp: movie_genre_var_samp_fields
+  variance: movie_genre_variance_fields
+}
+
+"""
+order by aggregate values of table "movie_genre"
+"""
+input movie_genre_aggregate_order_by {
+  avg: movie_genre_avg_order_by
+  count: order_by
+  max: movie_genre_max_order_by
+  min: movie_genre_min_order_by
+  stddev: movie_genre_stddev_order_by
+  stddev_pop: movie_genre_stddev_pop_order_by
+  stddev_samp: movie_genre_stddev_samp_order_by
+  sum: movie_genre_sum_order_by
+  var_pop: movie_genre_var_pop_order_by
+  var_samp: movie_genre_var_samp_order_by
+  variance: movie_genre_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "movie_genre"
+"""
+input movie_genre_arr_rel_insert_input {
+  data: [movie_genre_insert_input!]!
+  on_conflict: movie_genre_on_conflict
+}
+
+"""aggregate avg on columns"""
+type movie_genre_avg_fields {
+  genre_id: Float
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by avg() on columns of table "movie_genre"
+"""
+input movie_genre_avg_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "movie_genre". All fields are combined with a logical 'AND'.
+"""
+input movie_genre_bool_exp {
+  _and: [movie_genre_bool_exp]
+  _not: movie_genre_bool_exp
+  _or: [movie_genre_bool_exp]
+  genre: genre_bool_exp
+  genre_id: Int_comparison_exp
+  id: Int_comparison_exp
+  movie_id: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "movie_genre"
+"""
+enum movie_genre_constraint {
+  """unique or primary key constraint"""
+  movie_genre_pkey
+}
+
+"""
+input type for incrementing integer column in table "movie_genre"
+"""
+input movie_genre_inc_input {
+  genre_id: Int
+  id: Int
+  movie_id: Int
+}
+
+"""
+input type for inserting data into table "movie_genre"
+"""
+input movie_genre_insert_input {
+  genre: genre_obj_rel_insert_input
+  genre_id: Int
+  id: Int
+  movie_id: Int
+}
+
+"""aggregate max on columns"""
+type movie_genre_max_fields {
+  genre_id: Int
+  id: Int
+  movie_id: Int
+}
+
+"""
+order by max() on columns of table "movie_genre"
+"""
+input movie_genre_max_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate min on columns"""
+type movie_genre_min_fields {
+  genre_id: Int
+  id: Int
+  movie_id: Int
+}
+
+"""
+order by min() on columns of table "movie_genre"
+"""
+input movie_genre_min_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+response of any mutation on the table "movie_genre"
+"""
+type movie_genre_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [movie_genre!]!
+}
+
+"""
+input type for inserting object relation for remote table "movie_genre"
+"""
+input movie_genre_obj_rel_insert_input {
+  data: movie_genre_insert_input!
+  on_conflict: movie_genre_on_conflict
+}
+
+"""
+on conflict condition type for table "movie_genre"
+"""
+input movie_genre_on_conflict {
+  constraint: movie_genre_constraint!
+  update_columns: [movie_genre_update_column!]!
+  where: movie_genre_bool_exp
+}
+
+"""
+ordering options when selecting data from "movie_genre"
+"""
+input movie_genre_order_by {
+  genre: genre_order_by
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+primary key columns input for table: "movie_genre"
+"""
+input movie_genre_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "movie_genre"
+"""
+enum movie_genre_select_column {
+  """column name"""
+  genre_id
+
+  """column name"""
+  id
+
+  """column name"""
+  movie_id
+}
+
+"""
+input type for updating data in table "movie_genre"
+"""
+input movie_genre_set_input {
+  genre_id: Int
+  id: Int
+  movie_id: Int
+}
+
+"""aggregate stddev on columns"""
+type movie_genre_stddev_fields {
+  genre_id: Float
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by stddev() on columns of table "movie_genre"
+"""
+input movie_genre_stddev_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type movie_genre_stddev_pop_fields {
+  genre_id: Float
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "movie_genre"
+"""
+input movie_genre_stddev_pop_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type movie_genre_stddev_samp_fields {
+  genre_id: Float
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "movie_genre"
+"""
+input movie_genre_stddev_samp_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate sum on columns"""
+type movie_genre_sum_fields {
+  genre_id: Int
+  id: Int
+  movie_id: Int
+}
+
+"""
+order by sum() on columns of table "movie_genre"
+"""
+input movie_genre_sum_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+update columns of table "movie_genre"
+"""
+enum movie_genre_update_column {
+  """column name"""
+  genre_id
+
+  """column name"""
+  id
+
+  """column name"""
+  movie_id
+}
+
+"""aggregate var_pop on columns"""
+type movie_genre_var_pop_fields {
+  genre_id: Float
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by var_pop() on columns of table "movie_genre"
+"""
+input movie_genre_var_pop_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type movie_genre_var_samp_fields {
+  genre_id: Float
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by var_samp() on columns of table "movie_genre"
+"""
+input movie_genre_var_samp_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate variance on columns"""
+type movie_genre_variance_fields {
+  genre_id: Float
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by variance() on columns of table "movie_genre"
+"""
+input movie_genre_variance_order_by {
+  genre_id: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+A Relay Connection object on "movie_genre"
+"""
+type movie_genreConnection {
+  edges: [movie_genreEdge!]!
+  pageInfo: PageInfo!
+}
+
+type movie_genreEdge {
+  cursor: String!
+  node: movie_genre!
+}
+
+"""
+input type for incrementing integer column in table "movie"
+"""
+input movie_inc_input {
+  id: Int
+  runtime: Int
+}
+
+"""
+input type for inserting data into table "movie"
+"""
+input movie_insert_input {
+  created_at: timestamp
+  id: Int
+  imdb_id: String
+  imdb_rating: String
+  movie_genres: movie_genre_arr_rel_insert_input
+  movie_people: movie_person_arr_rel_insert_input
+  overview: String
+  poster: String
+  ratings: rating_arr_rel_insert_input
+  release_date: date
+  runtime: Int
+  tagline: String
+  title: String
+  updated_at: timestamp
+}
+
+"""aggregate max on columns"""
+type movie_max_fields {
+  created_at: timestamp
+  id: Int
+  imdb_id: String
+  imdb_rating: String
+  overview: String
+  poster: String
+  release_date: date
+  runtime: Int
+  tagline: String
+  title: String
+  updated_at: timestamp
+}
+
+"""
+order by max() on columns of table "movie"
+"""
+input movie_max_order_by {
+  created_at: order_by
+  id: order_by
+  imdb_id: order_by
+  imdb_rating: order_by
+  overview: order_by
+  poster: order_by
+  release_date: order_by
+  runtime: order_by
+  tagline: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type movie_min_fields {
+  created_at: timestamp
+  id: Int
+  imdb_id: String
+  imdb_rating: String
+  overview: String
+  poster: String
+  release_date: date
+  runtime: Int
+  tagline: String
+  title: String
+  updated_at: timestamp
+}
+
+"""
+order by min() on columns of table "movie"
+"""
+input movie_min_order_by {
+  created_at: order_by
+  id: order_by
+  imdb_id: order_by
+  imdb_rating: order_by
+  overview: order_by
+  poster: order_by
+  release_date: order_by
+  runtime: order_by
+  tagline: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "movie"
+"""
+type movie_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [movie!]!
+}
+
+"""
+input type for inserting object relation for remote table "movie"
+"""
+input movie_obj_rel_insert_input {
+  data: movie_insert_input!
+  on_conflict: movie_on_conflict
+}
+
+"""
+on conflict condition type for table "movie"
+"""
+input movie_on_conflict {
+  constraint: movie_constraint!
+  update_columns: [movie_update_column!]!
+  where: movie_bool_exp
+}
+
+"""
+ordering options when selecting data from "movie"
+"""
+input movie_order_by {
+  created_at: order_by
+  id: order_by
+  imdb_id: order_by
+  imdb_rating: order_by
+  movie_genres_aggregate: movie_genre_aggregate_order_by
+  movie_people_aggregate: movie_person_aggregate_order_by
+  overview: order_by
+  poster: order_by
+  ratings_aggregate: rating_aggregate_order_by
+  release_date: order_by
+  runtime: order_by
+  tagline: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""
+columns and relationships of "movie_person"
+"""
+type movie_person implements Node {
+  id: ID!
+  job: job!
+
+  """An object relationship"""
+  movie: movie!
+  movie_id: Int!
+
+  """An object relationship"""
+  person: person!
+  person_id: Int!
+}
+
+"""
+aggregated selection of "movie_person"
+"""
+type movie_person_aggregate {
+  aggregate: movie_person_aggregate_fields
+  nodes: [movie_person!]!
+}
+
+"""
+aggregate fields of "movie_person"
+"""
+type movie_person_aggregate_fields {
+  avg: movie_person_avg_fields
+  count(columns: [movie_person_select_column!], distinct: Boolean): Int
+  max: movie_person_max_fields
+  min: movie_person_min_fields
+  stddev: movie_person_stddev_fields
+  stddev_pop: movie_person_stddev_pop_fields
+  stddev_samp: movie_person_stddev_samp_fields
+  sum: movie_person_sum_fields
+  var_pop: movie_person_var_pop_fields
+  var_samp: movie_person_var_samp_fields
+  variance: movie_person_variance_fields
+}
+
+"""
+order by aggregate values of table "movie_person"
+"""
+input movie_person_aggregate_order_by {
+  avg: movie_person_avg_order_by
+  count: order_by
+  max: movie_person_max_order_by
+  min: movie_person_min_order_by
+  stddev: movie_person_stddev_order_by
+  stddev_pop: movie_person_stddev_pop_order_by
+  stddev_samp: movie_person_stddev_samp_order_by
+  sum: movie_person_sum_order_by
+  var_pop: movie_person_var_pop_order_by
+  var_samp: movie_person_var_samp_order_by
+  variance: movie_person_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "movie_person"
+"""
+input movie_person_arr_rel_insert_input {
+  data: [movie_person_insert_input!]!
+  on_conflict: movie_person_on_conflict
+}
+
+"""aggregate avg on columns"""
+type movie_person_avg_fields {
+  id: Float
+  movie_id: Float
+  person_id: Float
+}
+
+"""
+order by avg() on columns of table "movie_person"
+"""
+input movie_person_avg_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "movie_person". All fields are combined with a logical 'AND'.
+"""
+input movie_person_bool_exp {
+  _and: [movie_person_bool_exp]
+  _not: movie_person_bool_exp
+  _or: [movie_person_bool_exp]
+  id: Int_comparison_exp
+  job: job_comparison_exp
+  movie: movie_bool_exp
+  movie_id: Int_comparison_exp
+  person: person_bool_exp
+  person_id: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "movie_person"
+"""
+enum movie_person_constraint {
+  """unique or primary key constraint"""
+  movie_person_movie_id_person_id_job_key
+
+  """unique or primary key constraint"""
+  movie_person_pkey
+}
+
+"""
+input type for incrementing integer column in table "movie_person"
+"""
+input movie_person_inc_input {
+  id: Int
+  movie_id: Int
+  person_id: Int
+}
+
+"""
+input type for inserting data into table "movie_person"
+"""
+input movie_person_insert_input {
+  id: Int
+  job: job
+  movie: movie_obj_rel_insert_input
+  movie_id: Int
+  person: person_obj_rel_insert_input
+  person_id: Int
+}
+
+"""aggregate max on columns"""
+type movie_person_max_fields {
+  id: Int
+  movie_id: Int
+  person_id: Int
+}
+
+"""
+order by max() on columns of table "movie_person"
+"""
+input movie_person_max_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""aggregate min on columns"""
+type movie_person_min_fields {
+  id: Int
+  movie_id: Int
+  person_id: Int
+}
+
+"""
+order by min() on columns of table "movie_person"
+"""
+input movie_person_min_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""
+response of any mutation on the table "movie_person"
+"""
+type movie_person_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [movie_person!]!
+}
+
+"""
+input type for inserting object relation for remote table "movie_person"
+"""
+input movie_person_obj_rel_insert_input {
+  data: movie_person_insert_input!
+  on_conflict: movie_person_on_conflict
+}
+
+"""
+on conflict condition type for table "movie_person"
+"""
+input movie_person_on_conflict {
+  constraint: movie_person_constraint!
+  update_columns: [movie_person_update_column!]!
+  where: movie_person_bool_exp
+}
+
+"""
+ordering options when selecting data from "movie_person"
+"""
+input movie_person_order_by {
+  id: order_by
+  job: order_by
+  movie: movie_order_by
+  movie_id: order_by
+  person: person_order_by
+  person_id: order_by
+}
+
+"""
+primary key columns input for table: "movie_person"
+"""
+input movie_person_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "movie_person"
+"""
+enum movie_person_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  job
+
+  """column name"""
+  movie_id
+
+  """column name"""
+  person_id
+}
+
+"""
+input type for updating data in table "movie_person"
+"""
+input movie_person_set_input {
+  id: Int
+  job: job
+  movie_id: Int
+  person_id: Int
+}
+
+"""aggregate stddev on columns"""
+type movie_person_stddev_fields {
+  id: Float
+  movie_id: Float
+  person_id: Float
+}
+
+"""
+order by stddev() on columns of table "movie_person"
+"""
+input movie_person_stddev_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type movie_person_stddev_pop_fields {
+  id: Float
+  movie_id: Float
+  person_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "movie_person"
+"""
+input movie_person_stddev_pop_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type movie_person_stddev_samp_fields {
+  id: Float
+  movie_id: Float
+  person_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "movie_person"
+"""
+input movie_person_stddev_samp_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""aggregate sum on columns"""
+type movie_person_sum_fields {
+  id: Int
+  movie_id: Int
+  person_id: Int
+}
+
+"""
+order by sum() on columns of table "movie_person"
+"""
+input movie_person_sum_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""
+update columns of table "movie_person"
+"""
+enum movie_person_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  job
+
+  """column name"""
+  movie_id
+
+  """column name"""
+  person_id
+}
+
+"""aggregate var_pop on columns"""
+type movie_person_var_pop_fields {
+  id: Float
+  movie_id: Float
+  person_id: Float
+}
+
+"""
+order by var_pop() on columns of table "movie_person"
+"""
+input movie_person_var_pop_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type movie_person_var_samp_fields {
+  id: Float
+  movie_id: Float
+  person_id: Float
+}
+
+"""
+order by var_samp() on columns of table "movie_person"
+"""
+input movie_person_var_samp_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""aggregate variance on columns"""
+type movie_person_variance_fields {
+  id: Float
+  movie_id: Float
+  person_id: Float
+}
+
+"""
+order by variance() on columns of table "movie_person"
+"""
+input movie_person_variance_order_by {
+  id: order_by
+  movie_id: order_by
+  person_id: order_by
+}
+
+"""
+A Relay Connection object on "movie_person"
+"""
+type movie_personConnection {
+  edges: [movie_personEdge!]!
+  pageInfo: PageInfo!
+}
+
+type movie_personEdge {
+  cursor: String!
+  node: movie_person!
+}
+
+"""
+primary key columns input for table: "movie"
+"""
+input movie_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "movie"
+"""
+enum movie_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  imdb_id
+
+  """column name"""
+  imdb_rating
+
+  """column name"""
+  overview
+
+  """column name"""
+  poster
+
+  """column name"""
+  release_date
+
+  """column name"""
+  runtime
+
+  """column name"""
+  tagline
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "movie"
+"""
+input movie_set_input {
+  created_at: timestamp
+  id: Int
+  imdb_id: String
+  imdb_rating: String
+  overview: String
+  poster: String
+  release_date: date
+  runtime: Int
+  tagline: String
+  title: String
+  updated_at: timestamp
+}
+
+"""aggregate stddev on columns"""
+type movie_stddev_fields {
+  id: Float
+  runtime: Float
+}
+
+"""
+order by stddev() on columns of table "movie"
+"""
+input movie_stddev_order_by {
+  id: order_by
+  runtime: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type movie_stddev_pop_fields {
+  id: Float
+  runtime: Float
+}
+
+"""
+order by stddev_pop() on columns of table "movie"
+"""
+input movie_stddev_pop_order_by {
+  id: order_by
+  runtime: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type movie_stddev_samp_fields {
+  id: Float
+  runtime: Float
+}
+
+"""
+order by stddev_samp() on columns of table "movie"
+"""
+input movie_stddev_samp_order_by {
+  id: order_by
+  runtime: order_by
+}
+
+"""aggregate sum on columns"""
+type movie_sum_fields {
+  id: Int
+  runtime: Int
+}
+
+"""
+order by sum() on columns of table "movie"
+"""
+input movie_sum_order_by {
+  id: order_by
+  runtime: order_by
+}
+
+"""
+update columns of table "movie"
+"""
+enum movie_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  imdb_id
+
+  """column name"""
+  imdb_rating
+
+  """column name"""
+  overview
+
+  """column name"""
+  poster
+
+  """column name"""
+  release_date
+
+  """column name"""
+  runtime
+
+  """column name"""
+  tagline
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type movie_var_pop_fields {
+  id: Float
+  runtime: Float
+}
+
+"""
+order by var_pop() on columns of table "movie"
+"""
+input movie_var_pop_order_by {
+  id: order_by
+  runtime: order_by
+}
+
+"""aggregate var_samp on columns"""
+type movie_var_samp_fields {
+  id: Float
+  runtime: Float
+}
+
+"""
+order by var_samp() on columns of table "movie"
+"""
+input movie_var_samp_order_by {
+  id: order_by
+  runtime: order_by
+}
+
+"""aggregate variance on columns"""
+type movie_variance_fields {
+  id: Float
+  runtime: Float
+}
+
+"""
+order by variance() on columns of table "movie"
+"""
+input movie_variance_order_by {
+  id: order_by
+  runtime: order_by
+}
+
+"""
+A Relay Connection object on "movie"
+"""
+type movieConnection {
+  edges: [movieEdge!]!
+  pageInfo: PageInfo!
+}
+
+type movieEdge {
+  cursor: String!
+  node: movie!
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "genre"
+  """
+  delete_genre(
+    """filter the rows which have to be deleted"""
+    where: genre_bool_exp!
+  ): genre_mutation_response
+
+  """
+  delete single row from the table: "genre"
+  """
+  delete_genre_by_pk(id: Int!): genre
+
+  """
+  delete data from the table: "movie"
+  """
+  delete_movie(
+    """filter the rows which have to be deleted"""
+    where: movie_bool_exp!
+  ): movie_mutation_response
+
+  """
+  delete single row from the table: "movie"
+  """
+  delete_movie_by_pk(id: Int!): movie
+
+  """
+  delete data from the table: "movie_genre"
+  """
+  delete_movie_genre(
+    """filter the rows which have to be deleted"""
+    where: movie_genre_bool_exp!
+  ): movie_genre_mutation_response
+
+  """
+  delete single row from the table: "movie_genre"
+  """
+  delete_movie_genre_by_pk(id: Int!): movie_genre
+
+  """
+  delete data from the table: "movie_person"
+  """
+  delete_movie_person(
+    """filter the rows which have to be deleted"""
+    where: movie_person_bool_exp!
+  ): movie_person_mutation_response
+
+  """
+  delete single row from the table: "movie_person"
+  """
+  delete_movie_person_by_pk(id: Int!): movie_person
+
+  """
+  delete data from the table: "person"
+  """
+  delete_person(
+    """filter the rows which have to be deleted"""
+    where: person_bool_exp!
+  ): person_mutation_response
+
+  """
+  delete single row from the table: "person"
+  """
+  delete_person_by_pk(id: Int!): person
+
+  """
+  delete data from the table: "rating"
+  """
+  delete_rating(
+    """filter the rows which have to be deleted"""
+    where: rating_bool_exp!
+  ): rating_mutation_response
+
+  """
+  delete single row from the table: "rating"
+  """
+  delete_rating_by_pk(id: Int!): rating
+
+  """
+  insert data into the table: "genre"
+  """
+  insert_genre(
+    """the rows to be inserted"""
+    objects: [genre_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: genre_on_conflict
+  ): genre_mutation_response
+
+  """
+  insert a single row into the table: "genre"
+  """
+  insert_genre_one(
+    """the row to be inserted"""
+    object: genre_insert_input!
+
+    """on conflict condition"""
+    on_conflict: genre_on_conflict
+  ): genre
+
+  """
+  insert data into the table: "movie"
+  """
+  insert_movie(
+    """the rows to be inserted"""
+    objects: [movie_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: movie_on_conflict
+  ): movie_mutation_response
+
+  """
+  insert data into the table: "movie_genre"
+  """
+  insert_movie_genre(
+    """the rows to be inserted"""
+    objects: [movie_genre_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: movie_genre_on_conflict
+  ): movie_genre_mutation_response
+
+  """
+  insert a single row into the table: "movie_genre"
+  """
+  insert_movie_genre_one(
+    """the row to be inserted"""
+    object: movie_genre_insert_input!
+
+    """on conflict condition"""
+    on_conflict: movie_genre_on_conflict
+  ): movie_genre
+
+  """
+  insert a single row into the table: "movie"
+  """
+  insert_movie_one(
+    """the row to be inserted"""
+    object: movie_insert_input!
+
+    """on conflict condition"""
+    on_conflict: movie_on_conflict
+  ): movie
+
+  """
+  insert data into the table: "movie_person"
+  """
+  insert_movie_person(
+    """the rows to be inserted"""
+    objects: [movie_person_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: movie_person_on_conflict
+  ): movie_person_mutation_response
+
+  """
+  insert a single row into the table: "movie_person"
+  """
+  insert_movie_person_one(
+    """the row to be inserted"""
+    object: movie_person_insert_input!
+
+    """on conflict condition"""
+    on_conflict: movie_person_on_conflict
+  ): movie_person
+
+  """
+  insert data into the table: "person"
+  """
+  insert_person(
+    """the rows to be inserted"""
+    objects: [person_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: person_on_conflict
+  ): person_mutation_response
+
+  """
+  insert a single row into the table: "person"
+  """
+  insert_person_one(
+    """the row to be inserted"""
+    object: person_insert_input!
+
+    """on conflict condition"""
+    on_conflict: person_on_conflict
+  ): person
+
+  """
+  insert data into the table: "rating"
+  """
+  insert_rating(
+    """the rows to be inserted"""
+    objects: [rating_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: rating_on_conflict
+  ): rating_mutation_response
+
+  """
+  insert a single row into the table: "rating"
+  """
+  insert_rating_one(
+    """the row to be inserted"""
+    object: rating_insert_input!
+
+    """on conflict condition"""
+    on_conflict: rating_on_conflict
+  ): rating
+
+  """
+  update data of the table: "genre"
+  """
+  update_genre(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: genre_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: genre_set_input
+
+    """filter the rows which have to be updated"""
+    where: genre_bool_exp!
+  ): genre_mutation_response
+
+  """
+  update single row of the table: "genre"
+  """
+  update_genre_by_pk(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: genre_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: genre_set_input
+    pk_columns: genre_pk_columns_input!
+  ): genre
+
+  """
+  update data of the table: "movie"
+  """
+  update_movie(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: movie_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: movie_set_input
+
+    """filter the rows which have to be updated"""
+    where: movie_bool_exp!
+  ): movie_mutation_response
+
+  """
+  update single row of the table: "movie"
+  """
+  update_movie_by_pk(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: movie_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: movie_set_input
+    pk_columns: movie_pk_columns_input!
+  ): movie
+
+  """
+  update data of the table: "movie_genre"
+  """
+  update_movie_genre(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: movie_genre_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: movie_genre_set_input
+
+    """filter the rows which have to be updated"""
+    where: movie_genre_bool_exp!
+  ): movie_genre_mutation_response
+
+  """
+  update single row of the table: "movie_genre"
+  """
+  update_movie_genre_by_pk(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: movie_genre_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: movie_genre_set_input
+    pk_columns: movie_genre_pk_columns_input!
+  ): movie_genre
+
+  """
+  update data of the table: "movie_person"
+  """
+  update_movie_person(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: movie_person_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: movie_person_set_input
+
+    """filter the rows which have to be updated"""
+    where: movie_person_bool_exp!
+  ): movie_person_mutation_response
+
+  """
+  update single row of the table: "movie_person"
+  """
+  update_movie_person_by_pk(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: movie_person_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: movie_person_set_input
+    pk_columns: movie_person_pk_columns_input!
+  ): movie_person
+
+  """
+  update data of the table: "person"
+  """
+  update_person(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: person_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: person_set_input
+
+    """filter the rows which have to be updated"""
+    where: person_bool_exp!
+  ): person_mutation_response
+
+  """
+  update single row of the table: "person"
+  """
+  update_person_by_pk(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: person_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: person_set_input
+    pk_columns: person_pk_columns_input!
+  ): person
+
+  """
+  update data of the table: "rating"
+  """
+  update_rating(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: rating_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: rating_set_input
+
+    """filter the rows which have to be updated"""
+    where: rating_bool_exp!
+  ): rating_mutation_response
+
+  """
+  update single row of the table: "rating"
+  """
+  update_rating_by_pk(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: rating_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: rating_set_input
+    pk_columns: rating_pk_columns_input!
+  ): rating
+}
+
+"""An object with globally unique ID"""
+interface Node {
+  """A globally unique identifier"""
+  id: ID!
+}
+
+"""column ordering options"""
+enum order_by {
+  """in the ascending order, nulls last"""
+  asc
+
+  """in the ascending order, nulls first"""
+  asc_nulls_first
+
+  """in the ascending order, nulls last"""
+  asc_nulls_last
+
+  """in the descending order, nulls first"""
+  desc
+
+  """in the descending order, nulls first"""
+  desc_nulls_first
+
+  """in the descending order, nulls last"""
+  desc_nulls_last
+}
+
+type PageInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String!
+}
+
+"""
+columns and relationships of "person"
+"""
+type person implements Node {
+  id: ID!
+
+  """An array relationship"""
+  movie_people(
+    """distinct select on columns"""
+    distinct_on: [movie_person_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_person_order_by!]
+
+    """filter the rows returned"""
+    where: movie_person_bool_exp
+  ): [movie_person!]!
+
+  """An aggregated array relationship"""
+  movie_people_aggregate(
+    """distinct select on columns"""
+    distinct_on: [movie_person_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_person_order_by!]
+
+    """filter the rows returned"""
+    where: movie_person_bool_exp
+  ): movie_person_aggregate!
+
+  """An array relationship connection"""
+  movie_people_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [movie_person_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_person_order_by!]
+
+    """filter the rows returned"""
+    where: movie_person_bool_exp
+  ): movie_personConnection!
+  name: String!
+  original_id: Int!
+}
+
+"""
+aggregated selection of "person"
+"""
+type person_aggregate {
+  aggregate: person_aggregate_fields
+  nodes: [person!]!
+}
+
+"""
+aggregate fields of "person"
+"""
+type person_aggregate_fields {
+  avg: person_avg_fields
+  count(columns: [person_select_column!], distinct: Boolean): Int
+  max: person_max_fields
+  min: person_min_fields
+  stddev: person_stddev_fields
+  stddev_pop: person_stddev_pop_fields
+  stddev_samp: person_stddev_samp_fields
+  sum: person_sum_fields
+  var_pop: person_var_pop_fields
+  var_samp: person_var_samp_fields
+  variance: person_variance_fields
+}
+
+"""
+order by aggregate values of table "person"
+"""
+input person_aggregate_order_by {
+  avg: person_avg_order_by
+  count: order_by
+  max: person_max_order_by
+  min: person_min_order_by
+  stddev: person_stddev_order_by
+  stddev_pop: person_stddev_pop_order_by
+  stddev_samp: person_stddev_samp_order_by
+  sum: person_sum_order_by
+  var_pop: person_var_pop_order_by
+  var_samp: person_var_samp_order_by
+  variance: person_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "person"
+"""
+input person_arr_rel_insert_input {
+  data: [person_insert_input!]!
+  on_conflict: person_on_conflict
+}
+
+"""aggregate avg on columns"""
+type person_avg_fields {
+  id: Float
+  original_id: Float
+}
+
+"""
+order by avg() on columns of table "person"
+"""
+input person_avg_order_by {
+  id: order_by
+  original_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "person". All fields are combined with a logical 'AND'.
+"""
+input person_bool_exp {
+  _and: [person_bool_exp]
+  _not: person_bool_exp
+  _or: [person_bool_exp]
+  id: Int_comparison_exp
+  movie_people: movie_person_bool_exp
+  name: String_comparison_exp
+  original_id: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "person"
+"""
+enum person_constraint {
+  """unique or primary key constraint"""
+  person_original_id_key
+
+  """unique or primary key constraint"""
+  person_pkey
+}
+
+"""
+input type for incrementing integer column in table "person"
+"""
+input person_inc_input {
+  id: Int
+  original_id: Int
+}
+
+"""
+input type for inserting data into table "person"
+"""
+input person_insert_input {
+  id: Int
+  movie_people: movie_person_arr_rel_insert_input
+  name: String
+  original_id: Int
+}
+
+"""aggregate max on columns"""
+type person_max_fields {
+  id: Int
+  name: String
+  original_id: Int
+}
+
+"""
+order by max() on columns of table "person"
+"""
+input person_max_order_by {
+  id: order_by
+  name: order_by
+  original_id: order_by
+}
+
+"""aggregate min on columns"""
+type person_min_fields {
+  id: Int
+  name: String
+  original_id: Int
+}
+
+"""
+order by min() on columns of table "person"
+"""
+input person_min_order_by {
+  id: order_by
+  name: order_by
+  original_id: order_by
+}
+
+"""
+response of any mutation on the table "person"
+"""
+type person_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [person!]!
+}
+
+"""
+input type for inserting object relation for remote table "person"
+"""
+input person_obj_rel_insert_input {
+  data: person_insert_input!
+  on_conflict: person_on_conflict
+}
+
+"""
+on conflict condition type for table "person"
+"""
+input person_on_conflict {
+  constraint: person_constraint!
+  update_columns: [person_update_column!]!
+  where: person_bool_exp
+}
+
+"""
+ordering options when selecting data from "person"
+"""
+input person_order_by {
+  id: order_by
+  movie_people_aggregate: movie_person_aggregate_order_by
+  name: order_by
+  original_id: order_by
+}
+
+"""
+primary key columns input for table: "person"
+"""
+input person_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "person"
+"""
+enum person_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  original_id
+}
+
+"""
+input type for updating data in table "person"
+"""
+input person_set_input {
+  id: Int
+  name: String
+  original_id: Int
+}
+
+"""aggregate stddev on columns"""
+type person_stddev_fields {
+  id: Float
+  original_id: Float
+}
+
+"""
+order by stddev() on columns of table "person"
+"""
+input person_stddev_order_by {
+  id: order_by
+  original_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type person_stddev_pop_fields {
+  id: Float
+  original_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "person"
+"""
+input person_stddev_pop_order_by {
+  id: order_by
+  original_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type person_stddev_samp_fields {
+  id: Float
+  original_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "person"
+"""
+input person_stddev_samp_order_by {
+  id: order_by
+  original_id: order_by
+}
+
+"""aggregate sum on columns"""
+type person_sum_fields {
+  id: Int
+  original_id: Int
+}
+
+"""
+order by sum() on columns of table "person"
+"""
+input person_sum_order_by {
+  id: order_by
+  original_id: order_by
+}
+
+"""
+update columns of table "person"
+"""
+enum person_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  original_id
+}
+
+"""aggregate var_pop on columns"""
+type person_var_pop_fields {
+  id: Float
+  original_id: Float
+}
+
+"""
+order by var_pop() on columns of table "person"
+"""
+input person_var_pop_order_by {
+  id: order_by
+  original_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type person_var_samp_fields {
+  id: Float
+  original_id: Float
+}
+
+"""
+order by var_samp() on columns of table "person"
+"""
+input person_var_samp_order_by {
+  id: order_by
+  original_id: order_by
+}
+
+"""aggregate variance on columns"""
+type person_variance_fields {
+  id: Float
+  original_id: Float
+}
+
+"""
+order by variance() on columns of table "person"
+"""
+input person_variance_order_by {
+  id: order_by
+  original_id: order_by
+}
+
+"""
+A Relay Connection object on "person"
+"""
+type personConnection {
+  edges: [personEdge!]!
+  pageInfo: PageInfo!
+}
+
+type personEdge {
+  cursor: String!
+  node: person!
+}
+
+"""query root"""
+type query_root {
+  """
+  fetch data from the table: "genre"
+  """
+  genre_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [genre_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [genre_order_by!]
+
+    """filter the rows returned"""
+    where: genre_bool_exp
+  ): genreConnection!
+
+  """
+  fetch data from the table: "movie"
+  """
+  movie_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [movie_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_order_by!]
+
+    """filter the rows returned"""
+    where: movie_bool_exp
+  ): movieConnection!
+
+  """
+  fetch data from the table: "movie_genre"
+  """
+  movie_genre_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [movie_genre_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_genre_order_by!]
+
+    """filter the rows returned"""
+    where: movie_genre_bool_exp
+  ): movie_genreConnection!
+
+  """
+  fetch data from the table: "movie_person"
+  """
+  movie_person_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [movie_person_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_person_order_by!]
+
+    """filter the rows returned"""
+    where: movie_person_bool_exp
+  ): movie_personConnection!
+  node(
+    """A globally unique id"""
+    id: ID!
+  ): Node
+
+  """
+  fetch data from the table: "person"
+  """
+  person_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [person_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [person_order_by!]
+
+    """filter the rows returned"""
+    where: person_bool_exp
+  ): personConnection!
+
+  """
+  fetch data from the table: "rating"
+  """
+  rating_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [rating_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rating_order_by!]
+
+    """filter the rows returned"""
+    where: rating_bool_exp
+  ): ratingConnection!
+}
+
+"""
+columns and relationships of "rating"
+"""
+type rating implements Node {
+  created_at: timestamp!
+  id: ID!
+  movie_id: Int!
+  rating: Int!
+  updated_at: timestamp!
+}
+
+"""
+aggregated selection of "rating"
+"""
+type rating_aggregate {
+  aggregate: rating_aggregate_fields
+  nodes: [rating!]!
+}
+
+"""
+aggregate fields of "rating"
+"""
+type rating_aggregate_fields {
+  avg: rating_avg_fields
+  count(columns: [rating_select_column!], distinct: Boolean): Int
+  max: rating_max_fields
+  min: rating_min_fields
+  stddev: rating_stddev_fields
+  stddev_pop: rating_stddev_pop_fields
+  stddev_samp: rating_stddev_samp_fields
+  sum: rating_sum_fields
+  var_pop: rating_var_pop_fields
+  var_samp: rating_var_samp_fields
+  variance: rating_variance_fields
+}
+
+"""
+order by aggregate values of table "rating"
+"""
+input rating_aggregate_order_by {
+  avg: rating_avg_order_by
+  count: order_by
+  max: rating_max_order_by
+  min: rating_min_order_by
+  stddev: rating_stddev_order_by
+  stddev_pop: rating_stddev_pop_order_by
+  stddev_samp: rating_stddev_samp_order_by
+  sum: rating_sum_order_by
+  var_pop: rating_var_pop_order_by
+  var_samp: rating_var_samp_order_by
+  variance: rating_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "rating"
+"""
+input rating_arr_rel_insert_input {
+  data: [rating_insert_input!]!
+  on_conflict: rating_on_conflict
+}
+
+"""aggregate avg on columns"""
+type rating_avg_fields {
+  id: Float
+  movie_id: Float
+  rating: Float
+}
+
+"""
+order by avg() on columns of table "rating"
+"""
+input rating_avg_order_by {
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "rating". All fields are combined with a logical 'AND'.
+"""
+input rating_bool_exp {
+  _and: [rating_bool_exp]
+  _not: rating_bool_exp
+  _or: [rating_bool_exp]
+  created_at: timestamp_comparison_exp
+  id: Int_comparison_exp
+  movie_id: Int_comparison_exp
+  rating: Int_comparison_exp
+  updated_at: timestamp_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "rating"
+"""
+enum rating_constraint {
+  """unique or primary key constraint"""
+  rating_pkey
+}
+
+"""
+input type for incrementing integer column in table "rating"
+"""
+input rating_inc_input {
+  id: Int
+  movie_id: Int
+  rating: Int
+}
+
+"""
+input type for inserting data into table "rating"
+"""
+input rating_insert_input {
+  created_at: timestamp
+  id: Int
+  movie_id: Int
+  rating: Int
+  updated_at: timestamp
+}
+
+"""aggregate max on columns"""
+type rating_max_fields {
+  created_at: timestamp
+  id: Int
+  movie_id: Int
+  rating: Int
+  updated_at: timestamp
+}
+
+"""
+order by max() on columns of table "rating"
+"""
+input rating_max_order_by {
+  created_at: order_by
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type rating_min_fields {
+  created_at: timestamp
+  id: Int
+  movie_id: Int
+  rating: Int
+  updated_at: timestamp
+}
+
+"""
+order by min() on columns of table "rating"
+"""
+input rating_min_order_by {
+  created_at: order_by
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "rating"
+"""
+type rating_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [rating!]!
+}
+
+"""
+input type for inserting object relation for remote table "rating"
+"""
+input rating_obj_rel_insert_input {
+  data: rating_insert_input!
+  on_conflict: rating_on_conflict
+}
+
+"""
+on conflict condition type for table "rating"
+"""
+input rating_on_conflict {
+  constraint: rating_constraint!
+  update_columns: [rating_update_column!]!
+  where: rating_bool_exp
+}
+
+"""
+ordering options when selecting data from "rating"
+"""
+input rating_order_by {
+  created_at: order_by
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+  updated_at: order_by
+}
+
+"""
+primary key columns input for table: "rating"
+"""
+input rating_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "rating"
+"""
+enum rating_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  movie_id
+
+  """column name"""
+  rating
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "rating"
+"""
+input rating_set_input {
+  created_at: timestamp
+  id: Int
+  movie_id: Int
+  rating: Int
+  updated_at: timestamp
+}
+
+"""aggregate stddev on columns"""
+type rating_stddev_fields {
+  id: Float
+  movie_id: Float
+  rating: Float
+}
+
+"""
+order by stddev() on columns of table "rating"
+"""
+input rating_stddev_order_by {
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type rating_stddev_pop_fields {
+  id: Float
+  movie_id: Float
+  rating: Float
+}
+
+"""
+order by stddev_pop() on columns of table "rating"
+"""
+input rating_stddev_pop_order_by {
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type rating_stddev_samp_fields {
+  id: Float
+  movie_id: Float
+  rating: Float
+}
+
+"""
+order by stddev_samp() on columns of table "rating"
+"""
+input rating_stddev_samp_order_by {
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+}
+
+"""aggregate sum on columns"""
+type rating_sum_fields {
+  id: Int
+  movie_id: Int
+  rating: Int
+}
+
+"""
+order by sum() on columns of table "rating"
+"""
+input rating_sum_order_by {
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+}
+
+"""
+update columns of table "rating"
+"""
+enum rating_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  movie_id
+
+  """column name"""
+  rating
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type rating_var_pop_fields {
+  id: Float
+  movie_id: Float
+  rating: Float
+}
+
+"""
+order by var_pop() on columns of table "rating"
+"""
+input rating_var_pop_order_by {
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+}
+
+"""aggregate var_samp on columns"""
+type rating_var_samp_fields {
+  id: Float
+  movie_id: Float
+  rating: Float
+}
+
+"""
+order by var_samp() on columns of table "rating"
+"""
+input rating_var_samp_order_by {
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+}
+
+"""aggregate variance on columns"""
+type rating_variance_fields {
+  id: Float
+  movie_id: Float
+  rating: Float
+}
+
+"""
+order by variance() on columns of table "rating"
+"""
+input rating_variance_order_by {
+  id: order_by
+  movie_id: order_by
+  rating: order_by
+}
+
+"""
+A Relay Connection object on "rating"
+"""
+type ratingConnection {
+  edges: [ratingEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ratingEdge {
+  cursor: String!
+  node: rating!
+}
+
+"""
+expression to compare columns of type String. All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+"""subscription root"""
+type subscription_root {
+  """
+  fetch data from the table: "genre"
+  """
+  genre_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [genre_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [genre_order_by!]
+
+    """filter the rows returned"""
+    where: genre_bool_exp
+  ): genreConnection!
+
+  """
+  fetch data from the table: "movie"
+  """
+  movie_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [movie_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_order_by!]
+
+    """filter the rows returned"""
+    where: movie_bool_exp
+  ): movieConnection!
+
+  """
+  fetch data from the table: "movie_genre"
+  """
+  movie_genre_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [movie_genre_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_genre_order_by!]
+
+    """filter the rows returned"""
+    where: movie_genre_bool_exp
+  ): movie_genreConnection!
+
+  """
+  fetch data from the table: "movie_person"
+  """
+  movie_person_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [movie_person_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [movie_person_order_by!]
+
+    """filter the rows returned"""
+    where: movie_person_bool_exp
+  ): movie_personConnection!
+  node(
+    """A globally unique id"""
+    id: ID!
+  ): Node
+
+  """
+  fetch data from the table: "person"
+  """
+  person_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [person_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [person_order_by!]
+
+    """filter the rows returned"""
+    where: person_bool_exp
+  ): personConnection!
+
+  """
+  fetch data from the table: "rating"
+  """
+  rating_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [rating_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rating_order_by!]
+
+    """filter the rows returned"""
+    where: rating_bool_exp
+  ): ratingConnection!
+}
+
+scalar timestamp
+
+"""
+expression to compare columns of type timestamp. All fields are combined with logical 'AND'.
+"""
+input timestamp_comparison_exp {
+  _eq: timestamp
+  _gt: timestamp
+  _gte: timestamp
+  _in: [timestamp!]
+  _is_null: Boolean
+  _lt: timestamp
+  _lte: timestamp
+  _neq: timestamp
+  _nin: [timestamp!]
+}
+

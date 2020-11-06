@@ -1,0 +1,62 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "cross-env BS_WATCH_CLEAR=true bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "test": "is-ci \"test:ci\" \"test:watch\"",
+    "test:ci": "jest",
+    "test:watch": "jest --watch",
+    "webpack": "webpack -w",
+    "webpack:production": "NODE_ENV=production webpack",
+    "server": "webpack-dev-server",
+    "relay": "reason-relay-compiler",
+    "relay:watch": "reason-relay-compiler --watch"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@auth0/auth0-react": "^1.1.0",
+    "bs-fetch": "^0.6.2",
+    "graphql": "^15.4.0",
+    "re-classnames": "^5.0.1",
+    "react": "0.0.0-experimental-d7382b6c4",
+    "react-dom": "0.0.0-experimental-d7382b6c4",
+    "react-relay": "0.0.0-experimental-8058ef82",
+    "reason-promise": "^1.1.2",
+    "reason-react": "0.9.1",
+    "reason-relay": "^0.11.0",
+    "relay-compiler": "10.0.1",
+    "relay-config": "10.0.1",
+    "relay-runtime": "10.0.1",
+    "rescript-future": "^1.0.2",
+    "rescript-request": "^1.0.0"
+  },
+  "devDependencies": {
+    "@glennsl/bs-jest": "0.5.1",
+    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/git": "9.0.0",
+    "autoprefixer": "9.8.6",
+    "bs-jest-dom": "4.1.1",
+    "bs-platform": "8.2.0",
+    "bs-react-testing-library": "0.7.3",
+    "cross-env": "7.0.2",
+    "css-loader": "4.2.2",
+    "html-webpack-plugin": "4.4.1",
+    "is-ci-cli": "2.1.2",
+    "postcss-loader": "3.0.0",
+    "style-loader": "1.2.1",
+    "tailwindcss": "1.7.6",
+    "webpack": "4.44.1",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
+  },
+  "resolutions": {
+    "react": "0.0.0-experimental-d7382b6c4",
+    "react-dom": "0.0.0-experimental-d7382b6c4"
+  }
+}
