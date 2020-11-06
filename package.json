@@ -12,7 +12,8 @@
     "webpack:production": "NODE_ENV=production webpack",
     "server": "webpack-dev-server",
     "relay": "reason-relay-compiler",
-    "relay:watch": "reason-relay-compiler --watch"
+    "relay:watch": "reason-relay-compiler --watch",
+    "vercel-build": "npm run build && npm run webpack:production"
   },
   "keywords": [
     "BuckleScript"
