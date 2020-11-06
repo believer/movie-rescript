@@ -18,7 +18,7 @@ module CastFragment = [%relay.fragment
 let make = (~movie) => {
   let data = CastFragment.use(movie);
 
-  <MovieSection title="Cast">
+  <MovieSection length={Belt.Array.length(data.cast)} title="Cast">
     {data.cast
      ->Belt.Array.map(({person}) => {
          <li key={person.id}>

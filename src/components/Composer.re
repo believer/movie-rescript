@@ -15,7 +15,7 @@ module ComposerFragment = [%relay.fragment
 let make = (~movie) => {
   let data = ComposerFragment.use(movie);
 
-  <MovieSection title="Composer">
+  <MovieSection length={Belt.Array.length(data.composer)} title="Composer">
     {data.composer
      ->Belt.Array.map(({person}) =>
          <li key={person.id}>
