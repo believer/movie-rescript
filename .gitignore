@@ -11,4 +11,3 @@ dist
 .merlin
 .bsb.lock
 npm-debug.log
-src/__generated__
