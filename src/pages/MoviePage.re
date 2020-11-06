@@ -6,9 +6,6 @@ module MovieQuery = [%relay.query
       ... on movie {
         id
         overview
-        release_date
-        runtime
-        tagline
         title
         ...Cast_movie
         ...Composer_movie
@@ -16,6 +13,8 @@ module MovieQuery = [%relay.query
         ...Producer_movie
         ...Poster_movie
         ...Ratings_movie
+        ...MovieMeta_movie
+        ...Genres_movie
       }
     }
   }
@@ -27,7 +26,7 @@ let make = (~id) => {
   let data = MovieQuery.use(~variables={id: id}, ());
 
   switch (data.movie) {
-  | Some(`movie({overview, tagline, title, fragmentRefs})) =>
+  | Some(`movie({overview, title, fragmentRefs})) =>
     <>
       <div className="my-8 grid grid-md">
         <div className="grid grid-movie grid-gap-8">
@@ -37,13 +36,7 @@ let make = (~id) => {
               {React.string(title)}
               <Rating movie=fragmentRefs size=Rating.Large />
             </h1>
-            {switch (tagline) {
-             | Some(tagline) =>
-               <div className="mb-8 text-sm text-gray-700">
-                 {React.string(tagline)}
-               </div>
-             | None => React.null
-             }}
+            <MovieMeta movie=fragmentRefs />
             <h2 className="flex items-center mb-4 text-lg font-bold">
               {React.string("Synopsis")}
               <hr className="flex-1 ml-8" />

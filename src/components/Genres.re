@@ -12,12 +12,12 @@ module GenresFragment = [%relay.fragment
 ];
 
 [@react.component]
-let make = (~movie) => {
+let make = (~movie, ~numberOfGenres=3) => {
   let data = GenresFragment.use(movie);
 
   <div>
     {data.genres
-     ->Belt.Array.keepWithIndex((_, i) => i < 3)
+     ->Belt.Array.keepWithIndex((_, i) => i < numberOfGenres)
      ->Belt.Array.map(({genre}) => genre.name)
      ->Js.Array2.joinWith(" | ")
      ->React.string}
