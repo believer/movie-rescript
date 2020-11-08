@@ -127,6 +127,7 @@ let make = () => {
           },
         |],
       },
+      ~onCompleted=(_, _) => Router.Route.go(Feed),
       (),
     )
     |> ignore;
