@@ -363,6 +363,59 @@ columns and relationships of "movie"
 """
 type movie implements Node {
   created_at: timestamp!
+
+  """An array relationship"""
+  dates_watched(
+    """distinct select on columns"""
+    distinct_on: [seen_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [seen_order_by!]
+
+    """filter the rows returned"""
+    where: seen_bool_exp
+  ): [seen!]!
+
+  """An aggregated array relationship"""
+  dates_watched_aggregate(
+    """distinct select on columns"""
+    distinct_on: [seen_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [seen_order_by!]
+
+    """filter the rows returned"""
+    where: seen_bool_exp
+  ): seen_aggregate!
+
+  """An array relationship connection"""
+  dates_watched_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [seen_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [seen_order_by!]
+
+    """filter the rows returned"""
+    where: seen_bool_exp
+  ): seenConnection!
   id: ID!
   imdb_id: String!
   imdb_rating: String
@@ -472,11 +525,6 @@ type movie implements Node {
     """filter the rows returned"""
     where: movie_person_bool_exp
   ): movie_personConnection!
-
-  """
-  A computed field, executes function "movie_original_id"
-  """
-  original_id: Int
   overview: String
   poster: String
 
@@ -616,6 +664,7 @@ input movie_bool_exp {
   _not: movie_bool_exp
   _or: [movie_bool_exp]
   created_at: timestamp_comparison_exp
+  dates_watched: seen_bool_exp
   id: Int_comparison_exp
   imdb_id: String_comparison_exp
   imdb_rating: String_comparison_exp
@@ -1011,6 +1060,7 @@ input type for inserting data into table "movie"
 """
 input movie_insert_input {
   created_at: timestamp
+  dates_watched: seen_arr_rel_insert_input
   id: Int
   imdb_id: String
   imdb_rating: String
@@ -1123,6 +1173,7 @@ ordering options when selecting data from "movie"
 """
 input movie_order_by {
   created_at: order_by
+  dates_watched_aggregate: seen_aggregate_order_by
   id: order_by
   imdb_id: order_by
   imdb_rating: order_by
@@ -1807,6 +1858,19 @@ type mutation_root {
   delete_rating_by_pk(id: Int!): rating
 
   """
+  delete data from the table: "seen"
+  """
+  delete_seen(
+    """filter the rows which have to be deleted"""
+    where: seen_bool_exp!
+  ): seen_mutation_response
+
+  """
+  delete single row from the table: "seen"
+  """
+  delete_seen_by_pk(id: Int!): seen
+
+  """
   insert data into the table: "genre"
   """
   insert_genre(
@@ -1937,6 +2001,28 @@ type mutation_root {
     """on conflict condition"""
     on_conflict: rating_on_conflict
   ): rating
+
+  """
+  insert data into the table: "seen"
+  """
+  insert_seen(
+    """the rows to be inserted"""
+    objects: [seen_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: seen_on_conflict
+  ): seen_mutation_response
+
+  """
+  insert a single row into the table: "seen"
+  """
+  insert_seen_one(
+    """the row to be inserted"""
+    object: seen_insert_input!
+
+    """on conflict condition"""
+    on_conflict: seen_on_conflict
+  ): seen
 
   """
   update data of the table: "genre"
@@ -2093,6 +2179,32 @@ type mutation_root {
     _set: rating_set_input
     pk_columns: rating_pk_columns_input!
   ): rating
+
+  """
+  update data of the table: "seen"
+  """
+  update_seen(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: seen_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: seen_set_input
+
+    """filter the rows which have to be updated"""
+    where: seen_bool_exp!
+  ): seen_mutation_response
+
+  """
+  update single row of the table: "seen"
+  """
+  update_seen_by_pk(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: seen_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: seen_set_input
+    pk_columns: seen_pk_columns_input!
+  ): seen
 }
 
 """An object with globally unique ID"""
@@ -2641,6 +2753,25 @@ type query_root {
     """filter the rows returned"""
     where: rating_bool_exp
   ): ratingConnection!
+
+  """
+  fetch data from the table: "seen"
+  """
+  seen_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [seen_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [seen_order_by!]
+
+    """filter the rows returned"""
+    where: seen_bool_exp
+  ): seenConnection!
 }
 
 """
@@ -3025,6 +3156,340 @@ type ratingEdge {
 }
 
 """
+columns and relationships of "seen"
+"""
+type seen implements Node {
+  date: timestamp!
+  id: ID!
+  movie_id: Int!
+}
+
+"""
+aggregated selection of "seen"
+"""
+type seen_aggregate {
+  aggregate: seen_aggregate_fields
+  nodes: [seen!]!
+}
+
+"""
+aggregate fields of "seen"
+"""
+type seen_aggregate_fields {
+  avg: seen_avg_fields
+  count(columns: [seen_select_column!], distinct: Boolean): Int
+  max: seen_max_fields
+  min: seen_min_fields
+  stddev: seen_stddev_fields
+  stddev_pop: seen_stddev_pop_fields
+  stddev_samp: seen_stddev_samp_fields
+  sum: seen_sum_fields
+  var_pop: seen_var_pop_fields
+  var_samp: seen_var_samp_fields
+  variance: seen_variance_fields
+}
+
+"""
+order by aggregate values of table "seen"
+"""
+input seen_aggregate_order_by {
+  avg: seen_avg_order_by
+  count: order_by
+  max: seen_max_order_by
+  min: seen_min_order_by
+  stddev: seen_stddev_order_by
+  stddev_pop: seen_stddev_pop_order_by
+  stddev_samp: seen_stddev_samp_order_by
+  sum: seen_sum_order_by
+  var_pop: seen_var_pop_order_by
+  var_samp: seen_var_samp_order_by
+  variance: seen_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "seen"
+"""
+input seen_arr_rel_insert_input {
+  data: [seen_insert_input!]!
+  on_conflict: seen_on_conflict
+}
+
+"""aggregate avg on columns"""
+type seen_avg_fields {
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by avg() on columns of table "seen"
+"""
+input seen_avg_order_by {
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "seen". All fields are combined with a logical 'AND'.
+"""
+input seen_bool_exp {
+  _and: [seen_bool_exp]
+  _not: seen_bool_exp
+  _or: [seen_bool_exp]
+  date: timestamp_comparison_exp
+  id: Int_comparison_exp
+  movie_id: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "seen"
+"""
+enum seen_constraint {
+  """unique or primary key constraint"""
+  seen_pkey
+}
+
+"""
+input type for incrementing integer column in table "seen"
+"""
+input seen_inc_input {
+  id: Int
+  movie_id: Int
+}
+
+"""
+input type for inserting data into table "seen"
+"""
+input seen_insert_input {
+  date: timestamp
+  id: Int
+  movie_id: Int
+}
+
+"""aggregate max on columns"""
+type seen_max_fields {
+  date: timestamp
+  id: Int
+  movie_id: Int
+}
+
+"""
+order by max() on columns of table "seen"
+"""
+input seen_max_order_by {
+  date: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate min on columns"""
+type seen_min_fields {
+  date: timestamp
+  id: Int
+  movie_id: Int
+}
+
+"""
+order by min() on columns of table "seen"
+"""
+input seen_min_order_by {
+  date: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+response of any mutation on the table "seen"
+"""
+type seen_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [seen!]!
+}
+
+"""
+input type for inserting object relation for remote table "seen"
+"""
+input seen_obj_rel_insert_input {
+  data: seen_insert_input!
+  on_conflict: seen_on_conflict
+}
+
+"""
+on conflict condition type for table "seen"
+"""
+input seen_on_conflict {
+  constraint: seen_constraint!
+  update_columns: [seen_update_column!]!
+  where: seen_bool_exp
+}
+
+"""
+ordering options when selecting data from "seen"
+"""
+input seen_order_by {
+  date: order_by
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+primary key columns input for table: "seen"
+"""
+input seen_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "seen"
+"""
+enum seen_select_column {
+  """column name"""
+  date
+
+  """column name"""
+  id
+
+  """column name"""
+  movie_id
+}
+
+"""
+input type for updating data in table "seen"
+"""
+input seen_set_input {
+  date: timestamp
+  id: Int
+  movie_id: Int
+}
+
+"""aggregate stddev on columns"""
+type seen_stddev_fields {
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by stddev() on columns of table "seen"
+"""
+input seen_stddev_order_by {
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type seen_stddev_pop_fields {
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "seen"
+"""
+input seen_stddev_pop_order_by {
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type seen_stddev_samp_fields {
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "seen"
+"""
+input seen_stddev_samp_order_by {
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate sum on columns"""
+type seen_sum_fields {
+  id: Int
+  movie_id: Int
+}
+
+"""
+order by sum() on columns of table "seen"
+"""
+input seen_sum_order_by {
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+update columns of table "seen"
+"""
+enum seen_update_column {
+  """column name"""
+  date
+
+  """column name"""
+  id
+
+  """column name"""
+  movie_id
+}
+
+"""aggregate var_pop on columns"""
+type seen_var_pop_fields {
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by var_pop() on columns of table "seen"
+"""
+input seen_var_pop_order_by {
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type seen_var_samp_fields {
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by var_samp() on columns of table "seen"
+"""
+input seen_var_samp_order_by {
+  id: order_by
+  movie_id: order_by
+}
+
+"""aggregate variance on columns"""
+type seen_variance_fields {
+  id: Float
+  movie_id: Float
+}
+
+"""
+order by variance() on columns of table "seen"
+"""
+input seen_variance_order_by {
+  id: order_by
+  movie_id: order_by
+}
+
+"""
+A Relay Connection object on "seen"
+"""
+type seenConnection {
+  edges: [seenEdge!]!
+  pageInfo: PageInfo!
+}
+
+type seenEdge {
+  cursor: String!
+  node: seen!
+}
+
+"""
 expression to compare columns of type String. All fields are combined with logical 'AND'.
 """
 input String_comparison_exp {
@@ -3164,6 +3629,25 @@ type subscription_root {
     """filter the rows returned"""
     where: rating_bool_exp
   ): ratingConnection!
+
+  """
+  fetch data from the table: "seen"
+  """
+  seen_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [seen_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [seen_order_by!]
+
+    """filter the rows returned"""
+    where: seen_bool_exp
+  ): seenConnection!
 }
 
 scalar timestamp

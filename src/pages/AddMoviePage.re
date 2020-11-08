@@ -14,6 +14,7 @@ module AddMovieMutation = [%relay.mutation
     $rating: Int
     $genres: [movie_genre_insert_input!]!
     $people: [movie_person_insert_input!]!
+    $watchDates: [seen_insert_input!]!
   ) {
     insert_movie_one(
       object: {
@@ -27,6 +28,7 @@ module AddMovieMutation = [%relay.mutation
         ratings: { data: [{ rating: $rating }] }
         movie_genres: { data: $genres }
         movie_people: { data: $people }
+        dates_watched: { data: $watchDates }
       }
     ) {
       title
@@ -117,6 +119,13 @@ let make = () => {
                 person_id: None,
               }
             }),
+        watchDates: [|
+          {
+            date: Some(Js.Date.make()->Js.Date.toISOString),
+            id: None,
+            movie_id: None,
+          },
+        |],
       },
       (),
     )
