@@ -1,7 +1,10 @@
 module GenresFragment = [%relay.fragment
   {|
-  fragment Genres_movie on movie {
-    genres: movie_genres {
+  fragment Genres_movie on movie
+    @argumentDefinitions(
+      genreLimit: {type: "Int", defaultValue: 3},
+    ) {
+    genres: movie_genres(limit: $genreLimit) {
       genre {
         id
         name
@@ -12,12 +15,11 @@ module GenresFragment = [%relay.fragment
 ];
 
 [@react.component]
-let make = (~movie, ~numberOfGenres=3) => {
+let make = (~movie) => {
   let data = GenresFragment.use(movie);
 
   <div>
     {data.genres
-     ->Belt.Array.keepWithIndex((_, i) => i < numberOfGenres)
      ->Belt.Array.map(({genre}) => genre.name)
      ->Js.Array2.joinWith(" | ")
      ->React.string}

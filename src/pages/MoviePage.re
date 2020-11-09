@@ -1,6 +1,6 @@
 module MovieQuery = [%relay.query
   {|
-  query MoviePageQuery($id: ID!) {
+  query MoviePageQuery($id: ID!, $genreLimit: Int!) {
     movie: node(id: $id) {
       __typename
       ... on movie {
@@ -14,7 +14,7 @@ module MovieQuery = [%relay.query
         ...Poster_movie
         ...Ratings_movie
         ...MovieMeta_movie
-        ...Genres_movie
+        ...Genres_movie @arguments(genreLimit: $genreLimit)
       }
     }
   }
@@ -23,7 +23,7 @@ module MovieQuery = [%relay.query
 
 [@react.component]
 let make = (~id) => {
-  let data = MovieQuery.use(~variables={id: id}, ());
+  let data = MovieQuery.use(~variables={id, genreLimit: 10}, ());
 
   switch (data.movie) {
   | Some(`movie({overview, title, fragmentRefs})) =>
