@@ -9,17 +9,24 @@ module Types = {
   type rawResponse = response;
   type refetchVariables = {
     after: option(string),
+    dateGte: option(string),
+    dateLte: option(string),
     first: option(int),
     genreLimit: option(int),
   };
   let makeRefetchVariables =
-      (~after=?, ~first=?, ~genreLimit=?, ()): refetchVariables => {
+      (~after=?, ~dateGte=?, ~dateLte=?, ~first=?, ~genreLimit=?, ())
+      : refetchVariables => {
     after,
+    dateGte,
+    dateLte,
     first,
     genreLimit,
   };
   type variables = {
     after: option(string),
+    dateGte: option(string),
+    dateLte: option(string),
     first: int,
     genreLimit: option(int),
   };
@@ -43,7 +50,7 @@ module Internal = {
   let convertRawResponse = convertResponse;
 
   let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"after":{"n":""},"genreLimit":{"n":""}}} |json}
+    {json| {"__root":{"after":{"n":""},"dateGte":{"n":""},"dateLte":{"n":""},"genreLimit":{"n":""}}} |json}
   ];
   let variablesConverterMap = ();
   let convertVariables = v =>
@@ -59,8 +66,11 @@ type queryRef;
 
 module Utils = {
   open Types;
-  let makeVariables = (~after=?, ~first, ~genreLimit=?, ()): variables => {
+  let makeVariables =
+      (~after=?, ~dateGte=?, ~dateLte=?, ~first, ~genreLimit=?, ()): variables => {
     after,
+    dateGte,
+    dateLte,
     first,
     genreLimit,
   };
@@ -75,6 +85,16 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "after"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "dateGte"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "dateLte"
   },
   {
     "defaultValue": 12,
@@ -110,6 +130,34 @@ v3 = [
         }
       }
     }
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "fields": [
+              {
+                "kind": "Variable",
+                "name": "_gte",
+                "variableName": "dateGte"
+              },
+              {
+                "kind": "Variable",
+                "name": "_lte",
+                "variableName": "dateLte"
+              }
+            ],
+            "kind": "ObjectValue",
+            "name": "date"
+          }
+        ],
+        "kind": "ObjectValue",
+        "name": "dates_watched"
+      }
+    ],
+    "kind": "ObjectValue",
+    "name": "where"
   }
 ],
 v4 = {
@@ -298,7 +346,8 @@ return {
         "alias": "feed",
         "args": (v3/*: any*/),
         "filters": [
-          "order_by"
+          "order_by",
+          "where"
         ],
         "handle": "connection",
         "key": "FeedPage_query_feed",
@@ -308,12 +357,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a94595eb6886e862e819abfddd06333a",
+    "cacheID": "c195eb177e540da47add311f1c808091",
     "id": null,
     "metadata": {},
     "name": "FeedPageRefetchQuery",
     "operationKind": "query",
-    "text": "query FeedPageRefetchQuery(\n  $after: String\n  $first: Int! = 12\n  $genreLimit: Int\n) {\n  ...FeedPage_query_2HEEH6\n}\n\nfragment FeedPage_query_2HEEH6 on query_root {\n  feed: movie_connection(first: $first, after: $after, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
+    "text": "query FeedPageRefetchQuery(\n  $after: String\n  $dateGte: timestamp\n  $dateLte: timestamp\n  $first: Int! = 12\n  $genreLimit: Int\n) {\n  ...FeedPage_query_2HEEH6\n}\n\nfragment FeedPage_query_2HEEH6 on query_root {\n  feed: movie_connection(first: $first, after: $after, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}, where: {dates_watched: {date: {_gte: $dateGte, _lte: $dateLte}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
 })() |json}

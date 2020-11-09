@@ -57,6 +57,14 @@ return {
       "name": "after"
     },
     {
+      "kind": "RootArgument",
+      "name": "dateGte"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "dateLte"
+    },
+    {
       "defaultValue": 12,
       "kind": "LocalArgument",
       "name": "first"
@@ -104,6 +112,34 @@ return {
               }
             }
           }
+        },
+        {
+          "fields": [
+            {
+              "fields": [
+                {
+                  "fields": [
+                    {
+                      "kind": "Variable",
+                      "name": "_gte",
+                      "variableName": "dateGte"
+                    },
+                    {
+                      "kind": "Variable",
+                      "name": "_lte",
+                      "variableName": "dateLte"
+                    }
+                  ],
+                  "kind": "ObjectValue",
+                  "name": "date"
+                }
+              ],
+              "kind": "ObjectValue",
+              "name": "dates_watched"
+            }
+          ],
+          "kind": "ObjectValue",
+          "name": "where"
         }
       ],
       "concreteType": "movieConnection",
@@ -215,7 +251,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": "__FeedPage_query_feed_connection(order_by:{\"dates_watched_aggregate\":{\"max\":{\"date\":\"desc_nulls_last\"}}})"
+      "storageKey": null
     }
   ],
   "type": "query_root",

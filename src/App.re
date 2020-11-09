@@ -35,11 +35,20 @@ let make = () => {
          </div>
        </div>
      }}
-    {switch (path) {
-     | Feed => <FeedPage />
-     | AddMovie => <AddMoviePage />
-     | Movie(id) => <MoviePage id />
-     | Person(id) => <PersonPage id />
-     }}
+    <React.Suspense
+      fallback={
+        <div
+          className="flex flex-col items-center justify-center h-screen text-gray-600">
+          <Icon.Movie />
+          {React.string("Loading")}
+        </div>
+      }>
+      {switch (path) {
+       | Feed => <FeedPage />
+       | AddMovie => <AddMoviePage />
+       | Movie(id) => <MoviePage id />
+       | Person(id) => <PersonPage id />
+       }}
+    </React.Suspense>
   </>;
 };

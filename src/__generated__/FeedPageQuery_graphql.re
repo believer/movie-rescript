@@ -7,11 +7,22 @@ module Types = {
     fragmentRefs: ReasonRelay.fragmentRefs([ | `FeedPage_query]),
   };
   type rawResponse = response;
-  type refetchVariables = {genreLimit: option(int)};
-  let makeRefetchVariables = (~genreLimit=?, ()): refetchVariables => {
-    genreLimit: genreLimit,
+  type refetchVariables = {
+    genreLimit: option(int),
+    dateGte: option(string),
+    dateLte: option(string),
   };
-  type variables = {genreLimit: int};
+  let makeRefetchVariables =
+      (~genreLimit=?, ~dateGte=?, ~dateLte=?, ()): refetchVariables => {
+    genreLimit,
+    dateGte,
+    dateLte,
+  };
+  type variables = {
+    genreLimit: int,
+    dateGte: string,
+    dateLte: string,
+  };
 };
 
 module Internal = {
@@ -48,21 +59,33 @@ type queryRef;
 
 module Utils = {
   open Types;
-  let makeVariables = (~genreLimit): variables => {genreLimit: genreLimit};
+  let makeVariables = (~genreLimit, ~dateGte, ~dateLte): variables => {
+    genreLimit,
+    dateGte,
+    dateLte,
+  };
 };
 
 type operationType = ReasonRelay.queryNode;
 
 let node: operationType = [%raw
   {json| (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "genreLimit"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "dateGte"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "dateLte"
+},
+v2 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "genreLimit"
+},
+v3 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -78,9 +101,37 @@ v1 = [
         }
       }
     }
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "fields": [
+              {
+                "kind": "Variable",
+                "name": "_gte",
+                "variableName": "dateGte"
+              },
+              {
+                "kind": "Variable",
+                "name": "_lte",
+                "variableName": "dateLte"
+              }
+            ],
+            "kind": "ObjectValue",
+            "name": "date"
+          }
+        ],
+        "kind": "ObjectValue",
+        "name": "dates_watched"
+      }
+    ],
+    "kind": "ObjectValue",
+    "name": "where"
   }
 ],
-v2 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -89,7 +140,11 @@ v2 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "FeedPageQuery",
@@ -105,13 +160,17 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v2/*: any*/),
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Operation",
     "name": "FeedPageQuery",
     "selections": [
       {
         "alias": "feed",
-        "args": (v1/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "movieConnection",
         "kind": "LinkedField",
         "name": "movie_connection",
@@ -133,7 +192,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -170,7 +229,7 @@ return {
                         "name": "genre",
                         "plural": false,
                         "selections": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -181,7 +240,7 @@ return {
                         ],
                         "storageKey": null
                       },
-                      (v2/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -200,7 +259,7 @@ return {
                     "name": "ratings",
                     "plural": true,
                     "selections": [
-                      (v2/*: any*/),
+                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -257,13 +316,14 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "movie_connection(first:12,order_by:{\"dates_watched_aggregate\":{\"max\":{\"date\":\"desc_nulls_last\"}}})"
+        "storageKey": null
       },
       {
         "alias": "feed",
-        "args": (v1/*: any*/),
+        "args": (v3/*: any*/),
         "filters": [
-          "order_by"
+          "order_by",
+          "where"
         ],
         "handle": "connection",
         "key": "FeedPage_query_feed",
@@ -273,12 +333,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "995a70d9b0ec3ab6d4a3dda30838e49e",
+    "cacheID": "3bd7f553bf5ab95bc4048a0041aae0aa",
     "id": null,
     "metadata": {},
     "name": "FeedPageQuery",
     "operationKind": "query",
-    "text": "query FeedPageQuery(\n  $genreLimit: Int!\n) {\n  ...FeedPage_query\n}\n\nfragment FeedPage_query on query_root {\n  feed: movie_connection(first: 12, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
+    "text": "query FeedPageQuery(\n  $genreLimit: Int!\n  $dateGte: timestamp!\n  $dateLte: timestamp!\n) {\n  ...FeedPage_query\n}\n\nfragment FeedPage_query on query_root {\n  feed: movie_connection(first: 12, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}, where: {dates_watched: {date: {_gte: $dateGte, _lte: $dateLte}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
 })() |json}
