@@ -89,7 +89,7 @@ v3 = [
   {
     "kind": "Literal",
     "name": "first",
-    "value": 12
+    "value": 16
   },
   {
     "kind": "Literal",
@@ -333,12 +333,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3bd7f553bf5ab95bc4048a0041aae0aa",
+    "cacheID": "4cf35d15c15d0f20adf1b0b37d976613",
     "id": null,
     "metadata": {},
     "name": "FeedPageQuery",
     "operationKind": "query",
-    "text": "query FeedPageQuery(\n  $genreLimit: Int!\n  $dateGte: timestamp!\n  $dateLte: timestamp!\n) {\n  ...FeedPage_query\n}\n\nfragment FeedPage_query on query_root {\n  feed: movie_connection(first: 12, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}, where: {dates_watched: {date: {_gte: $dateGte, _lte: $dateLte}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
+    "text": "query FeedPageQuery(\n  $genreLimit: Int!\n  $dateGte: timestamp!\n  $dateLte: timestamp!\n) {\n  ...FeedPage_query\n}\n\nfragment FeedPage_query on query_root {\n  feed: movie_connection(first: 16, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}, where: {dates_watched: {date: {_gte: $dateGte, _lte: $dateLte}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
 })() |json}

@@ -97,7 +97,7 @@ var v0 = [
     "name": "dateLte"
   },
   {
-    "defaultValue": 12,
+    "defaultValue": 16,
     "kind": "LocalArgument",
     "name": "first"
   },
@@ -357,12 +357,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c195eb177e540da47add311f1c808091",
+    "cacheID": "f8f784e14b92af52ac82c979283b9645",
     "id": null,
     "metadata": {},
     "name": "FeedPageRefetchQuery",
     "operationKind": "query",
-    "text": "query FeedPageRefetchQuery(\n  $after: String\n  $dateGte: timestamp\n  $dateLte: timestamp\n  $first: Int! = 12\n  $genreLimit: Int\n) {\n  ...FeedPage_query_2HEEH6\n}\n\nfragment FeedPage_query_2HEEH6 on query_root {\n  feed: movie_connection(first: $first, after: $after, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}, where: {dates_watched: {date: {_gte: $dateGte, _lte: $dateLte}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
+    "text": "query FeedPageRefetchQuery(\n  $after: String\n  $dateGte: timestamp\n  $dateLte: timestamp\n  $first: Int! = 16\n  $genreLimit: Int\n) {\n  ...FeedPage_query_2HEEH6\n}\n\nfragment FeedPage_query_2HEEH6 on query_root {\n  feed: movie_connection(first: $first, after: $after, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}, where: {dates_watched: {date: {_gte: $dateGte, _lte: $dateLte}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
 })() |json}

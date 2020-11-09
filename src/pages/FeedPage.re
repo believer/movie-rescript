@@ -15,7 +15,7 @@ module FeedFragment = [%relay.fragment
   fragment FeedPage_query on query_root
   @refetchable(queryName: "FeedPageRefetchQuery")
   @argumentDefinitions(
-    first: { type: "Int!", defaultValue: 12 }
+    first: { type: "Int!", defaultValue: 16 }
     after: { type: "String" }
   ) {
     feed: movie_connection(
