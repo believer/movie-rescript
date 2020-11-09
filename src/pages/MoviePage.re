@@ -5,8 +5,8 @@ module MovieQuery = [%relay.query
       __typename
       ... on movie {
         id
-        overview
         title
+        ...MovieOverview_movie
         ...Cast_movie
         ...Composer_movie
         ...Director_movie
@@ -15,6 +15,7 @@ module MovieQuery = [%relay.query
         ...Ratings_movie
         ...MovieMeta_movie
         ...Genres_movie @arguments(genreLimit: $genreLimit)
+        ...WatchDates_movie
       }
     }
   }
@@ -26,7 +27,7 @@ let make = (~id) => {
   let data = MovieQuery.use(~variables={id, genreLimit: 10}, ());
 
   switch (data.movie) {
-  | Some(`movie({overview, title, fragmentRefs})) =>
+  | Some(`movie({title, fragmentRefs})) =>
     <>
       <div className="my-8 grid grid-md">
         <div className="grid grid-movie grid-gap-8">
@@ -37,19 +38,8 @@ let make = (~id) => {
               <Rating movie=fragmentRefs size=Rating.Large />
             </h1>
             <MovieMeta movie=fragmentRefs />
-            <h2 className="flex items-center mb-4 text-lg font-bold">
-              {React.string("Synopsis")}
-              <hr className="flex-1 ml-8" />
-            </h2>
-            {switch (overview) {
-             | Some(overview) =>
-               <div className="mb-8">
-                 <Layout.Paragraph>
-                   {React.string(overview)}
-                 </Layout.Paragraph>
-               </div>
-             | None => React.null
-             }}
+            <MovieOverview movie=fragmentRefs />
+            <WatchDates movie=fragmentRefs />
             <Director movie=fragmentRefs />
             <Producer movie=fragmentRefs />
             <Composer movie=fragmentRefs />
