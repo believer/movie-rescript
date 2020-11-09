@@ -30,7 +30,7 @@ let make = (~movie) => {
        }}
       <Runtime runtime={data.runtime} />
       <div> {React.string({j|\u2022|j})} </div>
-      <Genres movie numberOfGenres=10 />
+      <Genres movie />
       <div> {React.string({j|\u2022|j})} </div>
       <a
         className="text-yellow-800"

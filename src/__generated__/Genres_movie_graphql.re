@@ -38,14 +38,26 @@ type operationType = ReasonRelay.fragmentNode;
 
 let node: operationType = [%raw
   {json| {
-  "argumentDefinitions": [],
+  "argumentDefinitions": [
+    {
+      "defaultValue": 3,
+      "kind": "LocalArgument",
+      "name": "genreLimit"
+    }
+  ],
   "kind": "Fragment",
   "metadata": null,
   "name": "Genres_movie",
   "selections": [
     {
       "alias": "genres",
-      "args": null,
+      "args": [
+        {
+          "kind": "Variable",
+          "name": "limit",
+          "variableName": "genreLimit"
+        }
+      ],
       "concreteType": "movie_genre",
       "kind": "LinkedField",
       "name": "movie_genres",

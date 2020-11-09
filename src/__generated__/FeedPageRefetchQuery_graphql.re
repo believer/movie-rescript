@@ -10,14 +10,18 @@ module Types = {
   type refetchVariables = {
     after: option(string),
     first: option(int),
+    genreLimit: option(int),
   };
-  let makeRefetchVariables = (~after=?, ~first=?, ()): refetchVariables => {
+  let makeRefetchVariables =
+      (~after=?, ~first=?, ~genreLimit=?, ()): refetchVariables => {
     after,
     first,
+    genreLimit,
   };
   type variables = {
     after: option(string),
     first: int,
+    genreLimit: option(int),
   };
 };
 
@@ -39,7 +43,7 @@ module Internal = {
   let convertRawResponse = convertResponse;
 
   let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"after":{"n":""}}} |json}
+    {json| {"__root":{"after":{"n":""},"genreLimit":{"n":""}}} |json}
   ];
   let variablesConverterMap = ();
   let convertVariables = v =>
@@ -55,7 +59,11 @@ type queryRef;
 
 module Utils = {
   open Types;
-  let makeVariables = (~after=?, ~first, ()): variables => {after, first};
+  let makeVariables = (~after=?, ~first, ~genreLimit=?, ()): variables => {
+    after,
+    first,
+    genreLimit,
+  };
 };
 
 type operationType = ReasonRelay.queryNode;
@@ -72,6 +80,11 @@ var v0 = [
     "defaultValue": 12,
     "kind": "LocalArgument",
     "name": "first"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "genreLimit"
   }
 ],
 v1 = {
@@ -91,7 +104,11 @@ v3 = [
     "kind": "Literal",
     "name": "order_by",
     "value": {
-      "created_at": "desc"
+      "dates_watched_aggregate": {
+        "max": {
+          "date": "desc_nulls_last"
+        }
+      }
     }
   }
 ],
@@ -168,7 +185,13 @@ return {
                   },
                   {
                     "alias": "genres",
-                    "args": null,
+                    "args": [
+                      {
+                        "kind": "Variable",
+                        "name": "limit",
+                        "variableName": "genreLimit"
+                      }
+                    ],
                     "concreteType": "movie_genre",
                     "kind": "LinkedField",
                     "name": "movie_genres",
@@ -285,12 +308,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ec1d1094b59119f55a6c1daa35068eb0",
+    "cacheID": "a94595eb6886e862e819abfddd06333a",
     "id": null,
     "metadata": {},
     "name": "FeedPageRefetchQuery",
     "operationKind": "query",
-    "text": "query FeedPageRefetchQuery(\n  $after: String\n  $first: Int! = 12\n) {\n  ...FeedPage_query_2HEEH6\n}\n\nfragment FeedPage_query_2HEEH6 on query_root {\n  feed: movie_connection(first: $first, after: $after, order_by: {created_at: desc}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie on movie {\n  genres: movie_genres {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
+    "text": "query FeedPageRefetchQuery(\n  $after: String\n  $first: Int! = 12\n  $genreLimit: Int\n) {\n  ...FeedPage_query_2HEEH6\n}\n\nfragment FeedPage_query_2HEEH6 on query_root {\n  feed: movie_connection(first: $first, after: $after, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
 })() |json}

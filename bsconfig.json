@@ -25,7 +25,8 @@
     "bs-fetch",
     "re-classnames",
     "rescript-request",
-    "rescript-future"
+    "rescript-future",
+    "re-intl"
   ],
   "refmt": 3,
   "warnings": {

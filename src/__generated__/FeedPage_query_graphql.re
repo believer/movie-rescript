@@ -60,6 +60,10 @@ return {
       "defaultValue": 12,
       "kind": "LocalArgument",
       "name": "first"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "genreLimit"
     }
   ],
   "kind": "Fragment",
@@ -94,7 +98,11 @@ return {
           "kind": "Literal",
           "name": "order_by",
           "value": {
-            "created_at": "desc"
+            "dates_watched_aggregate": {
+              "max": {
+                "date": "desc_nulls_last"
+              }
+            }
           }
         }
       ],
@@ -148,7 +156,13 @@ return {
                   "storageKey": null
                 },
                 {
-                  "args": null,
+                  "args": [
+                    {
+                      "kind": "Variable",
+                      "name": "genreLimit",
+                      "variableName": "genreLimit"
+                    }
+                  ],
                   "kind": "FragmentSpread",
                   "name": "Genres_movie"
                 },
@@ -201,7 +215,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": "__FeedPage_query_feed_connection(order_by:{\"created_at\":\"desc\"})"
+      "storageKey": "__FeedPage_query_feed_connection(order_by:{\"dates_watched_aggregate\":{\"max\":{\"date\":\"desc_nulls_last\"}}})"
     }
   ],
   "type": "query_root",

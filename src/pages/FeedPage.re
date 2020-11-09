@@ -1,6 +1,6 @@
 module FeedQuery = [%relay.query
   {|
-  query FeedPageQuery {
+  query FeedPageQuery($genreLimit: Int!) {
     ...FeedPage_query
   }
 |}
@@ -12,19 +12,19 @@ module FeedFragment = [%relay.fragment
     @refetchable(queryName: "FeedPageRefetchQuery")
     @argumentDefinitions(
       first: {type: "Int!", defaultValue: 12},
-      after: {type: "String"}
+      after: {type: "String"},
     ) {
     feed: movie_connection(
       first: $first,
       after: $after,
-      order_by: {created_at: desc}
+      order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}},
     ) @connection(key: "FeedPage_query_feed") {
       edges {
         node {
           id
           year
           title
-          ...Genres_movie
+          ...Genres_movie @arguments(genreLimit: $genreLimit)
           ...Poster_movie
           ...Ratings_movie
         }
@@ -36,7 +36,7 @@ module FeedFragment = [%relay.fragment
 
 [@react.component]
 let make = () => {
-  let queryData = FeedQuery.use(~variables=(), ());
+  let queryData = FeedQuery.use(~variables={genreLimit: 3}, ());
   let ReasonRelay.{data, loadNext, hasNext, isLoadingNext} =
     FeedFragment.usePagination(queryData.fragmentRefs);
 

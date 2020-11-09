@@ -6176,6 +6176,11 @@ re-classnames@^5.0.1:
   resolved "https://registry.yarnpkg.com/re-classnames/-/re-classnames-5.0.1.tgz#f107e5b328b79ad423c33e991d9dd11d089400b3"
   integrity sha512-tTdlHyRnS22+59xeOmj3/eOkW9gtP4Gw1pcIscl9csPvJEZTqnHEfIoGDiCPVKi3yreAOWtPFCPuWk49SlffAA==
 
+re-intl@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/re-intl/-/re-intl-2.0.0.tgz#787671e1e6a6c16deb41409fc48269cdbffa2497"
+  integrity sha512-cWXZ0RBTCfGGlBay9lwF1zBL/3y6vyw8fChg3S0AT6IzA7ZuFECjLd3L+VDP6x+0eBVTmrf4h5to/LjbAvUrJw==
+
 react-dom@0.0.0-experimental-d7382b6c4:
   version "0.0.0-experimental-d7382b6c4"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-0.0.0-experimental-d7382b6c4.tgz#6cba67117c84e3d1f88dcc10a39d50ceb272ea7a"
