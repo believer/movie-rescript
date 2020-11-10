@@ -16,7 +16,7 @@ let make = (~movie) => {
   <MovieSection title="Seen on dates">
     {data.dates_watched
      ->Belt.Array.map(watch => {
-         <div>
+         <div key={watch.id}>
            {Intl.DateTime.makeFromString(
               ~date=watch.date,
               ~locale=Some("sv-SE"),
