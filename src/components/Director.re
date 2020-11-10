@@ -15,7 +15,7 @@ module DirectorFragment = [%relay.fragment
 let make = (~movie) => {
   let data = DirectorFragment.use(movie);
 
-  <MovieSection length={Belt.Array.length(data.director)} title="Director">
+  <MovieSection title="Director">
     {data.director
      ->Belt.Array.map(({person}) =>
          <li key={person.id}>

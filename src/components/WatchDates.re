@@ -13,8 +13,7 @@ module WatchDatesFragment = [%relay.fragment
 let make = (~movie) => {
   let data = WatchDatesFragment.use(movie);
 
-  <MovieSection
-    length={Belt.Array.length(data.dates_watched)} title="Seen on dates">
+  <MovieSection title="Seen on dates">
     {data.dates_watched
      ->Belt.Array.map(watch => {
          <div>

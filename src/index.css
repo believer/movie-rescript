@@ -63,6 +63,12 @@ body {
   grid-template-columns: var(--card) 1fr;
 }
 
-.grid-cast {
-  grid-template-columns: repeat(3, 1fr);
+@media (min-width: 480px) {
+  .grid-cast {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-person {
+  grid-template-columns: 1fr;
 }

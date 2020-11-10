@@ -1,6 +1,6 @@
 [@react.component]
-let make = (~children, ~length, ~title) => {
-  switch (length) {
+let make = (~children, ~title) => {
+  switch (React.Children.count(children)) {
   | 0 => React.null
   | _ =>
     <div className="mb-8">
