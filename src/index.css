@@ -59,8 +59,10 @@ body {
   grid-row-gap: var(--t4);
 }
 
-.grid-movie {
-  grid-template-columns: var(--card) 1fr;
+@media (min-width: 768px) {
+  .grid-movie {
+    grid-template-columns: var(--card) 1fr;
+  }
 }
 
 @media (min-width: 480px) {

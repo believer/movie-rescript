@@ -9,6 +9,13 @@ module MovieMetaFragment = [%relay.fragment
 |}
 ];
 
+module Bullet = {
+  [@react.component]
+  let make = () => {
+    <div className="hidden md:block"> {React.string({j|\u2022|j})} </div>;
+  };
+};
+
 [@react.component]
 let make = (~movie) => {
   let data = MovieMetaFragment.use(movie);
@@ -19,19 +26,16 @@ let make = (~movie) => {
        <div className="text-gray-700"> {React.string(tagline)} </div>
      | None => React.null
      }}
-    <div className="flex space-x-1">
+    <div className="flex flex-col md:flex-row md:space-x-1">
       {switch (data.release_date) {
        | Some(releaseDate) =>
-         <>
-           <div> {React.string(releaseDate)} </div>
-           <div> {React.string({j|\u2022|j})} </div>
-         </>
+         <> <div> {React.string(releaseDate)} </div> <Bullet /> </>
        | None => React.null
        }}
       <Runtime runtime={data.runtime} />
-      <div> {React.string({j|\u2022|j})} </div>
+      <Bullet />
       <Genres movie />
-      <div> {React.string({j|\u2022|j})} </div>
+      <Bullet />
       <a
         className="text-yellow-800"
         href={"https://www.imdb.com/title/" ++ data.imdb_id}
