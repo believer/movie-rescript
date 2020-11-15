@@ -14,7 +14,7 @@ let make = (~movie) => {
   | Some(poster) =>
     <div className="relative">
       <img
-        className="relative z-10 rounded transform hover:scale-105 transition-transform duration-150 ease-in-out"
+        className="relative z-10 rounded transform md:hover:scale-105 transition-transform duration-150 ease-in-out"
         src={"https://image.tmdb.org/t/p/w500" ++ poster}
       />
       <img
