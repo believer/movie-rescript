@@ -18,22 +18,24 @@ module FeedFragment = [%relay.fragment
     first: { type: "Int!", defaultValue: 16 }
     after: { type: "String" }
   ) {
-    feed: movie_connection(
+    feed: seen_connection(
       first: $first
       after: $after
-      order_by: { dates_watched_aggregate: { max: { date: desc_nulls_last } } }
+      order_by: { date: desc }
       where: {
-        dates_watched: { date: { _gte: $dateGte, _lte: $dateLte } }
+        date: { _gte: $dateGte, _lte: $dateLte }
       }
     ) @connection(key: "FeedPage_query_feed") {
       edges {
         node {
+          movie {
           id
           year
           title
           ...Genres_movie @arguments(genreLimit: $genreLimit)
           ...Poster_movie
           ...Ratings_movie
+          }
         }
       }
     }
@@ -72,24 +74,24 @@ let make = () => {
     <SelectYear onChange=handleSelectYear />
     <div className="grid grid-4-col grid-gap-4">
       {data.feed.edges
-       ->Belt.Array.map(({node}) => {
-           <Router.Link key={node.id} to_={Movie(node.id)}>
-             <Poster movie={node.fragmentRefs} />
+       ->Belt.Array.map(({node: {movie}}) => {
+           <Router.Link key={movie.id} to_={Movie(movie.id)}>
+             <Poster movie={movie.fragmentRefs} />
              <div className="mt-4">
                <div className="mr-4">
                  <div className="text-xs font-bold text-gray-900">
-                   {React.string(node.title)}
+                   {React.string(movie.title)}
                  </div>
                  <div className="flex text-xs text-gray-600 space-x-1">
-                   {switch (node.year) {
+                   {switch (movie.year) {
                     | Some(year) => <div> {React.string(year)} </div>
                     | None => React.null
                     }}
                    <div> {React.string({j|\u2022|j})} </div>
-                   <Genres movie={node.fragmentRefs} />
+                   <Genres movie={movie.fragmentRefs} />
                  </div>
                </div>
-               <Rating movie={node.fragmentRefs} />
+               <Rating movie={movie.fragmentRefs} />
              </div>
            </Router.Link>
          })

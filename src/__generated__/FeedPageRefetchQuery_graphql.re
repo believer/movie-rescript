@@ -124,11 +124,7 @@ v3 = [
     "kind": "Literal",
     "name": "order_by",
     "value": {
-      "dates_watched_aggregate": {
-        "max": {
-          "date": "desc_nulls_last"
-        }
-      }
+      "date": "desc"
     }
   },
   {
@@ -136,24 +132,18 @@ v3 = [
       {
         "fields": [
           {
-            "fields": [
-              {
-                "kind": "Variable",
-                "name": "_gte",
-                "variableName": "dateGte"
-              },
-              {
-                "kind": "Variable",
-                "name": "_lte",
-                "variableName": "dateLte"
-              }
-            ],
-            "kind": "ObjectValue",
-            "name": "date"
+            "kind": "Variable",
+            "name": "_gte",
+            "variableName": "dateGte"
+          },
+          {
+            "kind": "Variable",
+            "name": "_lte",
+            "variableName": "dateLte"
           }
         ],
         "kind": "ObjectValue",
-        "name": "dates_watched"
+        "name": "date"
       }
     ],
     "kind": "ObjectValue",
@@ -195,15 +185,15 @@ return {
       {
         "alias": "feed",
         "args": (v3/*: any*/),
-        "concreteType": "movieConnection",
+        "concreteType": "seenConnection",
         "kind": "LinkedField",
-        "name": "movie_connection",
+        "name": "seen_connection",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "movieEdge",
+            "concreteType": "seenEdge",
             "kind": "LinkedField",
             "name": "edges",
             "plural": true,
@@ -211,89 +201,101 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "movie",
+                "concreteType": "seen",
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "year",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": "genres",
-                    "args": [
-                      {
-                        "kind": "Variable",
-                        "name": "limit",
-                        "variableName": "genreLimit"
-                      }
-                    ],
-                    "concreteType": "movie_genre",
+                    "concreteType": "movie",
                     "kind": "LinkedField",
-                    "name": "movie_genres",
-                    "plural": true,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "genre",
-                        "kind": "LinkedField",
-                        "name": "genre",
-                        "plural": false,
-                        "selections": [
-                          (v4/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "name",
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      },
-                      (v4/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "poster",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "rating",
-                    "kind": "LinkedField",
-                    "name": "ratings",
-                    "plural": true,
+                    "name": "movie",
+                    "plural": false,
                     "selections": [
                       (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "rating",
+                        "name": "year",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "title",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": "genres",
+                        "args": [
+                          {
+                            "kind": "Variable",
+                            "name": "limit",
+                            "variableName": "genreLimit"
+                          }
+                        ],
+                        "concreteType": "movie_genre",
+                        "kind": "LinkedField",
+                        "name": "movie_genres",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "genre",
+                            "kind": "LinkedField",
+                            "name": "genre",
+                            "plural": false,
+                            "selections": [
+                              (v4/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "name",
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          (v4/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "poster",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "rating",
+                        "kind": "LinkedField",
+                        "name": "ratings",
+                        "plural": true,
+                        "selections": [
+                          (v4/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "rating",
+                            "storageKey": null
+                          }
+                        ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
                   },
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -352,17 +354,17 @@ return {
         "handle": "connection",
         "key": "FeedPage_query_feed",
         "kind": "LinkedHandle",
-        "name": "movie_connection"
+        "name": "seen_connection"
       }
     ]
   },
   "params": {
-    "cacheID": "f8f784e14b92af52ac82c979283b9645",
+    "cacheID": "078e0b18f09449388c2a4d0eaf7c7d33",
     "id": null,
     "metadata": {},
     "name": "FeedPageRefetchQuery",
     "operationKind": "query",
-    "text": "query FeedPageRefetchQuery(\n  $after: String\n  $dateGte: timestamp\n  $dateLte: timestamp\n  $first: Int! = 16\n  $genreLimit: Int\n) {\n  ...FeedPage_query_2HEEH6\n}\n\nfragment FeedPage_query_2HEEH6 on query_root {\n  feed: movie_connection(first: $first, after: $after, order_by: {dates_watched_aggregate: {max: {date: desc_nulls_last}}}, where: {dates_watched: {date: {_gte: $dateGte, _lte: $dateLte}}}) {\n    edges {\n      node {\n        id\n        year\n        title\n        ...Genres_movie_36mvd1\n        ...Poster_movie\n        ...Ratings_movie\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
+    "text": "query FeedPageRefetchQuery(\n  $after: String\n  $dateGte: timestamp\n  $dateLte: timestamp\n  $first: Int! = 16\n  $genreLimit: Int\n) {\n  ...FeedPage_query_2HEEH6\n}\n\nfragment FeedPage_query_2HEEH6 on query_root {\n  feed: seen_connection(first: $first, after: $after, order_by: {date: desc}, where: {date: {_gte: $dateGte, _lte: $dateLte}}) {\n    edges {\n      node {\n        movie {\n          id\n          year\n          title\n          ...Genres_movie_36mvd1\n          ...Poster_movie\n          ...Ratings_movie\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
 })() |json}

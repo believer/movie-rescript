@@ -4,7 +4,8 @@ module Types = {
   [@ocaml.warning "-30"];
   type fragment_feed = {edges: array(fragment_feed_edges)}
   and fragment_feed_edges = {node: fragment_feed_edges_node}
-  and fragment_feed_edges_node = {
+  and fragment_feed_edges_node = {movie: fragment_feed_edges_node_movie}
+  and fragment_feed_edges_node_movie = {
     id: string,
     year: option(string),
     title: string,
@@ -20,7 +21,7 @@ module Types = {
 module Internal = {
   type fragmentRaw;
   let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"feed_edges_node_year":{"n":""},"feed_edges_node":{"f":""}}} |json}
+    {json| {"__root":{"feed_edges_node_movie_year":{"n":""},"feed_edges_node_movie":{"f":""}}} |json}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
@@ -106,11 +107,7 @@ return {
           "kind": "Literal",
           "name": "order_by",
           "value": {
-            "dates_watched_aggregate": {
-              "max": {
-                "date": "desc_nulls_last"
-              }
-            }
+            "date": "desc"
           }
         },
         {
@@ -118,31 +115,25 @@ return {
             {
               "fields": [
                 {
-                  "fields": [
-                    {
-                      "kind": "Variable",
-                      "name": "_gte",
-                      "variableName": "dateGte"
-                    },
-                    {
-                      "kind": "Variable",
-                      "name": "_lte",
-                      "variableName": "dateLte"
-                    }
-                  ],
-                  "kind": "ObjectValue",
-                  "name": "date"
+                  "kind": "Variable",
+                  "name": "_gte",
+                  "variableName": "dateGte"
+                },
+                {
+                  "kind": "Variable",
+                  "name": "_lte",
+                  "variableName": "dateLte"
                 }
               ],
               "kind": "ObjectValue",
-              "name": "dates_watched"
+              "name": "date"
             }
           ],
           "kind": "ObjectValue",
           "name": "where"
         }
       ],
-      "concreteType": "movieConnection",
+      "concreteType": "seenConnection",
       "kind": "LinkedField",
       "name": "__FeedPage_query_feed_connection",
       "plural": false,
@@ -150,7 +141,7 @@ return {
         {
           "alias": null,
           "args": null,
-          "concreteType": "movieEdge",
+          "concreteType": "seenEdge",
           "kind": "LinkedField",
           "name": "edges",
           "plural": true,
@@ -158,7 +149,7 @@ return {
             {
               "alias": null,
               "args": null,
-              "concreteType": "movie",
+              "concreteType": "seen",
               "kind": "LinkedField",
               "name": "node",
               "plural": false,
@@ -166,22 +157,54 @@ return {
                 {
                   "alias": null,
                   "args": null,
-                  "kind": "ScalarField",
-                  "name": "id",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "year",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "title",
+                  "concreteType": "movie",
+                  "kind": "LinkedField",
+                  "name": "movie",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "id",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "year",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "title",
+                      "storageKey": null
+                    },
+                    {
+                      "args": [
+                        {
+                          "kind": "Variable",
+                          "name": "genreLimit",
+                          "variableName": "genreLimit"
+                        }
+                      ],
+                      "kind": "FragmentSpread",
+                      "name": "Genres_movie"
+                    },
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "Poster_movie"
+                    },
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "Ratings_movie"
+                    }
+                  ],
                   "storageKey": null
                 },
                 {
@@ -190,27 +213,6 @@ return {
                   "kind": "ScalarField",
                   "name": "__typename",
                   "storageKey": null
-                },
-                {
-                  "args": [
-                    {
-                      "kind": "Variable",
-                      "name": "genreLimit",
-                      "variableName": "genreLimit"
-                    }
-                  ],
-                  "kind": "FragmentSpread",
-                  "name": "Genres_movie"
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "Poster_movie"
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "Ratings_movie"
                 }
               ],
               "storageKey": null

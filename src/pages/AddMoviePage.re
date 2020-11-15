@@ -123,6 +123,7 @@ let make = () => {
           {
             date: Some(Js.Date.make()->Js.Date.toISOString),
             id: None,
+            movie: None,
             movie_id: None,
           },
         |],

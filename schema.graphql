@@ -3161,6 +3161,9 @@ columns and relationships of "seen"
 type seen implements Node {
   date: timestamp!
   id: ID!
+
+  """An object relationship"""
+  movie: movie!
   movie_id: Int!
 }
 
@@ -3237,6 +3240,7 @@ input seen_bool_exp {
   _or: [seen_bool_exp]
   date: timestamp_comparison_exp
   id: Int_comparison_exp
+  movie: movie_bool_exp
   movie_id: Int_comparison_exp
 }
 
@@ -3262,6 +3266,7 @@ input type for inserting data into table "seen"
 input seen_insert_input {
   date: timestamp
   id: Int
+  movie: movie_obj_rel_insert_input
   movie_id: Int
 }
 
@@ -3331,6 +3336,7 @@ ordering options when selecting data from "seen"
 input seen_order_by {
   date: order_by
   id: order_by
+  movie: movie_order_by
   movie_id: order_by
 }
 
