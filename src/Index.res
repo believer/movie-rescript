@@ -6,16 +6,12 @@ ReactExperimental.renderConcurrentRootAtElementWithId(
     audience="https://believer.eu.auth0.com/api/v2/">
     <RelayProvider>
       <React.Suspense
-        fallback={
-          <div
-            className="flex flex-col items-center justify-center h-screen text-gray-600">
-            <Icon.Movie />
-            {React.string("Loading")}
-          </div>
-        }>
+        fallback={<div className="flex flex-col items-center justify-center h-screen text-gray-600">
+          <Icon.Movie /> {React.string("Loading")}
+        </div>}>
         <App />
       </React.Suspense>
     </RelayProvider>
   </Auth0.Provider>,
   "root",
-);
+)

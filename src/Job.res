@@ -3,33 +3,34 @@ type t =
   | Composer
   | Director
   | Producer
-  | Writer;
+  | Writer
 
 let parse = job =>
-  switch (Js.Json.stringify(job)) {
+  switch Js.Json.stringify(job) {
   | "\"cast\"" => Cast
   | "\"composer\"" => Composer
   | "\"director\"" => Director
   | "\"producer\"" => Producer
   | _ => Writer
-  };
+  }
 
 let serialize = job =>
-  switch (job) {
+  switch job {
   | Cast => Js.Json.parseExn("\"cast\"")
   | Composer => Js.Json.parseExn("\"composer\"")
   | Director => Js.Json.parseExn("\"director\"")
   | Producer => Js.Json.parseExn("\"producer\"")
   | Writer => Js.Json.parseExn("\"writer\"")
-  };
+  }
 
-let toString =
-  fun
+let toString = x =>
+  switch x {
   | Cast => "cast"
   | Composer => "composer"
   | Director => "director"
   | Producer => "producer"
-  | Writer => "writer";
+  | Writer => "writer"
+  }
 
 let isValid = (department, job) =>
   switch (department, job) {
@@ -40,7 +41,7 @@ let isValid = (department, job) =>
   | ("Directing", "Director")
   | ("Cast", "Cast") => true
   | _ => false
-  };
+  }
 
 let parseTmdb = (department, job) =>
   switch (department, job) {
@@ -51,4 +52,4 @@ let parseTmdb = (department, job) =>
   | ("Directing", "Director") => Some(Director)
   | ("Cast", "Cast") => Some(Cast)
   | _ => None
-  };
+  }
