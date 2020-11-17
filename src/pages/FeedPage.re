@@ -108,3 +108,5 @@ let make = () => {
        : React.null}
   </div>;
 };
+
+let default = make;

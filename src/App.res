@@ -1,3 +1,16 @@
+@bs.val
+external import_: string => Js.Promise.t<React.component<'props>> = "import"
+
+@bs.module("react")
+external lazy_: (unit => Js.Promise.t<React.component<'props>>) => React.component<'props> = "lazy"
+
+@bs.new external emptyObj: unit => Js.t<{.}> = "Object"
+
+let movieComp = lazy_(() => import_("./pages/MoviePage.bs.js"))
+let personComp = lazy_(() => import_("./pages/PersonPage.bs.js"))
+let addMovieComp = lazy_(() => import_("./pages/AddMoviePage.bs.js"))
+let feedComp = lazy_(() => import_("./pages/FeedPage.bs.js"))
+
 @react.component
 let make = () => {
   let url = ReasonReactRouter.useUrl()
@@ -32,10 +45,10 @@ let make = () => {
         <Icon.Movie /> {React.string("Loading")}
       </div>}>
       {switch path {
-      | Feed => <FeedPage />
-      | AddMovie => <AddMoviePage />
-      | Movie(id) => <MoviePage id />
-      | Person(id) => <PersonPage id />
+      | Feed => React.createElement(feedComp, emptyObj())
+      | AddMovie => React.createElement(addMovieComp, emptyObj())
+      | Movie(id) => React.createElement(movieComp, {"id": id})
+      | Person(id) => React.createElement(personComp, {"id": id})
       }}
     </React.Suspense>
   </>

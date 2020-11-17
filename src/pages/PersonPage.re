@@ -72,3 +72,5 @@ let make = (~id) => {
   | _ => React.null
   };
 };
+
+let default = make;
