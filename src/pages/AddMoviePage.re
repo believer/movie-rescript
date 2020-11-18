@@ -134,7 +134,7 @@ let make = () => {
     |> ignore;
   };
 
-  <div className="mt-10 grid grid-md">
+  <Layout.Base>
     <div className="flex flex-wrap md:space-x-8">
       <div className="w-full md:w-auto space-y-4">
         <Form.TextField
@@ -216,7 +216,7 @@ let make = () => {
          </div>
        }}
     </div>
-  </div>;
+  </Layout.Base>;
 };
 
 let default = make;

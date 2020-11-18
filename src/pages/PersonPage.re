@@ -57,18 +57,16 @@ let make = (~id) => {
     let composer = jobs->Belt.Array.keep(({job}) => job == Composer);
     let writer = jobs->Belt.Array.keep(({job}) => job == Writer);
 
-    <div className="my-8 grid grid-md">
-      <div className="grid grid-person grid-gap-8">
-        <h1 className="flex justify-between mb-2 text-4xl font-bold">
-          {React.string(name)}
-        </h1>
-        <PersonSection moviesByJob=cast title="Cast" />
-        <PersonSection moviesByJob=director title="Director" />
-        <PersonSection moviesByJob=producer title="Producer" />
-        <PersonSection moviesByJob=composer title="Composer" />
-        <PersonSection moviesByJob=writer title="Writer" />
-      </div>
-    </div>;
+    <Layout.Base grid="person">
+      <h1 className="flex justify-between mb-2 text-4xl font-bold">
+        {React.string(name)}
+      </h1>
+      <PersonSection moviesByJob=cast title="Cast" />
+      <PersonSection moviesByJob=director title="Director" />
+      <PersonSection moviesByJob=producer title="Producer" />
+      <PersonSection moviesByJob=composer title="Composer" />
+      <PersonSection moviesByJob=writer title="Writer" />
+    </Layout.Base>;
   | _ => React.null
   };
 };

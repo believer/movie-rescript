@@ -29,24 +29,22 @@ let make = (~id) => {
   switch (data.movie) {
   | Some(`movie({title, fragmentRefs})) =>
     <>
-      <div className="my-8 grid grid-md">
-        <div className="grid grid-movie grid-gap-8">
-          <Poster movie=fragmentRefs />
-          <div>
-            <h1 className="flex justify-between mb-2 text-4xl font-bold">
-              {React.string(title)}
-              <Rating movie=fragmentRefs size=Rating.Large />
-            </h1>
-            <MovieMeta movie=fragmentRefs />
-            <MovieOverview movie=fragmentRefs />
-            <WatchDates movie=fragmentRefs />
-            <Director movie=fragmentRefs />
-            <Producer movie=fragmentRefs />
-            <Composer movie=fragmentRefs />
-            <Cast movie=fragmentRefs />
-          </div>
+      <Layout.Base grid="movie">
+        <Poster movie=fragmentRefs />
+        <div>
+          <h1 className="flex justify-between mb-2 text-4xl font-bold">
+            {React.string(title)}
+            <Rating movie=fragmentRefs size=Rating.Large />
+          </h1>
+          <MovieMeta movie=fragmentRefs />
+          <MovieOverview movie=fragmentRefs />
+          <WatchDates movie=fragmentRefs />
+          <Director movie=fragmentRefs />
+          <Producer movie=fragmentRefs />
+          <Composer movie=fragmentRefs />
+          <Cast movie=fragmentRefs />
         </div>
-      </div>
+      </Layout.Base>
     </>
   | _ => React.null
   };

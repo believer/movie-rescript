@@ -13,3 +13,18 @@ module Button = {
       children
     </button>
 }
+
+module Base = {
+  @react.component
+  let make = (~grid=?, ~children) => {
+    <div className="my-8 grid grid-md">
+      <div
+        className={Cn.fromList(list{
+          "grid grid-gap-8",
+          ("grid-" ++ grid->Belt.Option.getWithDefault(""))->Cn.onSome(grid),
+        })}>
+        children
+      </div>
+    </div>
+  }
+}
