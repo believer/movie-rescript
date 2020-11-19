@@ -20,7 +20,7 @@ module Base = {
     <div className="my-8 grid grid-md">
       <div
         className={Cn.fromList(list{
-          "grid grid-gap-8",
+          "grid gap-8 col-start-3 col-end-3",
           ("grid-" ++ grid->Belt.Option.getWithDefault(""))->Cn.onSome(grid),
         })}>
         children

@@ -71,8 +71,11 @@ let make = () => {
   let handleSelectYear = year => setYear(_ => float_of_string(year));
 
   <div className="my-8 grid grid-md">
-    <SelectYear onChange=handleSelectYear />
-    <div className="grid grid-4-col grid-gap-4">
+    <div className="col-start-3 col-end-3">
+      <SelectYear onChange=handleSelectYear />
+    </div>
+    <div
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 col-start-3 col-end-3">
       {data.feed.edges
        ->Belt.Array.map(({node: {movie}}) => {
            <Router.Link key={movie.id} to_={Movie(movie.id)}>
@@ -98,7 +101,7 @@ let make = () => {
        ->React.array}
     </div>
     {hasNext
-       ? <div className="ml-auto mr-auto">
+       ? <div className="ml-auto mr-auto col-start-3 col-end-3">
            <Layout.Button
              disabled=isLoadingNext
              onClick={_ => loadNext(~count=16, ()) |> ignore}>

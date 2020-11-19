@@ -7,7 +7,7 @@ let make = (~children, ~title) => {
       <h2 className="flex items-center mb-4 text-lg font-bold">
         {React.string(title)} <hr className="flex-1 ml-8" />
       </h2>
-      <ul className="text-sm grid grid-cast grid-row-gap-2"> children </ul>
+      <ul className="text-sm grid grid-cast gap-y-2"> children </ul>
     </div>
   }
 }
