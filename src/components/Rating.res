@@ -1,33 +1,39 @@
-module RatingFragment = [%relay.fragment
-  {|
+module RatingFragment = %relay.fragment(
+  `
   fragment Ratings_movie on movie {
     ratings {
       id
       rating
     }
   }
-|}
-];
+`
+)
 
 type size =
   | Small
-  | Large;
+  | Large
 
-[@react.component]
+@react.component
 let make = (~movie, ~size=Small) => {
-  let data = RatingFragment.use(movie);
+  let data = RatingFragment.use(movie)
 
-  let (iconSize, fontSize) =
-    switch (size) {
-    | Small => ("w-3 h-3", "text-xs")
-    | Large => ("w-6 h-6", "text-3xl")
-    };
+  let (iconSize, fontSize) = switch size {
+  | Small => ("w-3 h-3", "text-xs")
+  | Large => ("w-6 h-6", "text-3xl")
+  }
 
-  switch (data.ratings->Belt.Array.get(0)) {
+  switch data.ratings->Belt.Array.get(0) {
   | Some({rating}) =>
-    <div className=Cn.("flex items-center" + fontSize)>
+    <div
+      className={
+        open Cn
+        "flex items-center" + fontSize
+      }>
       <svg
-        className=Cn.("mr-1" + iconSize)
+        className={
+          open Cn
+          "mr-1" + iconSize
+        }
         xmlns="http://www.w3.org/2000/svg"
         fill="#F6AD55"
         viewBox="0 0 24 24"
@@ -42,5 +48,5 @@ let make = (~movie, ~size=Small) => {
       {React.int(rating)}
     </div>
   | None => React.null
-  };
-};
+  }
+}

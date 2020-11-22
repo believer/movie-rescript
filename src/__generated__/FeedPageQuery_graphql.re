@@ -26,6 +26,19 @@ module Types = {
 };
 
 module Internal = {
+  type wrapResponseRaw;
+  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {json| {"__root":{"":{"f":""}}} |json}
+  ];
+  let wrapResponseConverterMap = ();
+  let convertWrapResponse = v =>
+    v
+    ->ReasonRelay.convertObj(
+        wrapResponseConverter,
+        wrapResponseConverterMap,
+        Js.null,
+      );
+
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
     {json| {"__root":{"":{"f":""}}} |json}
@@ -33,11 +46,14 @@ module Internal = {
   let responseConverterMap = ();
   let convertResponse = v =>
     v
-    ->ReasonRelay._convertObj(
+    ->ReasonRelay.convertObj(
         responseConverter,
         responseConverterMap,
         Js.undefined,
       );
+
+  type wrapRawResponseRaw = wrapResponseRaw;
+  let convertWrapRawResponse = convertWrapResponse;
 
   type rawResponseRaw = responseRaw;
   let convertRawResponse = convertResponse;
@@ -48,7 +64,7 @@ module Internal = {
   let variablesConverterMap = ();
   let convertVariables = v =>
     v
-    ->ReasonRelay._convertObj(
+    ->ReasonRelay.convertObj(
         variablesConverter,
         variablesConverterMap,
         Js.undefined,
@@ -66,7 +82,9 @@ module Utils = {
   };
 };
 
-type operationType = ReasonRelay.queryNode;
+type relayOperationNode;
+
+type operationType = ReasonRelay.queryNode(relayOperationNode);
 
 let node: operationType = [%raw
   {json| (function(){
@@ -350,6 +368,7 @@ include ReasonRelay.MakeLoadQuery({
   type variables = Types.variables;
   type loadedQueryRef = queryRef;
   type response = Types.response;
+  type node = relayOperationNode;
   let query = node;
   let convertVariables = Internal.convertVariables;
 });

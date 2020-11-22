@@ -26,7 +26,7 @@ module Internal = {
   let fragmentConverterMap = ();
   let convertFragment = v =>
     v
-    ->ReasonRelay._convertObj(
+    ->ReasonRelay.convertObj(
         fragmentConverter,
         fragmentConverterMap,
         Js.undefined,
@@ -43,7 +43,9 @@ module Utils = {
   open Types;
 };
 
-type operationType = ReasonRelay.fragmentNode;
+type relayOperationNode;
+
+type operationType = ReasonRelay.fragmentNode(relayOperationNode);
 
 let node: operationType = [%raw
   {json| (function(){

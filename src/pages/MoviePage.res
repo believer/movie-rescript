@@ -1,5 +1,5 @@
-module MovieQuery = [%relay.query
-  {|
+module MovieQuery = %relay.query(
+  `
   query MoviePageQuery($id: ID!, $genreLimit: Int!) {
     movie: node(id: $id) {
       __typename
@@ -19,22 +19,20 @@ module MovieQuery = [%relay.query
       }
     }
   }
-|}
-];
+`
+)
 
-[@react.component]
+@react.component
 let make = (~id) => {
-  let data = MovieQuery.use(~variables={id, genreLimit: 10}, ());
+  let data = MovieQuery.use(~variables={id: id, genreLimit: 10}, ())
 
-  switch (data.movie) {
-  | Some(`movie({title, fragmentRefs})) =>
-    <>
+  switch data.movie {
+  | Some(#movie({title, fragmentRefs})) => <>
       <Layout.Base grid="movie">
         <Poster movie=fragmentRefs />
         <div>
           <h1 className="flex justify-between mb-2 text-4xl font-bold">
-            {React.string(title)}
-            <Rating movie=fragmentRefs size=Rating.Large />
+            {React.string(title)} <Rating movie=fragmentRefs size=Rating.Large />
           </h1>
           <MovieMeta movie=fragmentRefs />
           <MovieOverview movie=fragmentRefs />
@@ -47,7 +45,7 @@ let make = (~id) => {
       </Layout.Base>
     </>
   | _ => React.null
-  };
-};
+  }
+}
 
-let default = make;
+let default = make

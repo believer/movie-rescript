@@ -1,16 +1,14 @@
-module PosterFragment = [%relay.fragment
-  {|
+module PosterFragment = %relay.fragment(`
   fragment Poster_movie on movie {
     poster
   }
-|}
-];
+`)
 
-[@react.component]
+@react.component
 let make = (~movie) => {
-  let data = PosterFragment.use(movie);
+  let data = PosterFragment.use(movie)
 
-  switch (data.poster) {
+  switch data.poster {
   | Some(poster) =>
     <div className="relative">
       <img
@@ -20,14 +18,9 @@ let make = (~movie) => {
       <img
         className="absolute rounded"
         src={"https://image.tmdb.org/t/p/w500" ++ poster}
-        style={ReactDOMStyle.make(
-          ~top="12px",
-          ~filter="blur(20px)",
-          ~transform="scale(0.9)",
-          (),
-        )}
+        style={ReactDOMStyle.make(~top="12px", ~filter="blur(20px)", ~transform="scale(0.9)", ())}
       />
     </div>
   | None => React.null
-  };
-};
+  }
+}

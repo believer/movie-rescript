@@ -1,50 +1,51 @@
 /* @generated */
 
-type enum_seen_update_column = pri [> | `date | `id | `movie_id];
-
-type enum_seen_constraint = pri [> | `seen_pkey];
-
-type enum_rating_update_column =
-  pri [> | `created_at | `id | `movie_id | `rating | `updated_at];
-
-type enum_rating_constraint = pri [> | `rating_pkey];
-
-type enum_person_update_column = pri [> | `id | `name | `original_id];
-
-type enum_person_constraint = pri [> | `person_original_id_key | `person_pkey];
-
-type enum_movie_update_column =
-  pri [>
-    | `created_at
-    | `id
-    | `imdb_id
-    | `imdb_rating
-    | `overview
-    | `poster
-    | `release_date
-    | `runtime
-    | `tagline
-    | `title
-    | `updated_at
-  ];
-
-type enum_movie_person_update_column =
-  pri [> | `id | `job | `movie_id | `person_id];
-
-type enum_movie_person_constraint =
-  pri [> | `movie_person_movie_id_person_id_job_key | `movie_person_pkey];
-
-type enum_movie_genre_update_column = pri [> | `genre_id | `id | `movie_id];
-
-type enum_movie_genre_constraint = pri [> | `movie_genre_pkey];
-
-type enum_movie_constraint = pri [> | `movie_imdb_id_key | `movie_pkey];
-
-type enum_genre_update_column = pri [> | `id | `name];
-
-type enum_genre_constraint = pri [> | `genre_name_key | `genre_pkey];
-
 module Types = {
+  type enum_seen_update_column = pri [> | `date | `id | `movie_id];
+
+  type enum_seen_constraint = pri [> | `seen_pkey];
+
+  type enum_rating_update_column =
+    pri [> | `created_at | `id | `movie_id | `rating | `updated_at];
+
+  type enum_rating_constraint = pri [> | `rating_pkey];
+
+  type enum_person_update_column = pri [> | `id | `name | `original_id];
+
+  type enum_person_constraint =
+    pri [> | `person_original_id_key | `person_pkey];
+
+  type enum_movie_update_column =
+    pri [>
+      | `created_at
+      | `id
+      | `imdb_id
+      | `imdb_rating
+      | `overview
+      | `poster
+      | `release_date
+      | `runtime
+      | `tagline
+      | `title
+      | `updated_at
+    ];
+
+  type enum_movie_person_update_column =
+    pri [> | `id | `job | `movie_id | `person_id];
+
+  type enum_movie_person_constraint =
+    pri [> | `movie_person_movie_id_person_id_job_key | `movie_person_pkey];
+
+  type enum_movie_genre_update_column = pri [> | `genre_id | `id | `movie_id];
+
+  type enum_movie_genre_constraint = pri [> | `movie_genre_pkey];
+
+  type enum_movie_constraint = pri [> | `movie_imdb_id_key | `movie_pkey];
+
+  type enum_genre_update_column = pri [> | `id | `name];
+
+  type enum_genre_constraint = pri [> | `genre_name_key | `genre_pkey];
+
   [@ocaml.warning "-30"];
   type response_insert_movie_one = {title: string}
   and movie_genre_insert_input = {
@@ -333,7 +334,7 @@ module Internal = {
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
     v
-    ->ReasonRelay._convertObj(
+    ->ReasonRelay.convertObj(
         wrapResponseConverter,
         wrapResponseConverterMap,
         Js.null,
@@ -346,7 +347,7 @@ module Internal = {
   let responseConverterMap = ();
   let convertResponse = v =>
     v
-    ->ReasonRelay._convertObj(
+    ->ReasonRelay.convertObj(
         responseConverter,
         responseConverterMap,
         Js.undefined,
@@ -364,7 +365,7 @@ module Internal = {
   let variablesConverterMap = {"Job": Job.serialize};
   let convertVariables = v =>
     v
-    ->ReasonRelay._convertObj(
+    ->ReasonRelay.convertObj(
         variablesConverter,
         variablesConverterMap,
         Js.undefined,
@@ -372,37 +373,41 @@ module Internal = {
 };
 
 module Utils = {
-  external seen_update_column_toString: enum_seen_update_column => string =
+  external seen_update_column_toString: Types.enum_seen_update_column => string =
     "%identity";
-  external seen_constraint_toString: enum_seen_constraint => string =
+  external seen_constraint_toString: Types.enum_seen_constraint => string =
     "%identity";
-  external rating_update_column_toString: enum_rating_update_column => string =
+  external rating_update_column_toString:
+    Types.enum_rating_update_column => string =
     "%identity";
-  external rating_constraint_toString: enum_rating_constraint => string =
+  external rating_constraint_toString: Types.enum_rating_constraint => string =
     "%identity";
-  external person_update_column_toString: enum_person_update_column => string =
+  external person_update_column_toString:
+    Types.enum_person_update_column => string =
     "%identity";
-  external person_constraint_toString: enum_person_constraint => string =
+  external person_constraint_toString: Types.enum_person_constraint => string =
     "%identity";
-  external movie_update_column_toString: enum_movie_update_column => string =
+  external movie_update_column_toString:
+    Types.enum_movie_update_column => string =
     "%identity";
   external movie_person_update_column_toString:
-    enum_movie_person_update_column => string =
+    Types.enum_movie_person_update_column => string =
     "%identity";
   external movie_person_constraint_toString:
-    enum_movie_person_constraint => string =
+    Types.enum_movie_person_constraint => string =
     "%identity";
   external movie_genre_update_column_toString:
-    enum_movie_genre_update_column => string =
+    Types.enum_movie_genre_update_column => string =
     "%identity";
   external movie_genre_constraint_toString:
-    enum_movie_genre_constraint => string =
+    Types.enum_movie_genre_constraint => string =
     "%identity";
-  external movie_constraint_toString: enum_movie_constraint => string =
+  external movie_constraint_toString: Types.enum_movie_constraint => string =
     "%identity";
-  external genre_update_column_toString: enum_genre_update_column => string =
+  external genre_update_column_toString:
+    Types.enum_genre_update_column => string =
     "%identity";
-  external genre_constraint_toString: enum_genre_constraint => string =
+  external genre_constraint_toString: Types.enum_genre_constraint => string =
     "%identity";
   open Types;
   let make_person_on_conflict =
@@ -914,7 +919,9 @@ module Utils = {
   };
 };
 
-type operationType = ReasonRelay.mutationNode;
+type relayOperationNode;
+
+type operationType = ReasonRelay.mutationNode(relayOperationNode);
 
 let node: operationType = [%raw
   {json| (function(){
