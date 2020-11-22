@@ -27,9 +27,16 @@ module AddMovieMutation = [%relay.mutation
         title: $title
         ratings: { data: [{ rating: $rating }] }
         movie_genres: { data: $genres }
-        movie_people: { data: $people }
+        movie_people: {
+          data: $people
+          on_conflict: {
+            constraint: movie_person_movie_id_person_id_job_key
+            update_columns: job
+          }
+        }
         dates_watched: { data: $watchDates }
       }
+      on_conflict: { constraint: movie_imdb_id_key, update_columns: title }
     ) {
       title
     }

@@ -1009,6 +1009,14 @@ v11 = [
             "kind": "Variable",
             "name": "data",
             "variableName": "people"
+          },
+          {
+            "kind": "Literal",
+            "name": "on_conflict",
+            "value": {
+              "constraint": "movie_person_movie_id_person_id_job_key",
+              "update_columns": "job"
+            }
           }
         ],
         "kind": "ObjectValue",
@@ -1070,6 +1078,14 @@ v11 = [
     ],
     "kind": "ObjectValue",
     "name": "object"
+  },
+  {
+    "kind": "Literal",
+    "name": "on_conflict",
+    "value": {
+      "constraint": "movie_imdb_id_key",
+      "update_columns": "title"
+    }
   }
 ],
 v12 = {
@@ -1154,12 +1170,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "128de2de324ed4a4d2f4c1ce28b5e951",
+    "cacheID": "189e0d7884bf7f5950c012957e140b0d",
     "id": null,
     "metadata": {},
     "name": "AddMoviePageMutation",
     "operationKind": "mutation",
-    "text": "mutation AddMoviePageMutation(\n  $imdbId: String\n  $overview: String\n  $runtime: Int\n  $poster: String\n  $releaseDate: date\n  $tagline: String\n  $title: String\n  $rating: Int\n  $genres: [movie_genre_insert_input!]!\n  $people: [movie_person_insert_input!]!\n  $watchDates: [seen_insert_input!]!\n) {\n  insert_movie_one(object: {imdb_id: $imdbId, overview: $overview, runtime: $runtime, poster: $poster, release_date: $releaseDate, tagline: $tagline, title: $title, ratings: {data: [{rating: $rating}]}, movie_genres: {data: $genres}, movie_people: {data: $people}, dates_watched: {data: $watchDates}}) {\n    title\n    id\n  }\n}\n"
+    "text": "mutation AddMoviePageMutation(\n  $imdbId: String\n  $overview: String\n  $runtime: Int\n  $poster: String\n  $releaseDate: date\n  $tagline: String\n  $title: String\n  $rating: Int\n  $genres: [movie_genre_insert_input!]!\n  $people: [movie_person_insert_input!]!\n  $watchDates: [seen_insert_input!]!\n) {\n  insert_movie_one(object: {imdb_id: $imdbId, overview: $overview, runtime: $runtime, poster: $poster, release_date: $releaseDate, tagline: $tagline, title: $title, ratings: {data: [{rating: $rating}]}, movie_genres: {data: $genres}, movie_people: {data: $people, on_conflict: {constraint: movie_person_movie_id_person_id_job_key, update_columns: job}}, dates_watched: {data: $watchDates}}, on_conflict: {constraint: movie_imdb_id_key, update_columns: title}) {\n    title\n    id\n  }\n}\n"
   }
 };
 })() |json}
