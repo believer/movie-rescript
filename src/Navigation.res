@@ -18,32 +18,42 @@ let make = (~logout: Auth0.logout => unit, ~user: Auth0.user) => {
       <div className="ml-8">
         <Router.Link to_=AddMovie> {React.string("Add movie")} </Router.Link>
       </div>
-      <div className="flex ml-auto relative">
-        {switch user.picture {
-        | Some(src) =>
-          <img className="cursor-pointer w-8 h-8 rounded-full" src onClick={_ => setDisplayMenu(_ =>
-                switch displayMenu {
-                | Open => Closed
-                | Closed => Open
-                }
-              )} />
-        | None => React.null
-        }}
-        {switch displayMenu {
-        | Open =>
-          <div
-            className="absolute bg-white border left mt-2 p-4 rounded-md
+      <div className="flex ml-auto">
+        <SearchField />
+        <div className="relative">
+          {switch user.picture {
+          | Some(src) =>
+            <img
+              className="cursor-pointer w-8 h-8 rounded-full" src onClick={_ => setDisplayMenu(_ =>
+                  switch displayMenu {
+                  | Open => Closed
+                  | Closed => Open
+                  }
+                )}
+            />
+          | None => React.null
+          }}
+          {switch displayMenu {
+          | Open =>
+            <div
+              className="absolute bg-white border left mt-2 p-4 rounded-md
           shadow-lg w-24 z-10"
-            ref={ReactDOM.Ref.domRef(divRef)}
-            style={ReactDOMStyle.make(~top="100%", ~left="50%", ~transform="translateX(-50%)", ())}>
-            <button
-              className="text-sm text-gray-700 text-center w-full"
-              onClick={_ => logout({returnTo: Web.origin})}>
-              {React.string("Log out")}
-            </button>
-          </div>
-        | Closed => React.null
-        }}
+              ref={ReactDOM.Ref.domRef(divRef)}
+              style={ReactDOMStyle.make(
+                ~top="100%",
+                ~left="50%",
+                ~transform="translateX(-50%)",
+                (),
+              )}>
+              <button
+                className="text-sm text-gray-700 text-center w-full"
+                onClick={_ => logout({returnTo: Web.origin})}>
+                {React.string("Log out")}
+              </button>
+            </div>
+          | Closed => React.null
+          }}
+        </div>
       </div>
     </div>
   </div>

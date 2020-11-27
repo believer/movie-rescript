@@ -31,7 +31,7 @@
     "react-relay": "0.0.0-experimental-c818bac3",
     "reason-promise": "^1.1.2",
     "reason-react": "0.9.1",
-    "reason-relay": "0.12.0",
+    "reason-relay": "0.12.1",
     "relay-compiler": "10.1.0",
     "relay-config": "10.1.0",
     "relay-runtime": "10.1.0",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/git": "9.0.0",
-    "autoprefixer": "10.0.2",
+    "autoprefixer": "10.0.3",
     "bs-platform": "8.3.3",
     "cross-env": "7.0.2",
     "css-loader": "5.0.1",
@@ -50,7 +50,7 @@
     "postcss-loader": "4.1.0",
     "style-loader": "2.0.0",
     "tailwindcss": "2.0.1",
-    "webpack": "5.6.0",
+    "webpack": "5.8.0",
     "webpack-cli": "4.2.0",
     "webpack-dev-server": "3.11.0"
   },

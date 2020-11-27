@@ -44,6 +44,52 @@ module AddMovieMutation = %relay.mutation(
 `
 )
 
+module Genre = {
+  open AddMoviePageMutation_graphql.Types
+
+  let make = ({name}: Tmdb.Movie.Genre.t) => {
+    id: None,
+    movie_id: None,
+    genre_id: None,
+    genre: Some({
+      data: {
+        id: None,
+        name: Some(name),
+      },
+      on_conflict: Some({
+        constraint_: #genre_name_key,
+        update_columns: [#name],
+        where: None,
+      }),
+    }),
+  }
+}
+
+module Person = {
+  open AddMoviePageMutation_graphql.Types
+
+  let make = (person: Tmdb.Movie.Credits.Crew.t) => {
+    id: None,
+    job: Job.parseTmdb(person.department, person.job),
+    movie: None,
+    movie_id: None,
+    person: Some({
+      data: {
+        id: None,
+        movie_people: None,
+        name: Some(person.name),
+        original_id: Some(person.id),
+      },
+      on_conflict: Some({
+        constraint_: #person_original_id_key,
+        update_columns: [#original_id],
+        where: None,
+      }),
+    }),
+    person_id: None,
+  }
+}
+
 @react.component
 let make = () => {
   let (mutate, _isMutating) = AddMovieMutation.use()
@@ -73,51 +119,11 @@ let make = () => {
         releaseDate: Some(movie.release_date),
         tagline: movie.tagline,
         title: Some(movie.title),
-        rating: Some(int_of_string(rating)),
-        genres: movie.genres->Belt.Array.map(({name}) => {
-          open AddMoviePageMutation_graphql.Types
-          {
-            id: None,
-            movie_id: None,
-            genre_id: None,
-            genre: Some({
-              data: {
-                id: None,
-                name: Some(name),
-              },
-              on_conflict: Some({
-                constraint_: #genre_name_key,
-                update_columns: [#name],
-                where: None,
-              }),
-            }),
-          }
-        }),
+        rating: rating === "" ? None : Some(int_of_string(rating)),
+        genres: movie.genres->Belt.Array.map(Genre.make),
         people: people
         ->Belt.Array.keep(({department, job}) => Job.isValid(department, job))
-        ->Belt.Array.map(person => {
-          open AddMoviePageMutation_graphql.Types
-          {
-            id: None,
-            job: Job.parseTmdb(person.department, person.job),
-            movie: None,
-            movie_id: None,
-            person: Some({
-              data: {
-                id: None,
-                movie_people: None,
-                name: Some(person.name),
-                original_id: Some(person.id),
-              },
-              on_conflict: Some({
-                constraint_: #person_original_id_key,
-                update_columns: [#original_id],
-                where: None,
-              }),
-            }),
-            person_id: None,
-          }
-        }),
+        ->Belt.Array.map(Person.make),
         watchDates: [
           {
             date: Some(Js.Date.make()->Js.Date.toISOString),
@@ -168,7 +174,7 @@ let make = () => {
         | NotCalled => React.null
         | Loading => React.string("Loading")
         | Data(movie) =>
-          <Layout.Button disabled={rating === ""} onClick={_ => handleAddMovie(movie)}>
+          <Layout.Button onClick={_ => handleAddMovie(movie)}>
             {React.string("Add")}
           </Layout.Button>
         }}

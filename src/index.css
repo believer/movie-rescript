@@ -28,7 +28,8 @@ body {
 
 @media (min-width: 768px) {
   .grid-movie {
-    grid-template-columns: var(--card) 1fr;
+    @apply gap-20;
+    grid-template-columns: 300px 1fr;
   }
 }
 

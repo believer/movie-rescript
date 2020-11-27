@@ -2,8 +2,10 @@ module.exports = {
   purge: ["./src/**/*.bs.js"],
   theme: {},
   variants: {
-    backgroundColor: ["responsive", "hover", "focus", "disabled"],
-    textColor: ["responsive", "hover", "focus", "disabled"],
+    extend: {
+      backgroundColor: ["disabled"],
+      textColor: ["disabled"],
+    },
   },
   plugins: [],
   future: {

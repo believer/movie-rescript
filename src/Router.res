@@ -4,6 +4,7 @@ module Route = {
     | Feed
     | Person(string)
     | Movie(string)
+    | Search(string)
 
   let fromPath = path =>
     switch path {
@@ -11,6 +12,7 @@ module Route = {
     | list{"add"} => AddMovie
     | list{"movie", id} => Movie(id)
     | list{"person", id} => Person(id)
+    | list{"search", query} => Search(query)
     | _ => Feed
     }
 
@@ -20,6 +22,7 @@ module Route = {
     | AddMovie => "/add"
     | Person(id) => "/person/" ++ id
     | Movie(id) => "/movie/" ++ id
+    | Search(query) => "/search/" ++ query
     }
 
   let go = path => path->toPath->ReasonReactRouter.push

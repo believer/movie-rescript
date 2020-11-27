@@ -2,6 +2,7 @@ let movieComp = ReactLazy.lazy_(() => ReactLazy.import_("./pages/MoviePage.bs.js
 let personComp = ReactLazy.lazy_(() => ReactLazy.import_("./pages/PersonPage.bs.js"))
 let addMovieComp = ReactLazy.lazy_(() => ReactLazy.import_("./pages/AddMoviePage.bs.js"))
 let feedComp = ReactLazy.lazy_(() => ReactLazy.import_("./pages/FeedPage.bs.js"))
+let searchComp = ReactLazy.lazy_(() => ReactLazy.import_("./pages/SearchPage.bs.js"))
 
 @react.component
 let make = () => {
@@ -24,6 +25,7 @@ let make = () => {
       | AddMovie => React.createElement(addMovieComp, ReactLazy.emptyObj())
       | Movie(id) => React.createElement(movieComp, {"id": id})
       | Person(id) => React.createElement(personComp, {"id": id})
+      | Search(query) => React.createElement(searchComp, {"query": query})
       }}
     </React.Suspense>
   </>
