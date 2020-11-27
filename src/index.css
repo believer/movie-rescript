@@ -11,34 +11,38 @@
   --card: calc(var(--content) / 4 - 60px);
 }
 
-html,
-body {
-  @apply p-0 m-0 font-normal text-gray-900;
-}
-
-.grid-md {
-  grid-template-columns: var(--t5) 1fr minmax(300px, var(--content)) 1fr var(
-      --t5
-    );
-}
-
-.grid-sm {
-  grid-template-columns: var(--t5) 1fr minmax(300px, 960px) 1fr var(--t5);
-}
-
-@media (min-width: 768px) {
-  .grid-movie {
-    @apply gap-20;
-    grid-template-columns: 300px 1fr;
+@layer base {
+  html,
+  body {
+    @apply p-0 m-0 font-normal text-gray-900;
   }
 }
 
-@media (min-width: 480px) {
-  .grid-cast {
-    grid-template-columns: repeat(3, 1fr);
+@layer components {
+  .grid-md {
+    grid-template-columns: var(--t5) 1fr minmax(300px, var(--content)) 1fr var(
+        --t5
+      );
   }
-}
 
-.grid-person {
-  grid-template-columns: 1fr;
+  .grid-sm {
+    grid-template-columns: var(--t5) 1fr minmax(300px, 960px) 1fr var(--t5);
+  }
+
+  @media (min-width: 768px) {
+    .grid-movie {
+      @apply gap-20;
+      grid-template-columns: 300px 1fr;
+    }
+  }
+
+  @media (min-width: 480px) {
+    .grid-cast {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .grid-person {
+    grid-template-columns: 1fr;
+  }
 }

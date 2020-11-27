@@ -19,8 +19,7 @@ let make = () => {
     onSubmit>
     <div className="absolute left-2 pointer-events-none"> <Icon.Search /> </div>
     <input
-      className="pl-8 px-4 py-1 focus:ring-2 focus:outline-none
-      focus:ring-offset-1 focus:ring-indigo-500 rounded border-2 border-gray-300
+      className="pl-8 px-4 py-1 focus:ring-2 focus:outline-none focus:ring-offset-1 focus:ring-indigo-300 rounded border-2 border-gray-300
       text-gray-800"
       onChange={e => {
         let value = (e->ReactEvent.Form.target)["value"]

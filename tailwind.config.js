@@ -1,6 +1,9 @@
 module.exports = {
-  purge: ["./src/**/*.bs.js"],
-  theme: {},
+  purge: ["./src/**/*.bs.js", "./src/**/*.css"],
+  darkMode: false,
+  theme: {
+    extend: {},
+  },
   variants: {
     extend: {
       backgroundColor: ["disabled"],
