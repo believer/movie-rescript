@@ -20,7 +20,7 @@ module SearchQuery = %relay.query(
 
 @react.component
 let make = (~query) => {
-  let data = SearchQuery.use(~variables={query: "%" ++ query ++ "%"}, ())
+  let data = SearchQuery.use(~variables={query: "%" ++ Js.Global.decodeURI(query) ++ "%"}, ())
 
   switch Belt.Array.length(data.movies.edges) {
   | 0 =>
