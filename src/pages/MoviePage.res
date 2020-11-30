@@ -5,6 +5,7 @@ module MovieQuery = %relay.query(
       __typename
       ... on movie {
         id
+        original_id
         title
         ...MovieOverview_movie
         ...Cast_movie
@@ -27,7 +28,7 @@ let make = (~id) => {
   let data = MovieQuery.use(~variables={id: id, genreLimit: 10}, ())
 
   switch data.movie {
-  | Some(#movie({title, fragmentRefs})) => <>
+  | Some(#movie({original_id: id, title, fragmentRefs})) => <>
       <Layout.Base grid="movie">
         <Poster movie=fragmentRefs />
         <div>
@@ -36,7 +37,7 @@ let make = (~id) => {
           </h1>
           <MovieMeta movie=fragmentRefs />
           <MovieOverview movie=fragmentRefs />
-          <WatchDates movie=fragmentRefs />
+          <WatchDates id movie=fragmentRefs />
           <Director movie=fragmentRefs />
           <Producer movie=fragmentRefs />
           <Composer movie=fragmentRefs />

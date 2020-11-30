@@ -4,6 +4,7 @@ module Types = {
   [@ocaml.warning "-30"];
   type response_movie_movie = {
     title: string,
+    original_id: option(int),
     id: string,
     fragmentRefs:
       ReasonRelay.fragmentRefs(
@@ -66,7 +67,7 @@ let wrap_response_movie:
 module Internal = {
   type wrapResponseRaw;
   let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"movie":{"n":"","u":"response_movie"},"movie_movie":{"f":""}}} |json}
+    {json| {"__root":{"movie":{"n":"","u":"response_movie"},"movie_movie_original_id":{"n":""},"movie_movie":{"f":""}}} |json}
   ];
   let wrapResponseConverterMap = {"response_movie": wrap_response_movie};
   let convertWrapResponse = v =>
@@ -79,7 +80,7 @@ module Internal = {
 
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"movie":{"n":"","u":"response_movie"},"movie_movie":{"f":""}}} |json}
+    {json| {"__root":{"movie":{"n":"","u":"response_movie"},"movie_movie_original_id":{"n":""},"movie_movie":{"f":""}}} |json}
   ];
   let responseConverterMap = {"response_movie": unwrap_response_movie};
   let convertResponse = v =>
@@ -157,10 +158,17 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "original_id",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v6 = [
+v7 = [
   (v4/*: any*/),
   {
     "alias": null,
@@ -170,7 +178,7 @@ v6 = [
     "storageKey": null
   }
 ],
-v7 = [
+v8 = [
   {
     "alias": null,
     "args": null,
@@ -178,7 +186,7 @@ v7 = [
     "kind": "LinkedField",
     "name": "person",
     "plural": false,
-    "selections": (v6/*: any*/),
+    "selections": (v7/*: any*/),
     "storageKey": null
   },
   (v4/*: any*/)
@@ -207,6 +215,7 @@ return {
             "selections": [
               (v4/*: any*/),
               (v5/*: any*/),
+              (v6/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -297,6 +306,7 @@ return {
             "kind": "InlineFragment",
             "selections": [
               (v5/*: any*/),
+              (v6/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -332,7 +342,7 @@ return {
                 "kind": "LinkedField",
                 "name": "movie_people",
                 "plural": true,
-                "selections": (v7/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": "movie_people(order_by:{\"person\":{\"movie_people_aggregate\":{\"count\":\"desc\"}}},where:{\"job\":{\"_eq\":\"cast\"}})"
               },
               {
@@ -352,7 +362,7 @@ return {
                 "kind": "LinkedField",
                 "name": "movie_people",
                 "plural": true,
-                "selections": (v7/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": "movie_people(where:{\"job\":{\"_eq\":\"composer\"}})"
               },
               {
@@ -372,7 +382,7 @@ return {
                 "kind": "LinkedField",
                 "name": "movie_people",
                 "plural": true,
-                "selections": (v7/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": "movie_people(where:{\"job\":{\"_eq\":\"director\"}})"
               },
               {
@@ -392,7 +402,7 @@ return {
                 "kind": "LinkedField",
                 "name": "movie_people",
                 "plural": true,
-                "selections": (v7/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": "movie_people(where:{\"job\":{\"_eq\":\"producer\"}})"
               },
               {
@@ -470,7 +480,7 @@ return {
                     "kind": "LinkedField",
                     "name": "genre",
                     "plural": false,
-                    "selections": (v6/*: any*/),
+                    "selections": (v7/*: any*/),
                     "storageKey": null
                   },
                   (v4/*: any*/)
@@ -506,12 +516,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e50f9ade0d30d79cf48a7b1ebc709085",
+    "cacheID": "ede37e4786f04c29b1a4579f84d6183f",
     "id": null,
     "metadata": {},
     "name": "MoviePageQuery",
     "operationKind": "query",
-    "text": "query MoviePageQuery(\n  $id: ID!\n  $genreLimit: Int!\n) {\n  movie: node(id: $id) {\n    __typename\n    ... on movie {\n      id\n      title\n      ...MovieOverview_movie\n      ...Cast_movie\n      ...Composer_movie\n      ...Director_movie\n      ...Producer_movie\n      ...Poster_movie\n      ...Ratings_movie\n      ...MovieMeta_movie\n      ...Genres_movie_36mvd1\n      ...WatchDates_movie\n    }\n    id\n  }\n}\n\nfragment Cast_movie on movie {\n  cast: movie_people(where: {job: {_eq: \"cast\"}}, order_by: {person: {movie_people_aggregate: {count: desc}}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Composer_movie on movie {\n  composer: movie_people(where: {job: {_eq: \"composer\"}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Director_movie on movie {\n  director: movie_people(where: {job: {_eq: \"director\"}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment MovieMeta_movie on movie {\n  imdb_id\n  release_date\n  runtime\n  tagline\n}\n\nfragment MovieOverview_movie on movie {\n  overview\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Producer_movie on movie {\n  producer: movie_people(where: {job: {_eq: \"producer\"}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n\nfragment WatchDates_movie on movie {\n  dates_watched {\n    date\n    id\n  }\n}\n"
+    "text": "query MoviePageQuery(\n  $id: ID!\n  $genreLimit: Int!\n) {\n  movie: node(id: $id) {\n    __typename\n    ... on movie {\n      id\n      original_id\n      title\n      ...MovieOverview_movie\n      ...Cast_movie\n      ...Composer_movie\n      ...Director_movie\n      ...Producer_movie\n      ...Poster_movie\n      ...Ratings_movie\n      ...MovieMeta_movie\n      ...Genres_movie_36mvd1\n      ...WatchDates_movie\n    }\n    id\n  }\n}\n\nfragment Cast_movie on movie {\n  cast: movie_people(where: {job: {_eq: \"cast\"}}, order_by: {person: {movie_people_aggregate: {count: desc}}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Composer_movie on movie {\n  composer: movie_people(where: {job: {_eq: \"composer\"}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Director_movie on movie {\n  director: movie_people(where: {job: {_eq: \"director\"}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment MovieMeta_movie on movie {\n  imdb_id\n  release_date\n  runtime\n  tagline\n}\n\nfragment MovieOverview_movie on movie {\n  overview\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Producer_movie on movie {\n  producer: movie_people(where: {job: {_eq: \"producer\"}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n\nfragment WatchDates_movie on movie {\n  dates_watched {\n    date\n    id\n  }\n}\n"
   }
 };
 })() |json}

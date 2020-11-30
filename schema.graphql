@@ -525,6 +525,11 @@ type movie implements Node {
     """filter the rows returned"""
     where: movie_person_bool_exp
   ): movie_personConnection!
+
+  """
+  A computed field, executes function "movie_original_id"
+  """
+  original_id: Int
   overview: String
   poster: String
 
