@@ -1,23 +1,19 @@
-module WatchDatesFragment = %relay.fragment(
-  `
+module WatchDatesFragment = %relay.fragment(`
   fragment WatchDates_movie on movie {
     dates_watched {
       date
       id
     }
   }
-`
-)
+`)
 
-module AddWatchMutation = %relay.mutation(
-  `
+module AddWatchMutation = %relay.mutation(`
   mutation WatchDatesMutation($id: Int!, $date: timestamp!) {
     insert_seen_one(object: {movie_id: $id, date: $date}) {
       id
     }
   }
-`
-)
+`)
 
 @react.component
 let make = (~id, ~movie) => {
@@ -37,7 +33,7 @@ let make = (~id, ~movie) => {
     {switch id {
     | Some(id) =>
       <button
-        className="mb-8 bg-indigo-500 rounded text-white px-4 py-2 text-xs"
+        className="mb-8 bg-indigo-600 rounded text-white font-bold px-4 py-2 text-xs"
         onClick={_ => {
           mutate(
             ~variables={

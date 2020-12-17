@@ -20,7 +20,7 @@ module Base = {
   @react.component
   let make = (~grid: t, ~children) => {
     let gridStyle = switch grid {
-    | Movie => "grid-movie gap-20"
+    | Movie => "grid-movie gap-28"
     | Person => "grid-cols-1"
     | AddMovie => ""
     }

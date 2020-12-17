@@ -14,9 +14,11 @@ let make = (~onChange) => {
         let value = (e->ReactEvent.Form.target)["value"]
         onChange(value)
       }}>
-      {years->Belt.Array.map(year => {
+      {years
+      ->Belt.Array.map(year => {
         <option key=year value=year> {React.string(year)} </option>
-      })->React.array}
+      })
+      ->React.array}
     </select>
     <div
       className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">

@@ -1,13 +1,11 @@
-module MovieMetaFragment = %relay.fragment(
-  `
+module MovieMetaFragment = %relay.fragment(`
   fragment MovieMeta_movie on movie {
     imdb_id
     release_date
     runtime
     tagline
   }
-`
-)
+`)
 
 module Bullet = {
   @react.component
@@ -20,7 +18,7 @@ let make = (~movie) => {
 
   <div className="mb-8 text-sm text-gray-600 space-y-1">
     {switch data.tagline {
-    | Some(tagline) => <div className="text-gray-700"> {React.string(tagline)} </div>
+    | Some(tagline) => <div className="text-gray-800"> {React.string(tagline)} </div>
     | None => React.null
     }}
     <div className="flex flex-col md:flex-row md:space-x-1">

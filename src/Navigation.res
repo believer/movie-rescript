@@ -24,7 +24,10 @@ let make = (~logout: Auth0.logout => unit, ~user: Auth0.user) => {
           {switch user.picture {
           | Some(src) =>
             <img
-              className="cursor-pointer w-8 h-8 rounded-full" src onClick={_ => setDisplayMenu(_ =>
+              className="cursor-pointer w-8 h-8 rounded-full"
+              src
+              onClick={_ =>
+                setDisplayMenu(_ =>
                   switch displayMenu {
                   | Open => Closed
                   | Closed => Open

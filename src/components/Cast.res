@@ -1,5 +1,4 @@
-module CastFragment = %relay.fragment(
-  `
+module CastFragment = %relay.fragment(`
   fragment Cast_movie on movie {
     cast: movie_people(
       where: {job: {_eq: "cast"}},
@@ -11,8 +10,7 @@ module CastFragment = %relay.fragment(
       }
     }
   }
-`
-)
+`)
 
 @react.component
 let make = (~movie) => {

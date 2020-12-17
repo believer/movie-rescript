@@ -1,5 +1,4 @@
-module ComposerFragment = %relay.fragment(
-  `
+module ComposerFragment = %relay.fragment(`
   fragment Composer_movie on movie {
     composer: movie_people(where: {job: {_eq: "composer"}}) {
       person {
@@ -8,8 +7,7 @@ module ComposerFragment = %relay.fragment(
       }
     }
   }
-`
-)
+`)
 
 @react.component
 let make = (~movie) => {

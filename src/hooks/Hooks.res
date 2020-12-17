@@ -1,4 +1,4 @@
-@bs.val external document: {..} = "document"
+@val external document: {..} = "document"
 external elm: Dom.element => Js.t<'a> = "%identity"
 
 let handleClickOutside = (domElement: Dom.element, e, fn) =>

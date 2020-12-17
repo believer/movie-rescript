@@ -1,10 +1,8 @@
-module MovieOverviewFragment = %relay.fragment(
-  `
+module MovieOverviewFragment = %relay.fragment(`
   fragment MovieOverview_movie on movie {
     overview
   }
-`
-)
+`)
 
 @react.component
 let make = (~movie) => {

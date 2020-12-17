@@ -1,5 +1,4 @@
-module FeedQuery = %relay.query(
-  `
+module FeedQuery = %relay.query(`
   query FeedPageQuery(
     $genreLimit: Int!
     $dateGte: timestamp!
@@ -7,11 +6,9 @@ module FeedQuery = %relay.query(
   ) {
     ...FeedPage_query
   }
-`
-)
+`)
 
-module FeedFragment = %relay.fragment(
-  `
+module FeedFragment = %relay.fragment(`
   fragment FeedPage_query on query_root
   @refetchable(queryName: "FeedPageRefetchQuery")
   @argumentDefinitions(
@@ -40,8 +37,7 @@ module FeedFragment = %relay.fragment(
       }
     }
   }
-`
-)
+`)
 
 @react.component
 let make = () => {
@@ -69,7 +65,8 @@ let make = () => {
   <div className="my-8 grid grid-md">
     <div className="col-start-3 col-end-3"> <SelectYear onChange=handleSelectYear /> </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 col-start-3 col-end-3">
-      {data.feed.edges->Belt.Array.map(({node: {movie}}) =>
+      {data.feed.edges
+      ->Belt.Array.map(({node: {movie}}) =>
         <Router.Link key=movie.id to_=Movie(movie.id)>
           <Poster movie=movie.fragmentRefs />
           <div className="mt-4">
@@ -87,7 +84,8 @@ let make = () => {
             <Rating movie=movie.fragmentRefs />
           </div>
         </Router.Link>
-      )->React.array}
+      )
+      ->React.array}
     </div>
     {hasNext
       ? <div className="ml-auto mr-auto col-start-3 col-end-3">

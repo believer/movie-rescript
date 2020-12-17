@@ -1,5 +1,4 @@
-module GenresFragment = %relay.fragment(
-  `
+module GenresFragment = %relay.fragment(`
   fragment Genres_movie on movie
     @argumentDefinitions(
       genreLimit: {type: "Int", defaultValue: 3},
@@ -11,8 +10,7 @@ module GenresFragment = %relay.fragment(
       }
     }
   }
-`
-)
+`)
 
 @react.component
 let make = (~movie) => {

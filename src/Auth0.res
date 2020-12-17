@@ -1,5 +1,5 @@
 module Provider = {
-  @react.component @bs.module("@auth0/auth0-react")
+  @react.component @module("@auth0/auth0-react")
   external make: (
     ~children: React.element,
     ~domain: string,
@@ -26,5 +26,5 @@ type useAuth<'a> = {
   logout: logout => unit,
 }
 
-@bs.module("@auth0/auth0-react")
+@module("@auth0/auth0-react")
 external useAuth0: unit => useAuth<'a> = "useAuth0"

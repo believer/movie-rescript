@@ -1,5 +1,4 @@
-module DirectorFragment = %relay.fragment(
-  `
+module DirectorFragment = %relay.fragment(`
   fragment Director_movie on movie {
     director: movie_people(where: {job: {_eq: "director"}}) {
       person {
@@ -8,8 +7,7 @@ module DirectorFragment = %relay.fragment(
       }
     }
   }
-`
-)
+`)
 
 @react.component
 let make = (~movie) => {

@@ -8,7 +8,9 @@ let fetchQuery: (unit => Js.Promise.t<'a>) => ReasonRelay.Network.fetchFunctionP
   operation,
   variables,
   _cacheConfig,
-) => getAccessTokenSilently() |> then_(token =>
+) =>
+  getAccessTokenSilently()
+  |> then_(token =>
     fetchWithInit(
       "https://shining-fowl-19.hasura.app/v1beta1/relay",
       RequestInit.make(
@@ -28,7 +30,8 @@ let fetchQuery: (unit => Js.Promise.t<'a>) => ReasonRelay.Network.fetchFunctionP
         (),
       ),
     )
-  ) |> then_(resp =>
+  )
+  |> then_(resp =>
     if Response.ok(resp) {
       Response.json(resp)
     } else {

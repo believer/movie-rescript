@@ -1,4 +1,4 @@
-@bs.val
+@val
 external stringify: ('a, Js.Null.t<'b>, int) => string = "JSON.stringify"
 
 module AddMovieMutation = %relay.mutation(`
