@@ -1,5 +1,4 @@
-module MovieQuery = %relay.query(
-  `
+module MovieQuery = %relay.query(`
   query MoviePageQuery($id: ID!, $genreLimit: Int!) {
     movie: node(id: $id) {
       __typename
@@ -20,8 +19,7 @@ module MovieQuery = %relay.query(
       }
     }
   }
-`
-)
+`)
 
 @react.component
 let make = (~id) => {
@@ -29,7 +27,7 @@ let make = (~id) => {
 
   switch data.movie {
   | Some(#movie({original_id: id, title, fragmentRefs})) => <>
-      <Layout.Base grid="movie">
+      <Layout.Base grid=Movie>
         <Poster movie=fragmentRefs />
         <div>
           <h1 className="flex justify-between mb-2 text-4xl font-bold">

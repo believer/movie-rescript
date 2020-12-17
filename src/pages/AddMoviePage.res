@@ -1,8 +1,7 @@
 @bs.val
 external stringify: ('a, Js.Null.t<'b>, int) => string = "JSON.stringify"
 
-module AddMovieMutation = %relay.mutation(
-  `
+module AddMovieMutation = %relay.mutation(`
   mutation AddMoviePageMutation(
     $imdbId: String
     $overview: String
@@ -41,8 +40,7 @@ module AddMovieMutation = %relay.mutation(
       title
     }
   }
-`
-)
+`)
 
 module Genre = {
   open AddMoviePageMutation_graphql.Types
@@ -138,7 +136,7 @@ let make = () => {
     ) |> ignore
   }
 
-  <Layout.Base>
+  <Layout.Base grid=AddMovie>
     <div className="flex flex-wrap md:space-x-8">
       <div className="w-full md:w-auto space-y-4">
         <Form.TextField

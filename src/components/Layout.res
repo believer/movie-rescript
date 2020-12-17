@@ -15,14 +15,18 @@ module Button = {
 }
 
 module Base = {
+  type t = Movie | Person | AddMovie
+
   @react.component
-  let make = (~grid=?, ~children) => {
+  let make = (~grid: t, ~children) => {
+    let gridStyle = switch grid {
+    | Movie => "grid-movie gap-20"
+    | Person => "grid-cols-1"
+    | AddMovie => ""
+    }
+
     <div className="my-8 grid grid-md">
-      <div
-        className={Cn.fromList(list{
-          "grid gap-8 col-start-3 col-end-3",
-          ("grid-" ++ grid->Belt.Option.getWithDefault(""))->Cn.onSome(grid),
-        })}>
+      <div className={Cn.fromList(list{"grid gap-8 col-start-3 col-end-3", gridStyle})}>
         children
       </div>
     </div>

@@ -1,5 +1,4 @@
-module PersonQuery = %relay.query(
-  `
+module PersonQuery = %relay.query(`
   query PersonPageQuery($id: ID!) {
     node(id: $id) {
       __typename
@@ -19,13 +18,14 @@ module PersonQuery = %relay.query(
       }
     }
   }
-`
-)
+`)
 
 module PersonSection = {
   @react.component
   let make = (~moviesByJob: array<PersonQuery.Types.response_node_jobs>, ~title) =>
-    <MovieSection title> {moviesByJob->Belt.Array.map(({movie}) =>
+    <MovieSection title>
+      {moviesByJob
+      ->Belt.Array.map(({movie}) =>
         <li key=movie.id>
           <Link to_=Movie(movie.id)> {React.string(movie.title)} </Link>
           {switch movie.year {
@@ -33,7 +33,9 @@ module PersonSection = {
           | None => React.null
           }}
         </li>
-      )->React.array} </MovieSection>
+      )
+      ->React.array}
+    </MovieSection>
 }
 
 @react.component
@@ -48,7 +50,7 @@ let make = (~id) => {
     let composer = jobs->Belt.Array.keep(({job}) => job == Composer)
     let writer = jobs->Belt.Array.keep(({job}) => job == Writer)
 
-    <Layout.Base grid="person">
+    <Layout.Base grid=Person>
       <h1 className="flex justify-between mb-2 text-4xl font-bold"> {React.string(name)} </h1>
       <PersonSection moviesByJob=cast title="Cast" />
       <PersonSection moviesByJob=director title="Director" />

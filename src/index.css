@@ -31,18 +31,7 @@
 
   @media (min-width: 768px) {
     .grid-movie {
-      @apply gap-20;
       grid-template-columns: 300px 1fr;
     }
-  }
-
-  @media (min-width: 480px) {
-    .grid-cast {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .grid-person {
-    grid-template-columns: 1fr;
   }
 }
