@@ -26,7 +26,7 @@ let make = () => {
         setSearchQuery(_ => value)
       }}
       type_="text"
-      value={searchQuery}
+      value={searchQuery->Js.Global.decodeURI}
     />
   </form>
 }

@@ -58,7 +58,7 @@ let make = (~query) => {
       | 0 =>
         <div className="col-start-3 col-end-3">
           {React.string("I couldn't find any movies that match: ")}
-          <span className="font-bold"> {React.string(query)} </span>
+          <span className="font-bold"> {query->Js.Global.decodeURI->React.string} </span>
         </div>
       | _ =>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 col-start-3 col-end-3">
@@ -91,7 +91,7 @@ let make = (~query) => {
       | 0 =>
         <div className="col-start-3 col-end-3">
           {React.string("I couldn't find any cast that match: ")}
-          <span className="font-bold"> {React.string(query)} </span>
+          <span className="font-bold"> {query->Js.Global.decodeURI->React.string} </span>
         </div>
       | _ =>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 col-start-3 col-end-3">
