@@ -8,8 +8,9 @@ let years =
 let make = (~onChange) => {
   <div className="flex justify-end mb-8 relative">
     <select
-      className="appearance-none bg-gray-200 px-4 md:pr-8 py-2 rounded w-full md:w-auto border
-      border-gray-400"
+      className="appearance-none border-gray-300 px-4 md:pr-8 py-2 rounded
+      w-full md:w-auto border-2 focus:ring-2 focus:outline-none
+      focus:ring-offset-1 focus:ring-indigo-300"
       onChange={e => {
         let value = (e->ReactEvent.Form.target)["value"]
         onChange(value)
