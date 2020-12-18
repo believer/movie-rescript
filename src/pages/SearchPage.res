@@ -49,11 +49,7 @@ let make = (~query) => {
 
   <>
     <div className="my-8 grid grid-md">
-      <div className="col-start-3 col-end-3">
-        <h2 className="flex items-center mb-4 text-lg font-bold">
-          {React.string("Movies")} <hr className="flex-1 ml-8" />
-        </h2>
-      </div>
+      <div className="col-start-3 col-end-3"> <SectionHeader title="Movies" /> </div>
       {switch Belt.Array.length(data.movies.edges) {
       | 0 =>
         <div className="col-start-3 col-end-3">
@@ -82,11 +78,7 @@ let make = (~query) => {
       }}
     </div>
     <div className="my-8 grid grid-md">
-      <div className="col-start-3 col-end-3">
-        <h2 className="flex items-center mb-4 text-lg font-bold">
-          {React.string("Cast")} <hr className="flex-1 ml-8" />
-        </h2>
-      </div>
+      <div className="col-start-3 col-end-3"> <SectionHeader title="Cast" /> </div>
       {switch Belt.Array.length(data.cast.edges) {
       | 0 =>
         <div className="col-start-3 col-end-3">
