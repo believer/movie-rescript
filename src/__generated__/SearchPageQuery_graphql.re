@@ -8,7 +8,8 @@ module Types = {
     id: string,
     title: string,
     year: option(string),
-    fragmentRefs: ReasonRelay.fragmentRefs([ | `Poster_movie]),
+    fragmentRefs:
+      ReasonRelay.fragmentRefs([ | `Poster_movie | `Ratings_movie]),
   }
   and response_cast = {edges: array(response_cast_edges)}
   and response_cast_edges = {person: response_cast_edges_person}
@@ -291,6 +292,11 @@ return {
                     "args": null,
                     "kind": "FragmentSpread",
                     "name": "Poster_movie"
+                  },
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "Ratings_movie"
                   }
                 ],
                 "storageKey": null
@@ -404,6 +410,25 @@ return {
                     "kind": "ScalarField",
                     "name": "poster",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "rating",
+                    "kind": "LinkedField",
+                    "name": "ratings",
+                    "plural": true,
+                    "selections": [
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "rating",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -478,12 +503,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "83e3256fee8137d13dae40089bb2fc99",
+    "cacheID": "8bac51fe77d41416edd11f241cceec06",
     "id": null,
     "metadata": {},
     "name": "SearchPageQuery",
     "operationKind": "query",
-    "text": "query SearchPageQuery(\n  $query: String!\n) {\n  movies: movie_connection(where: {title: {_ilike: $query}}, order_by: {release_date: desc}) {\n    edges {\n      movie: node {\n        id\n        title\n        year\n        ...Poster_movie\n      }\n    }\n  }\n  cast: person_connection(first: 20, where: {name: {_ilike: $query}, movie_people: {job: {_eq: \"cast\"}}}, order_by: {movie_people_aggregate: {count: desc_nulls_last}}) {\n    edges {\n      person: node {\n        name\n        movie_people(limit: 3, order_by: {movie: {release_date: desc}}, where: {job: {_eq: \"cast\"}}) {\n          movie {\n            title\n            id\n          }\n          id\n        }\n        movie_people_aggregate(where: {job: {_eq: \"cast\"}}) {\n          aggregate {\n            count\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n"
+    "text": "query SearchPageQuery(\n  $query: String!\n) {\n  movies: movie_connection(where: {title: {_ilike: $query}}, order_by: {release_date: desc}) {\n    edges {\n      movie: node {\n        id\n        title\n        year\n        ...Poster_movie\n        ...Ratings_movie\n      }\n    }\n  }\n  cast: person_connection(first: 20, where: {name: {_ilike: $query}, movie_people: {job: {_eq: \"cast\"}}}, order_by: {movie_people_aggregate: {count: desc_nulls_last}}) {\n    edges {\n      person: node {\n        name\n        movie_people(limit: 3, order_by: {movie: {release_date: desc}}, where: {job: {_eq: \"cast\"}}) {\n          movie {\n            title\n            id\n          }\n          id\n        }\n        movie_people_aggregate(where: {job: {_eq: \"cast\"}}) {\n          aggregate {\n            count\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
 })() |json}

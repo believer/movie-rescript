@@ -10,6 +10,7 @@ module SearchQuery = %relay.query(`
           title
           year
           ...Poster_movie
+          ...Ratings_movie
         }
       }
     }
@@ -69,6 +70,7 @@ let make = (~query) => {
                   | Some(year) => <div> {React.string(year)} </div>
                   | None => React.null
                   }}
+                  <Rating movie=movie.fragmentRefs />
                 </div>
               </div>
             </Router.Link>
