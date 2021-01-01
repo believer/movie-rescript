@@ -48,9 +48,9 @@
     "postcss-loader": "4.1.0",
     "style-loader": "2.0.0",
     "tailwindcss": "^2.0.2",
-    "webpack": "5.10.3",
-    "webpack-cli": "4.2.0",
-    "webpack-dev-server": "3.11.0"
+    "webpack": "5.11.1",
+    "webpack-cli": "4.3.1",
+    "webpack-dev-server": "3.11.1"
   },
   "resolutions": {
     "react": "0.0.0-experimental-4ead6b530",
