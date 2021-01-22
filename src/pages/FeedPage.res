@@ -1,4 +1,4 @@
-module FeedQuery = %relay.query(`
+module FeedQuery = %relay(`
   query FeedPageQuery(
     $genreLimit: Int!
     $dateGte: timestamp!
@@ -8,7 +8,7 @@ module FeedQuery = %relay.query(`
   }
 `)
 
-module FeedFragment = %relay.fragment(`
+module FeedFragment = %relay(`
   fragment FeedPage_query on query_root
   @refetchable(queryName: "FeedPageRefetchQuery")
   @argumentDefinitions(

@@ -1,4 +1,4 @@
-module PersonQuery = %relay.query(`
+module PersonQuery = %relay(`
   query PersonPageQuery($id: ID!) {
     node(id: $id) {
       __typename

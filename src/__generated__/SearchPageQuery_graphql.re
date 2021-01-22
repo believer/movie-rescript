@@ -1,3 +1,4 @@
+
 /* @generated */
 
 module Types = {
@@ -47,29 +48,27 @@ module Types = {
 module Internal = {
   type wrapResponseRaw;
   let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"movies_edges_movie_year":{"n":""},"movies_edges_movie":{"f":""},"cast_edges_person_movie_people_aggregate_aggregate":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate_count":{"n":""}}} |json}
+    {json| {"__root":{"movies_edges_movie":{"f":""},"movies_edges_movie_year":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate_count":{"n":""}}} |json}
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
-    v
-    ->ReasonRelay.convertObj(
-        wrapResponseConverter,
-        wrapResponseConverterMap,
-        Js.null,
-      );
+    v->ReasonRelay.convertObj(
+      wrapResponseConverter,
+      wrapResponseConverterMap,
+      Js.null,
+    );
 
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"movies_edges_movie_year":{"n":""},"movies_edges_movie":{"f":""},"cast_edges_person_movie_people_aggregate_aggregate":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate_count":{"n":""}}} |json}
+    {json| {"__root":{"movies_edges_movie":{"f":""},"movies_edges_movie_year":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate_count":{"n":""}}} |json}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
-    v
-    ->ReasonRelay.convertObj(
-        responseConverter,
-        responseConverterMap,
-        Js.undefined,
-      );
+    v->ReasonRelay.convertObj(
+      responseConverter,
+      responseConverterMap,
+      Js.undefined,
+    );
 
   type wrapRawResponseRaw = wrapResponseRaw;
   let convertWrapRawResponse = convertWrapResponse;
@@ -82,12 +81,11 @@ module Internal = {
   ];
   let variablesConverterMap = ();
   let convertVariables = v =>
-    v
-    ->ReasonRelay.convertObj(
-        variablesConverter,
-        variablesConverterMap,
-        Js.undefined,
-      );
+    v->ReasonRelay.convertObj(
+      variablesConverter,
+      variablesConverterMap,
+      Js.undefined,
+    );
 };
 
 type queryRef;
@@ -101,8 +99,9 @@ type relayOperationNode;
 
 type operationType = ReasonRelay.queryNode(relayOperationNode);
 
-let node: operationType = [%raw
-  {json| (function(){
+
+
+let node: operationType = [%raw {json| (function(){
 var v0 = [
   {
     "defaultValue": null,
@@ -511,14 +510,13 @@ return {
     "text": "query SearchPageQuery(\n  $query: String!\n) {\n  movies: movie_connection(where: {title: {_ilike: $query}}, order_by: {release_date: desc}) {\n    edges {\n      movie: node {\n        id\n        title\n        year\n        ...Poster_movie\n        ...Ratings_movie\n      }\n    }\n  }\n  cast: person_connection(first: 20, where: {name: {_ilike: $query}, movie_people: {job: {_eq: \"cast\"}}}, order_by: {movie_people_aggregate: {count: desc_nulls_last}}) {\n    edges {\n      person: node {\n        name\n        movie_people(limit: 3, order_by: {movie: {release_date: desc}}, where: {job: {_eq: \"cast\"}}) {\n          movie {\n            title\n            id\n          }\n          id\n        }\n        movie_people_aggregate(where: {job: {_eq: \"cast\"}}) {\n          aggregate {\n            count\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
-})() |json}
-];
+})() |json}];
 
 include ReasonRelay.MakeLoadQuery({
-  type variables = Types.variables;
-  type loadedQueryRef = queryRef;
-  type response = Types.response;
-  type node = relayOperationNode;
-  let query = node;
-  let convertVariables = Internal.convertVariables;
-});
+    type variables = Types.variables;
+    type loadedQueryRef = queryRef;
+    type response = Types.response;
+    type node = relayOperationNode;
+    let query = node;
+    let convertVariables = Internal.convertVariables;
+  });

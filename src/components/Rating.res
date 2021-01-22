@@ -1,4 +1,4 @@
-module RatingFragment = %relay.fragment(`
+module RatingFragment = %relay(`
   fragment Ratings_movie on movie {
     ratings {
       id

@@ -1,3 +1,4 @@
+
 /* @generated */
 
 module Types = {
@@ -14,16 +15,15 @@ module Types = {
 module Internal = {
   type fragmentRaw;
   let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"release_date":{"n":""},"tagline":{"n":""}}} |json}
+    {json| {"__root":{"tagline":{"n":""},"release_date":{"n":""}}} |json}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
-    v
-    ->ReasonRelay.convertObj(
-        fragmentConverter,
-        fragmentConverterMap,
-        Js.undefined,
-      );
+    v->ReasonRelay.convertObj(
+      fragmentConverter,
+      fragmentConverterMap,
+      Js.undefined,
+    );
 };
 
 type t;
@@ -38,8 +38,9 @@ type relayOperationNode;
 
 type operationType = ReasonRelay.fragmentNode(relayOperationNode);
 
-let node: operationType = [%raw
-  {json| {
+
+
+let node: operationType = [%raw {json| {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -76,5 +77,6 @@ let node: operationType = [%raw
   ],
   "type": "movie",
   "abstractKey": null
-} |json}
-];
+} |json}];
+
+

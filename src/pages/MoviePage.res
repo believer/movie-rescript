@@ -1,4 +1,4 @@
-module MovieQuery = %relay.query(`
+module MovieQuery = %relay(`
   query MoviePageQuery($id: ID!, $genreLimit: Int!) {
     movie: node(id: $id) {
       __typename

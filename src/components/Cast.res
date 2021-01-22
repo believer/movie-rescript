@@ -1,4 +1,4 @@
-module CastFragment = %relay.fragment(`
+module CastFragment = %relay(`
   fragment Cast_movie on movie {
     cast: movie_people(
       where: {job: {_eq: "cast"}},

@@ -1,4 +1,4 @@
-module WatchDatesFragment = %relay.fragment(`
+module WatchDatesFragment = %relay(`
   fragment WatchDates_movie on movie {
     dates_watched {
       date
@@ -7,7 +7,7 @@ module WatchDatesFragment = %relay.fragment(`
   }
 `)
 
-module AddWatchMutation = %relay.mutation(`
+module AddWatchMutation = %relay(`
   mutation WatchDatesMutation($id: Int!, $date: timestamp!) {
     insert_seen_one(object: {movie_id: $id, date: $date}) {
       id

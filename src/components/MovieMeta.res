@@ -1,4 +1,4 @@
-module MovieMetaFragment = %relay.fragment(`
+module MovieMetaFragment = %relay(`
   fragment MovieMeta_movie on movie {
     imdb_id
     release_date

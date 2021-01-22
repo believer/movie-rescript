@@ -1,3 +1,4 @@
+
 /* @generated */
 
 module Types = {
@@ -28,29 +29,27 @@ module Types = {
 module Internal = {
   type wrapResponseRaw;
   let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"node":{"n":"","tnf":"person"},"node_jobs_job":{"c":"Job"},"node_jobs_movie_year":{"n":""}}} |json}
+    {json| {"__root":{"node_jobs_job":{"c":"Job"},"node":{"n":"","tnf":"person"},"node_jobs_movie_year":{"n":""}}} |json}
   ];
   let wrapResponseConverterMap = {"Job": Job.serialize};
   let convertWrapResponse = v =>
-    v
-    ->ReasonRelay.convertObj(
-        wrapResponseConverter,
-        wrapResponseConverterMap,
-        Js.null,
-      );
+    v->ReasonRelay.convertObj(
+      wrapResponseConverter,
+      wrapResponseConverterMap,
+      Js.null,
+    );
 
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"node":{"n":"","tnf":"person"},"node_jobs_job":{"c":"Job"},"node_jobs_movie_year":{"n":""}}} |json}
+    {json| {"__root":{"node_jobs_job":{"c":"Job"},"node":{"n":"","tnf":"person"},"node_jobs_movie_year":{"n":""}}} |json}
   ];
   let responseConverterMap = {"Job": Job.parse};
   let convertResponse = v =>
-    v
-    ->ReasonRelay.convertObj(
-        responseConverter,
-        responseConverterMap,
-        Js.undefined,
-      );
+    v->ReasonRelay.convertObj(
+      responseConverter,
+      responseConverterMap,
+      Js.undefined,
+    );
 
   type wrapRawResponseRaw = wrapResponseRaw;
   let convertWrapRawResponse = convertWrapResponse;
@@ -63,12 +62,11 @@ module Internal = {
   ];
   let variablesConverterMap = ();
   let convertVariables = v =>
-    v
-    ->ReasonRelay.convertObj(
-        variablesConverter,
-        variablesConverterMap,
-        Js.undefined,
-      );
+    v->ReasonRelay.convertObj(
+      variablesConverter,
+      variablesConverterMap,
+      Js.undefined,
+    );
 };
 
 type queryRef;
@@ -82,8 +80,9 @@ type relayOperationNode;
 
 type operationType = ReasonRelay.queryNode(relayOperationNode);
 
-let node: operationType = [%raw
-  {json| (function(){
+
+
+let node: operationType = [%raw {json| (function(){
 var v0 = [
   {
     "defaultValue": null,
@@ -260,14 +259,13 @@ return {
     "text": "query PersonPageQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on person {\n      id\n      name\n      jobs: movie_people(order_by: {movie: {release_date: desc}}) {\n        job\n        movie {\n          id\n          title\n          year\n        }\n        id\n      }\n    }\n    id\n  }\n}\n"
   }
 };
-})() |json}
-];
+})() |json}];
 
 include ReasonRelay.MakeLoadQuery({
-  type variables = Types.variables;
-  type loadedQueryRef = queryRef;
-  type response = Types.response;
-  type node = relayOperationNode;
-  let query = node;
-  let convertVariables = Internal.convertVariables;
-});
+    type variables = Types.variables;
+    type loadedQueryRef = queryRef;
+    type response = Types.response;
+    type node = relayOperationNode;
+    let query = node;
+    let convertVariables = Internal.convertVariables;
+  });

@@ -1,4 +1,4 @@
-module DirectorFragment = %relay.fragment(`
+module DirectorFragment = %relay(`
   fragment Director_movie on movie {
     director: movie_people(where: {job: {_eq: "director"}}) {
       person {

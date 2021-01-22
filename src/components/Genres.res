@@ -1,4 +1,4 @@
-module GenresFragment = %relay.fragment(`
+module GenresFragment = %relay(`
   fragment Genres_movie on movie
     @argumentDefinitions(
       genreLimit: {type: "Int", defaultValue: 3},

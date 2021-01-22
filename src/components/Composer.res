@@ -1,4 +1,4 @@
-module ComposerFragment = %relay.fragment(`
+module ComposerFragment = %relay(`
   fragment Composer_movie on movie {
     composer: movie_people(where: {job: {_eq: "composer"}}) {
       person {

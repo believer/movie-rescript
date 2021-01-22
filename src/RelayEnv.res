@@ -8,6 +8,7 @@ let fetchQuery: (unit => Js.Promise.t<'a>) => ReasonRelay.Network.fetchFunctionP
   operation,
   variables,
   _cacheConfig,
+  _uploadables,
 ) =>
   getAccessTokenSilently()
   |> then_(token =>

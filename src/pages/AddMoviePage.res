@@ -1,7 +1,7 @@
 @val
 external stringify: ('a, Js.Null.t<'b>, int) => string = "JSON.stringify"
 
-module AddMovieMutation = %relay.mutation(`
+module AddMovieMutation = %relay(`
   mutation AddMoviePageMutation(
     $imdbId: String
     $overview: String

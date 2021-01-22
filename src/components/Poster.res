@@ -1,4 +1,4 @@
-module PosterFragment = %relay.fragment(`
+module PosterFragment = %relay(`
   fragment Poster_movie on movie {
     poster
   }

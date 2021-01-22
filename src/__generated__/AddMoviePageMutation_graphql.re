@@ -1,3 +1,4 @@
+
 /* @generated */
 
 module Types = {
@@ -333,12 +334,11 @@ module Internal = {
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
-    v
-    ->ReasonRelay.convertObj(
-        wrapResponseConverter,
-        wrapResponseConverterMap,
-        Js.null,
-      );
+    v->ReasonRelay.convertObj(
+      wrapResponseConverter,
+      wrapResponseConverterMap,
+      Js.null,
+    );
 
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
@@ -346,12 +346,11 @@ module Internal = {
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
-    v
-    ->ReasonRelay.convertObj(
-        responseConverter,
-        responseConverterMap,
-        Js.undefined,
-      );
+    v->ReasonRelay.convertObj(
+      responseConverter,
+      responseConverterMap,
+      Js.undefined,
+    );
 
   type wrapRawResponseRaw = wrapResponseRaw;
   let convertWrapRawResponse = convertWrapResponse;
@@ -360,16 +359,25 @@ module Internal = {
   let convertRawResponse = convertResponse;
 
   let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"imdbId":{"n":""},"overview":{"n":""},"runtime":{"n":""},"poster":{"n":""},"releaseDate":{"n":""},"tagline":{"n":""},"title":{"n":""},"rating":{"n":""},"genres":{"r":"movie_genre_insert_input"},"people":{"r":"movie_person_insert_input"},"watchDates":{"r":"seen_insert_input"}},"Int_comparison_exp":{"_eq":{"n":""},"_gt":{"n":""},"_gte":{"n":""},"_in":{"n":""},"_is_null":{"n":""},"_lt":{"n":""},"_lte":{"n":""},"_neq":{"n":""},"_nin":{"n":""}},"String_comparison_exp":{"_eq":{"n":""},"_gt":{"n":""},"_gte":{"n":""},"_ilike":{"n":""},"_in":{"n":""},"_is_null":{"n":""},"_like":{"n":""},"_lt":{"n":""},"_lte":{"n":""},"_neq":{"n":""},"_nilike":{"n":""},"_nin":{"n":""},"_nlike":{"n":""},"_nsimilar":{"n":""},"_similar":{"n":""}},"date_comparison_exp":{"_eq":{"n":""},"_gt":{"n":""},"_gte":{"n":""},"_in":{"n":""},"_is_null":{"n":""},"_lt":{"n":""},"_lte":{"n":""},"_neq":{"n":""},"_nin":{"n":""}},"genre_bool_exp":{"_and":{"n":"","na":"","r":"genre_bool_exp"},"_not":{"n":"","r":"genre_bool_exp"},"_or":{"n":"","na":"","r":"genre_bool_exp"},"id":{"n":"","r":"Int_comparison_exp"},"name":{"n":"","r":"String_comparison_exp"}},"genre_insert_input":{"id":{"n":""},"name":{"n":""}},"genre_obj_rel_insert_input":{"data":{"r":"genre_insert_input"},"on_conflict":{"n":"","r":"genre_on_conflict"}},"genre_on_conflict":{"where":{"n":"","r":"genre_bool_exp"}},"job_comparison_exp":{"_eq":{"n":"","c":"Job"},"_gt":{"n":"","c":"Job"},"_gte":{"n":"","c":"Job"},"_in":{"n":"","c":"Job"},"_is_null":{"n":""},"_lt":{"n":"","c":"Job"},"_lte":{"n":"","c":"Job"},"_neq":{"n":"","c":"Job"},"_nin":{"n":"","c":"Job"}},"movie_bool_exp":{"_and":{"n":"","na":"","r":"movie_bool_exp"},"_not":{"n":"","r":"movie_bool_exp"},"_or":{"n":"","na":"","r":"movie_bool_exp"},"created_at":{"n":"","r":"timestamp_comparison_exp"},"dates_watched":{"n":"","r":"seen_bool_exp"},"id":{"n":"","r":"Int_comparison_exp"},"imdb_id":{"n":"","r":"String_comparison_exp"},"imdb_rating":{"n":"","r":"String_comparison_exp"},"movie_genres":{"n":"","r":"movie_genre_bool_exp"},"movie_people":{"n":"","r":"movie_person_bool_exp"},"overview":{"n":"","r":"String_comparison_exp"},"poster":{"n":"","r":"String_comparison_exp"},"ratings":{"n":"","r":"rating_bool_exp"},"release_date":{"n":"","r":"date_comparison_exp"},"runtime":{"n":"","r":"Int_comparison_exp"},"tagline":{"n":"","r":"String_comparison_exp"},"title":{"n":"","r":"String_comparison_exp"},"updated_at":{"n":"","r":"timestamp_comparison_exp"}},"movie_genre_arr_rel_insert_input":{"data":{"r":"movie_genre_insert_input"},"on_conflict":{"n":"","r":"movie_genre_on_conflict"}},"movie_genre_bool_exp":{"_and":{"n":"","na":"","r":"movie_genre_bool_exp"},"_not":{"n":"","r":"movie_genre_bool_exp"},"_or":{"n":"","na":"","r":"movie_genre_bool_exp"},"genre":{"n":"","r":"genre_bool_exp"},"genre_id":{"n":"","r":"Int_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"movie_id":{"n":"","r":"Int_comparison_exp"}},"movie_genre_insert_input":{"genre":{"n":"","r":"genre_obj_rel_insert_input"},"genre_id":{"n":""},"id":{"n":""},"movie_id":{"n":""}},"movie_genre_on_conflict":{"where":{"n":"","r":"movie_genre_bool_exp"}},"movie_insert_input":{"created_at":{"n":""},"dates_watched":{"n":"","r":"seen_arr_rel_insert_input"},"id":{"n":""},"imdb_id":{"n":""},"imdb_rating":{"n":""},"movie_genres":{"n":"","r":"movie_genre_arr_rel_insert_input"},"movie_people":{"n":"","r":"movie_person_arr_rel_insert_input"},"overview":{"n":""},"poster":{"n":""},"ratings":{"n":"","r":"rating_arr_rel_insert_input"},"release_date":{"n":""},"runtime":{"n":""},"tagline":{"n":""},"title":{"n":""},"updated_at":{"n":""}},"movie_obj_rel_insert_input":{"data":{"r":"movie_insert_input"},"on_conflict":{"n":"","r":"movie_on_conflict"}},"movie_on_conflict":{"where":{"n":"","r":"movie_bool_exp"}},"movie_person_arr_rel_insert_input":{"data":{"r":"movie_person_insert_input"},"on_conflict":{"n":"","r":"movie_person_on_conflict"}},"movie_person_bool_exp":{"_and":{"n":"","na":"","r":"movie_person_bool_exp"},"_not":{"n":"","r":"movie_person_bool_exp"},"_or":{"n":"","na":"","r":"movie_person_bool_exp"},"id":{"n":"","r":"Int_comparison_exp"},"job":{"n":"","r":"job_comparison_exp"},"movie":{"n":"","r":"movie_bool_exp"},"movie_id":{"n":"","r":"Int_comparison_exp"},"person":{"n":"","r":"person_bool_exp"},"person_id":{"n":"","r":"Int_comparison_exp"}},"movie_person_insert_input":{"id":{"n":""},"job":{"n":"","c":"Job"},"movie":{"n":"","r":"movie_obj_rel_insert_input"},"movie_id":{"n":""},"person":{"n":"","r":"person_obj_rel_insert_input"},"person_id":{"n":""}},"movie_person_on_conflict":{"where":{"n":"","r":"movie_person_bool_exp"}},"person_bool_exp":{"_and":{"n":"","na":"","r":"person_bool_exp"},"_not":{"n":"","r":"person_bool_exp"},"_or":{"n":"","na":"","r":"person_bool_exp"},"id":{"n":"","r":"Int_comparison_exp"},"movie_people":{"n":"","r":"movie_person_bool_exp"},"name":{"n":"","r":"String_comparison_exp"},"original_id":{"n":"","r":"Int_comparison_exp"}},"person_insert_input":{"id":{"n":""},"movie_people":{"n":"","r":"movie_person_arr_rel_insert_input"},"name":{"n":""},"original_id":{"n":""}},"person_obj_rel_insert_input":{"data":{"r":"person_insert_input"},"on_conflict":{"n":"","r":"person_on_conflict"}},"person_on_conflict":{"where":{"n":"","r":"person_bool_exp"}},"rating_arr_rel_insert_input":{"data":{"r":"rating_insert_input"},"on_conflict":{"n":"","r":"rating_on_conflict"}},"rating_bool_exp":{"_and":{"n":"","na":"","r":"rating_bool_exp"},"_not":{"n":"","r":"rating_bool_exp"},"_or":{"n":"","na":"","r":"rating_bool_exp"},"created_at":{"n":"","r":"timestamp_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"movie_id":{"n":"","r":"Int_comparison_exp"},"rating":{"n":"","r":"Int_comparison_exp"},"updated_at":{"n":"","r":"timestamp_comparison_exp"}},"rating_insert_input":{"created_at":{"n":""},"id":{"n":""},"movie_id":{"n":""},"rating":{"n":""},"updated_at":{"n":""}},"rating_on_conflict":{"where":{"n":"","r":"rating_bool_exp"}},"seen_arr_rel_insert_input":{"data":{"r":"seen_insert_input"},"on_conflict":{"n":"","r":"seen_on_conflict"}},"seen_bool_exp":{"_and":{"n":"","na":"","r":"seen_bool_exp"},"_not":{"n":"","r":"seen_bool_exp"},"_or":{"n":"","na":"","r":"seen_bool_exp"},"date":{"n":"","r":"timestamp_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"movie":{"n":"","r":"movie_bool_exp"},"movie_id":{"n":"","r":"Int_comparison_exp"}},"seen_insert_input":{"date":{"n":""},"id":{"n":""},"movie":{"n":"","r":"movie_obj_rel_insert_input"},"movie_id":{"n":""}},"seen_on_conflict":{"where":{"n":"","r":"seen_bool_exp"}},"timestamp_comparison_exp":{"_eq":{"n":""},"_gt":{"n":""},"_gte":{"n":""},"_in":{"n":""},"_is_null":{"n":""},"_lt":{"n":""},"_lte":{"n":""},"_neq":{"n":""},"_nin":{"n":""}}} |json}
+    {json| {"seen_insert_input":{"movie":{"n":"","r":"movie_obj_rel_insert_input"},"movie_id":{"n":""},"id":{"n":""},"date":{"n":""}},"person_obj_rel_insert_input":{"data":{"r":"person_insert_input"},"on_conflict":{"n":"","r":"person_on_conflict"}},"genre_insert_input":{"name":{"n":""},"id":{"n":""}},"Int_comparison_exp":{"_nin":{"n":""},"_lte":{"n":""},"_lt":{"n":""},"_gt":{"n":""},"_eq":{"n":""},"_neq":{"n":""},"_is_null":{"n":""},"_gte":{"n":""},"_in":{"n":""}},"movie_person_bool_exp":{"person_id":{"n":"","r":"Int_comparison_exp"},"movie":{"n":"","r":"movie_bool_exp"},"movie_id":{"n":"","r":"Int_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"job":{"n":"","r":"job_comparison_exp"},"_or":{"n":"","na":"","r":"movie_person_bool_exp"},"_and":{"n":"","na":"","r":"movie_person_bool_exp"},"_not":{"n":"","r":"movie_person_bool_exp"},"person":{"n":"","r":"person_bool_exp"}},"rating_arr_rel_insert_input":{"data":{"r":"rating_insert_input"},"on_conflict":{"n":"","r":"rating_on_conflict"}},"__root":{"overview":{"n":""},"people":{"r":"movie_person_insert_input"},"imdbId":{"n":""},"title":{"n":""},"tagline":{"n":""},"genres":{"r":"movie_genre_insert_input"},"watchDates":{"r":"seen_insert_input"},"poster":{"n":""},"runtime":{"n":""},"releaseDate":{"n":""},"rating":{"n":""}},"person_on_conflict":{"where":{"n":"","r":"person_bool_exp"}},"seen_on_conflict":{"where":{"n":"","r":"seen_bool_exp"}},"movie_person_arr_rel_insert_input":{"data":{"r":"movie_person_insert_input"},"on_conflict":{"n":"","r":"movie_person_on_conflict"}},"movie_genre_insert_input":{"movie_id":{"n":""},"id":{"n":""},"genre":{"n":"","r":"genre_obj_rel_insert_input"},"genre_id":{"n":""}},"rating_insert_input":{"movie_id":{"n":""},"id":{"n":""},"created_at":{"n":""},"updated_at":{"n":""},"rating":{"n":""}},"rating_on_conflict":{"where":{"n":"","r":"rating_bool_exp"}},"String_comparison_exp":{"_ilike":{"n":""},"_similar":{"n":""},"_nlike":{"n":""},"_nin":{"n":""},"_lte":{"n":""},"_lt":{"n":""},"_gt":{"n":""},"_nsimilar":{"n":""},"_nilike":{"n":""},"_eq":{"n":""},"_neq":{"n":""},"_is_null":{"n":""},"_gte":{"n":""},"_in":{"n":""},"_like":{"n":""}},"job_comparison_exp":{"_nin":{"c":"Job","n":""},"_lte":{"c":"Job","n":""},"_lt":{"c":"Job","n":""},"_gt":{"c":"Job","n":""},"_eq":{"c":"Job","n":""},"_neq":{"c":"Job","n":""},"_is_null":{"n":""},"_gte":{"c":"Job","n":""},"_in":{"c":"Job","n":""}},"movie_genre_bool_exp":{"movie_id":{"n":"","r":"Int_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"genre":{"n":"","r":"genre_bool_exp"},"genre_id":{"n":"","r":"Int_comparison_exp"},"_or":{"n":"","na":"","r":"movie_genre_bool_exp"},"_and":{"n":"","na":"","r":"movie_genre_bool_exp"},"_not":{"n":"","r":"movie_genre_bool_exp"}},"genre_obj_rel_insert_input":{"data":{"r":"genre_insert_input"},"on_conflict":{"n":"","r":"genre_on_conflict"}},"date_comparison_exp":{"_nin":{"n":""},"_lte":{"n":""},"_lt":{"n":""},"_gt":{"n":""},"_eq":{"n":""},"_neq":{"n":""},"_is_null":{"n":""},"_gte":{"n":""},"_in":{"n":""}},"timestamp_comparison_exp":{"_nin":{"n":""},"_lte":{"n":""},"_lt":{"n":""},"_gt":{"n":""},"_eq":{"n":""},"_neq":{"n":""},"_is_null":{"n":""},"_gte":{"n":""},"_in":{"n":""}},"movie_obj_rel_insert_input":{"data":{"r":"movie_insert_input"},"on_conflict":{"n":"","r":"movie_on_conflict"}},"movie_insert_input":{"overview":{"n":""},"id":{"n":""},"title":{"n":""},"tagline":{"n":""},"imdb_rating":{"n":""},"movie_people":{"n":"","r":"movie_person_arr_rel_insert_input"},"imdb_id":{"n":""},"dates_watched":{"n":"","r":"seen_arr_rel_insert_input"},"release_date":{"n":""},"poster":{"n":""},"runtime":{"n":""},"created_at":{"n":""},"ratings":{"n":"","r":"rating_arr_rel_insert_input"},"movie_genres":{"n":"","r":"movie_genre_arr_rel_insert_input"},"updated_at":{"n":""}},"movie_genre_arr_rel_insert_input":{"data":{"r":"movie_genre_insert_input"},"on_conflict":{"n":"","r":"movie_genre_on_conflict"}},"genre_on_conflict":{"where":{"n":"","r":"genre_bool_exp"}},"person_bool_exp":{"name":{"n":"","r":"String_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"original_id":{"n":"","r":"Int_comparison_exp"},"movie_people":{"n":"","r":"movie_person_bool_exp"},"_or":{"n":"","na":"","r":"person_bool_exp"},"_and":{"n":"","na":"","r":"person_bool_exp"},"_not":{"n":"","r":"person_bool_exp"}},"movie_on_conflict":{"where":{"n":"","r":"movie_bool_exp"}},"movie_genre_on_conflict":{"where":{"n":"","r":"movie_genre_bool_exp"}},"seen_bool_exp":{"movie":{"n":"","r":"movie_bool_exp"},"movie_id":{"n":"","r":"Int_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"_or":{"n":"","na":"","r":"seen_bool_exp"},"_and":{"n":"","na":"","r":"seen_bool_exp"},"date":{"n":"","r":"timestamp_comparison_exp"},"_not":{"n":"","r":"seen_bool_exp"}},"rating_bool_exp":{"movie_id":{"n":"","r":"Int_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"_or":{"n":"","na":"","r":"rating_bool_exp"},"_and":{"n":"","na":"","r":"rating_bool_exp"},"created_at":{"n":"","r":"timestamp_comparison_exp"},"_not":{"n":"","r":"rating_bool_exp"},"updated_at":{"n":"","r":"timestamp_comparison_exp"},"rating":{"n":"","r":"Int_comparison_exp"}},"seen_arr_rel_insert_input":{"data":{"r":"seen_insert_input"},"on_conflict":{"n":"","r":"seen_on_conflict"}},"movie_person_on_conflict":{"where":{"n":"","r":"movie_person_bool_exp"}},"person_insert_input":{"name":{"n":""},"id":{"n":""},"original_id":{"n":""},"movie_people":{"n":"","r":"movie_person_arr_rel_insert_input"}},"genre_bool_exp":{"name":{"n":"","r":"String_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"_or":{"n":"","na":"","r":"genre_bool_exp"},"_and":{"n":"","na":"","r":"genre_bool_exp"},"_not":{"n":"","r":"genre_bool_exp"}},"movie_person_insert_input":{"person_id":{"n":""},"movie":{"n":"","r":"movie_obj_rel_insert_input"},"movie_id":{"n":""},"id":{"n":""},"job":{"c":"Job","n":""},"person":{"n":"","r":"person_obj_rel_insert_input"}},"movie_bool_exp":{"overview":{"n":"","r":"String_comparison_exp"},"id":{"n":"","r":"Int_comparison_exp"},"title":{"n":"","r":"String_comparison_exp"},"tagline":{"n":"","r":"String_comparison_exp"},"imdb_rating":{"n":"","r":"String_comparison_exp"},"movie_people":{"n":"","r":"movie_person_bool_exp"},"imdb_id":{"n":"","r":"String_comparison_exp"},"dates_watched":{"n":"","r":"seen_bool_exp"},"_or":{"n":"","na":"","r":"movie_bool_exp"},"release_date":{"n":"","r":"date_comparison_exp"},"_and":{"n":"","na":"","r":"movie_bool_exp"},"poster":{"n":"","r":"String_comparison_exp"},"runtime":{"n":"","r":"Int_comparison_exp"},"created_at":{"n":"","r":"timestamp_comparison_exp"},"_not":{"n":"","r":"movie_bool_exp"},"ratings":{"n":"","r":"rating_bool_exp"},"movie_genres":{"n":"","r":"movie_genre_bool_exp"},"updated_at":{"n":"","r":"timestamp_comparison_exp"}}} |json}
   ];
-  let variablesConverterMap = {"Job": Job.serialize};
+  let variablesConverterMap = {
+    "Job": Job.serialize,
+    "Job": Job.serialize,
+    "Job": Job.serialize,
+    "Job": Job.serialize,
+    "Job": Job.serialize,
+    "Job": Job.serialize,
+    "Job": Job.serialize,
+    "Job": Job.serialize,
+    "Job": Job.serialize,
+  };
   let convertVariables = v =>
-    v
-    ->ReasonRelay.convertObj(
-        variablesConverter,
-        variablesConverterMap,
-        Js.undefined,
-      );
+    v->ReasonRelay.convertObj(
+      variablesConverter,
+      variablesConverterMap,
+      Js.undefined,
+    );
 };
 
 module Utils = {
@@ -923,8 +931,9 @@ type relayOperationNode;
 
 type operationType = ReasonRelay.mutationNode(relayOperationNode);
 
-let node: operationType = [%raw
-  {json| (function(){
+
+
+let node: operationType = [%raw {json| (function(){
 var v0 = {
   "defaultValue": null,
   "kind": "LocalArgument",
@@ -1185,5 +1194,6 @@ return {
     "text": "mutation AddMoviePageMutation(\n  $imdbId: String\n  $overview: String\n  $runtime: Int\n  $poster: String\n  $releaseDate: date\n  $tagline: String\n  $title: String\n  $rating: Int\n  $genres: [movie_genre_insert_input!]!\n  $people: [movie_person_insert_input!]!\n  $watchDates: [seen_insert_input!]!\n) {\n  insert_movie_one(object: {imdb_id: $imdbId, overview: $overview, runtime: $runtime, poster: $poster, release_date: $releaseDate, tagline: $tagline, title: $title, ratings: {data: [{rating: $rating}]}, movie_genres: {data: $genres}, movie_people: {data: $people, on_conflict: {constraint: movie_person_movie_id_person_id_job_key, update_columns: job}}, dates_watched: {data: $watchDates}}, on_conflict: {constraint: movie_imdb_id_key, update_columns: title}) {\n    title\n    id\n  }\n}\n"
   }
 };
-})() |json}
-];
+})() |json}];
+
+

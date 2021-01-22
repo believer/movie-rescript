@@ -1,4 +1,4 @@
-module SearchQuery = %relay.query(`
+module SearchQuery = %relay(`
   query SearchPageQuery($query: String!) {
     movies: movie_connection(
       where: { title: { _ilike: $query } }

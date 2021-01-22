@@ -1,4 +1,4 @@
-module MovieOverviewFragment = %relay.fragment(`
+module MovieOverviewFragment = %relay(`
   fragment MovieOverview_movie on movie {
     overview
   }
