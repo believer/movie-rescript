@@ -25,7 +25,7 @@ module Route = {
     | Search(query) => "/search/" ++ query
     }
 
-  let go = path => path->toPath->ReasonReactRouter.push
+  let go = path => path->toPath->RescriptReactRouter.push
 }
 
 module Link = {

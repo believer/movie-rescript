@@ -1,6 +1,6 @@
 @react.component
 let make = () => {
-  let url = ReasonReactRouter.useUrl()
+  let url = RescriptReactRouter.useUrl()
   let path = Router.Route.fromPath(url.path)
   let (searchQuery, setSearchQuery) = React.useState(() => {
     switch path {

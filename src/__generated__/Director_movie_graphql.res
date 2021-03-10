@@ -1,71 +1,65 @@
-
 /* @generated */
-
+%%raw("/* @generated */")
 module Types = {
-  [@ocaml.warning "-30"];
-  type fragment_cast = {person: fragment_cast_person}
-  and fragment_cast_person = {
+  @@ocaml.warning("-30")
+  
+  type rec fragment_director = {
+    person: fragment_director_person,
+  }
+   and fragment_director_person = {
     id: string,
     name: string,
-  };
-
-  type fragment = {cast: array(fragment_cast)};
-};
+  }
+  
+  
+  type fragment = {
+    director: array<fragment_director>,
+  }
+}
 
 module Internal = {
-  type fragmentRaw;
-  let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {} |json}
-  ];
-  let fragmentConverterMap = ();
-  let convertFragment = v =>
-    v->ReasonRelay.convertObj(
-      fragmentConverter,
-      fragmentConverterMap,
-      Js.undefined,
-    );
-};
-
-type t;
-type fragmentRef;
+  type fragmentRaw
+  let fragmentConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{}`
+    )
+  
+  let fragmentConverterMap = ()
+  let convertFragment = v => v->RescriptRelay.convertObj(
+    fragmentConverter, 
+    fragmentConverterMap, 
+    Js.undefined
+  )
+}
+type t
+type fragmentRef
 external getFragmentRef:
-  ReasonRelay.fragmentRefs([> | `Cast_movie]) => fragmentRef =
-  "%identity";
-
-module Utils = {};
-
-type relayOperationNode;
-
-type operationType = ReasonRelay.fragmentNode(relayOperationNode);
+  RescriptRelay.fragmentRefs<[> | #Director_movie]> => fragmentRef = "%identity"
 
 
+module Utils = {
 
-let node: operationType = [%raw {json| {
+}
+type relayOperationNode
+type operationType = RescriptRelay.fragmentNode<relayOperationNode>
+
+
+let node: operationType = %raw(json` {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "Cast_movie",
+  "name": "Director_movie",
   "selections": [
     {
-      "alias": "cast",
+      "alias": "director",
       "args": [
-        {
-          "kind": "Literal",
-          "name": "order_by",
-          "value": {
-            "person": {
-              "movie_people_aggregate": {
-                "count": "desc"
-              }
-            }
-          }
-        },
         {
           "kind": "Literal",
           "name": "where",
           "value": {
             "job": {
-              "_eq": "cast"
+              "_eq": "director"
             }
           }
         }
@@ -101,11 +95,11 @@ let node: operationType = [%raw {json| {
           "storageKey": null
         }
       ],
-      "storageKey": "movie_people(order_by:{\"person\":{\"movie_people_aggregate\":{\"count\":\"desc\"}}},where:{\"job\":{\"_eq\":\"cast\"}})"
+      "storageKey": "movie_people(where:{\"job\":{\"_eq\":\"director\"}})"
     }
   ],
   "type": "movie",
   "abstractKey": null
-} |json}];
+} `)
 
 

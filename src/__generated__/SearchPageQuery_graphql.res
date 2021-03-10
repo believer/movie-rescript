@@ -1,107 +1,127 @@
-
 /* @generated */
-
+%%raw("/* @generated */")
 module Types = {
-  [@ocaml.warning "-30"];
-  type response_movies = {edges: array(response_movies_edges)}
-  and response_movies_edges = {movie: response_movies_edges_movie}
-  and response_movies_edges_movie = {
+  @@ocaml.warning("-30")
+  
+  type rec response_movies = {
+    edges: array<response_movies_edges>,
+  }
+   and response_movies_edges = {
+    movie: response_movies_edges_movie,
+  }
+   and response_movies_edges_movie = {
     id: string,
     title: string,
-    year: option(string),
-    fragmentRefs:
-      ReasonRelay.fragmentRefs([ | `Poster_movie | `Ratings_movie]),
+    year: option<string>,
+    fragmentRefs: RescriptRelay.fragmentRefs<[ | #Poster_movie | #Ratings_movie]>
   }
-  and response_cast = {edges: array(response_cast_edges)}
-  and response_cast_edges = {person: response_cast_edges_person}
-  and response_cast_edges_person = {
+   and response_cast = {
+    edges: array<response_cast_edges>,
+  }
+   and response_cast_edges = {
+    person: response_cast_edges_person,
+  }
+   and response_cast_edges_person = {
     name: string,
-    movie_people: array(response_cast_edges_person_movie_people),
+    movie_people: array<response_cast_edges_person_movie_people>,
     movie_people_aggregate: response_cast_edges_person_movie_people_aggregate,
     id: string,
   }
-  and response_cast_edges_person_movie_people = {
+   and response_cast_edges_person_movie_people = {
     movie: response_cast_edges_person_movie_people_movie,
     id: string,
   }
-  and response_cast_edges_person_movie_people_movie = {title: string}
-  and response_cast_edges_person_movie_people_aggregate = {
-    aggregate:
-      option(response_cast_edges_person_movie_people_aggregate_aggregate),
+   and response_cast_edges_person_movie_people_movie = {
+    title: string,
   }
-  and response_cast_edges_person_movie_people_aggregate_aggregate = {
-    count: option(int),
-  };
-
+   and response_cast_edges_person_movie_people_aggregate = {
+    aggregate: option<response_cast_edges_person_movie_people_aggregate_aggregate>,
+  }
+   and response_cast_edges_person_movie_people_aggregate_aggregate = {
+    count: option<int>,
+  }
+  
+  
   type response = {
     movies: response_movies,
     cast: response_cast,
-  };
-  type rawResponse = response;
-  type refetchVariables = {query: option(string)};
-  let makeRefetchVariables = (~query=?, ()): refetchVariables => {
-    query: query,
-  };
-  type variables = {query: string};
-};
+  }
+  type rawResponse = response
+  type refetchVariables = {
+    query: option<string>,
+  }
+  let makeRefetchVariables = (
+    ~query=?,
+    ()
+  ): refetchVariables => {
+    query: query
+  }
+  
+  type variables = {
+    query: string,
+  }
+}
 
 module Internal = {
-  type wrapResponseRaw;
-  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"movies_edges_movie":{"f":""},"movies_edges_movie_year":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate_count":{"n":""}}} |json}
-  ];
-  let wrapResponseConverterMap = ();
-  let convertWrapResponse = v =>
-    v->ReasonRelay.convertObj(
-      wrapResponseConverter,
-      wrapResponseConverterMap,
-      Js.null,
-    );
+  type wrapResponseRaw
+  let wrapResponseConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{"__root":{"movies_edges_movie":{"f":""},"movies_edges_movie_year":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate_count":{"n":""}}}`
+    )
+  
+  let wrapResponseConverterMap = ()
+  let convertWrapResponse = v => v->RescriptRelay.convertObj(
+    wrapResponseConverter, 
+    wrapResponseConverterMap, 
+    Js.null
+  )
+  type responseRaw
+  let responseConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{"__root":{"movies_edges_movie":{"f":""},"movies_edges_movie_year":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate_count":{"n":""}}}`
+    )
+  
+  let responseConverterMap = ()
+  let convertResponse = v => v->RescriptRelay.convertObj(
+    responseConverter, 
+    responseConverterMap, 
+    Js.undefined
+  )
+  type wrapRawResponseRaw = wrapResponseRaw
+  let convertWrapRawResponse = convertWrapResponse
+  type rawResponseRaw = responseRaw
+  let convertRawResponse = convertResponse
+  let variablesConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{}`
+    )
+  
+  let variablesConverterMap = ()
+  let convertVariables = v => v->RescriptRelay.convertObj(
+    variablesConverter, 
+    variablesConverterMap, 
+    Js.undefined
+  )
+}
 
-  type responseRaw;
-  let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"movies_edges_movie":{"f":""},"movies_edges_movie_year":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate":{"n":""},"cast_edges_person_movie_people_aggregate_aggregate_count":{"n":""}}} |json}
-  ];
-  let responseConverterMap = ();
-  let convertResponse = v =>
-    v->ReasonRelay.convertObj(
-      responseConverter,
-      responseConverterMap,
-      Js.undefined,
-    );
-
-  type wrapRawResponseRaw = wrapResponseRaw;
-  let convertWrapRawResponse = convertWrapResponse;
-
-  type rawResponseRaw = responseRaw;
-  let convertRawResponse = convertResponse;
-
-  let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {} |json}
-  ];
-  let variablesConverterMap = ();
-  let convertVariables = v =>
-    v->ReasonRelay.convertObj(
-      variablesConverter,
-      variablesConverterMap,
-      Js.undefined,
-    );
-};
-
-type queryRef;
+type queryRef
 
 module Utils = {
-  open Types;
-  let makeVariables = (~query): variables => {query: query};
-};
+  open Types
+  let makeVariables = (
+    ~query
+  ): variables => {
+    query: query
+  }
+}
+type relayOperationNode
+type operationType = RescriptRelay.queryNode<relayOperationNode>
 
-type relayOperationNode;
 
-type operationType = ReasonRelay.queryNode(relayOperationNode);
-
-
-
-let node: operationType = [%raw {json| (function(){
+let node: operationType = %raw(json` (function(){
 var v0 = [
   {
     "defaultValue": null,
@@ -510,13 +530,13 @@ return {
     "text": "query SearchPageQuery(\n  $query: String!\n) {\n  movies: movie_connection(where: {title: {_ilike: $query}}, order_by: {release_date: desc}) {\n    edges {\n      movie: node {\n        id\n        title\n        year\n        ...Poster_movie\n        ...Ratings_movie\n      }\n    }\n  }\n  cast: person_connection(first: 20, where: {name: {_ilike: $query}, movie_people: {job: {_eq: \"cast\"}}}, order_by: {movie_people_aggregate: {count: desc_nulls_last}}) {\n    edges {\n      person: node {\n        name\n        movie_people(limit: 3, order_by: {movie: {release_date: desc}}, where: {job: {_eq: \"cast\"}}) {\n          movie {\n            title\n            id\n          }\n          id\n        }\n        movie_people_aggregate(where: {job: {_eq: \"cast\"}}) {\n          aggregate {\n            count\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
-})() |json}];
+})() `)
 
-include ReasonRelay.MakeLoadQuery({
-    type variables = Types.variables;
-    type loadedQueryRef = queryRef;
-    type response = Types.response;
-    type node = relayOperationNode;
-    let query = node;
-    let convertVariables = Internal.convertVariables;
+include RescriptRelay.MakeLoadQuery({
+    type variables = Types.variables
+    type loadedQueryRef = queryRef
+    type response = Types.response
+    type node = relayOperationNode
+    let query = node
+    let convertVariables = Internal.convertVariables
   });

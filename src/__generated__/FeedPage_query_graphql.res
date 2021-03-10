@@ -1,55 +1,62 @@
-
 /* @generated */
-
+%%raw("/* @generated */")
 module Types = {
-  [@ocaml.warning "-30"];
-  type fragment_feed = {edges: array(fragment_feed_edges)}
-  and fragment_feed_edges = {node: fragment_feed_edges_node}
-  and fragment_feed_edges_node = {movie: fragment_feed_edges_node_movie}
-  and fragment_feed_edges_node_movie = {
+  @@ocaml.warning("-30")
+  
+  type rec fragment_feed = {
+    edges: array<fragment_feed_edges>,
+  }
+   and fragment_feed_edges = {
+    node: fragment_feed_edges_node,
+  }
+   and fragment_feed_edges_node = {
+    movie: fragment_feed_edges_node_movie,
+  }
+   and fragment_feed_edges_node_movie = {
     id: string,
-    year: option(string),
+    year: option<string>,
     title: string,
-    fragmentRefs:
-      ReasonRelay.fragmentRefs(
-        [ | `Genres_movie | `Poster_movie | `Ratings_movie],
-      ),
-  };
-
-  type fragment = {feed: fragment_feed};
-};
+    fragmentRefs: RescriptRelay.fragmentRefs<[ | #Genres_movie | #Poster_movie | #Ratings_movie]>
+  }
+  
+  
+  type fragment = {
+    feed: fragment_feed,
+  }
+}
 
 module Internal = {
-  type fragmentRaw;
-  let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"feed_edges_node_movie_year":{"n":""},"feed_edges_node_movie":{"f":""}}} |json}
-  ];
-  let fragmentConverterMap = ();
-  let convertFragment = v =>
-    v->ReasonRelay.convertObj(
-      fragmentConverter,
-      fragmentConverterMap,
-      Js.undefined,
-    );
-};
-
-type t;
-type fragmentRef;
+  type fragmentRaw
+  let fragmentConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{"__root":{"feed_edges_node_movie_year":{"n":""},"feed_edges_node_movie":{"f":""}}}`
+    )
+  
+  let fragmentConverterMap = ()
+  let convertFragment = v => v->RescriptRelay.convertObj(
+    fragmentConverter, 
+    fragmentConverterMap, 
+    Js.undefined
+  )
+}
+type t
+type fragmentRef
 external getFragmentRef:
-  ReasonRelay.fragmentRefs([> | `FeedPage_query]) => fragmentRef =
-  "%identity";
+  RescriptRelay.fragmentRefs<[> | #FeedPage_query]> => fragmentRef = "%identity"
+
 
 module Utils = {
-  open Types;
-};
+  open Types
+  @inline
+  let connectionKey = "FeedPage_query_feed"
+  
+}
+type relayOperationNode
+type operationType = RescriptRelay.fragmentNode<relayOperationNode>
 
-type relayOperationNode;
 
-type operationType = ReasonRelay.fragmentNode(relayOperationNode);
-
-
-
-let node: operationType = [%raw {json| (function(){
+let node: operationType = %raw(json` (function(){
 var v0 = [
   "feed"
 ];
@@ -262,6 +269,6 @@ return {
   "type": "query_root",
   "abstractKey": null
 };
-})() |json}];
+})() `)
 
 

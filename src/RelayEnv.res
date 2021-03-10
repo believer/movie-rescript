@@ -3,7 +3,7 @@ open Fetch
 
 exception Graphql_error(string)
 
-let fetchQuery: (unit => Js.Promise.t<'a>) => ReasonRelay.Network.fetchFunctionPromise = (
+let fetchQuery: (unit => Js.Promise.t<'a>) => RescriptRelay.Network.fetchFunctionPromise = (
   getAccessTokenSilently,
   operation,
   variables,
@@ -41,13 +41,13 @@ let fetchQuery: (unit => Js.Promise.t<'a>) => ReasonRelay.Network.fetchFunctionP
   )
 
 let network = getAccessTokenSilently =>
-  ReasonRelay.Network.makePromiseBased(~fetchFunction=fetchQuery(getAccessTokenSilently), ())
+  RescriptRelay.Network.makePromiseBased(~fetchFunction=fetchQuery(getAccessTokenSilently), ())
 
 let environment = getAccessTokenSilently =>
-  ReasonRelay.Environment.make(
+  RescriptRelay.Environment.make(
     ~network=network(getAccessTokenSilently),
-    ~store=ReasonRelay.Store.make(
-      ~source=ReasonRelay.RecordSource.make(),
+    ~store=RescriptRelay.Store.make(
+      ~source=RescriptRelay.RecordSource.make(),
       ~gcReleaseBufferSize=10, // This sets the query cache size to 10
       (),
     ),

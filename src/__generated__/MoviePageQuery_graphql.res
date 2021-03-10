@@ -1,127 +1,130 @@
-
 /* @generated */
-
+%%raw("/* @generated */")
 module Types = {
-  [@ocaml.warning "-30"];
+  @@ocaml.warning("-30")
+  
   type response_movie_movie = {
     title: string,
-    original_id: option(int),
+    original_id: option<int>,
     id: string,
-    fragmentRefs:
-      ReasonRelay.fragmentRefs(
-        [
-          | `MovieOverview_movie
-          | `Cast_movie
-          | `Composer_movie
-          | `Director_movie
-          | `Producer_movie
-          | `Poster_movie
-          | `Ratings_movie
-          | `MovieMeta_movie
-          | `Genres_movie
-          | `WatchDates_movie
-        ],
-      ),
-  };
+    fragmentRefs: RescriptRelay.fragmentRefs<[ | #MovieOverview_movie | #Cast_movie | #Composer_movie | #Director_movie | #Producer_movie | #Poster_movie | #Ratings_movie | #MovieMeta_movie | #Genres_movie | #WatchDates_movie]>
+  }
+  
+  
   type response_movie = [
-    | `movie(response_movie_movie)
-    | `UnselectedUnionMember(string)
-  ];
-
+    | #movie(response_movie_movie)
+    | #UnselectedUnionMember(string)
+  ]
   type response = {
-    movie:
-      option(
-        [ | `movie(response_movie_movie) | `UnselectedUnionMember(string)],
-      ),
-  };
-  type rawResponse = response;
+    movie: option<[
+      | #movie(response_movie_movie)
+      | #UnselectedUnionMember(string)
+    ]>,
+  }
+  type rawResponse = response
   type refetchVariables = {
-    id: option(string),
-    genreLimit: option(int),
-  };
-  let makeRefetchVariables = (~id=?, ~genreLimit=?, ()): refetchVariables => {
-    id,
-    genreLimit,
-  };
+    id: option<string>,
+    genreLimit: option<int>,
+  }
+  let makeRefetchVariables = (
+    ~id=?,
+    ~genreLimit=?,
+    ()
+  ): refetchVariables => {
+    id: id,
+    genreLimit: genreLimit
+  }
+  
   type variables = {
     id: string,
     genreLimit: int,
-  };
-};
+  }
+}
 
-let unwrap_response_movie:
-  {. "__typename": string} =>
-  [ | `movie(Types.response_movie_movie) | `UnselectedUnionMember(string)] =
-  u =>
-    switch (u##__typename) {
-    | "movie" => `movie(u->Obj.magic)
-    | v => `UnselectedUnionMember(v)
-    };
+let unwrap_response_movie: {. "__typename": string } => [
+  | #movie(Types.response_movie_movie)
+  | #UnselectedUnionMember(string)
+] = u => switch u["__typename"] {
+ | "movie" => #movie(u->Obj.magic) 
+ | v => #UnselectedUnionMember(v)
+}
 
-let wrap_response_movie:
-  [ | `movie(Types.response_movie_movie) | `UnselectedUnionMember(string)] =>
-  {. "__typename": string} =
-  fun
-  | `movie(v) => v->Obj.magic
-  | `UnselectedUnionMember(v) => {"__typename": v};
+let wrap_response_movie: [
+  | #movie(Types.response_movie_movie)
+  | #UnselectedUnionMember(string)
+] => {. "__typename": string } = v => switch v {
+ | #movie(v) => v->Obj.magic 
+ | #UnselectedUnionMember(v) => {"__typename": v} 
+}
 
 module Internal = {
-  type wrapResponseRaw;
-  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"movie":{"n":"","u":"response_movie"},"movie_movie":{"f":""},"movie_movie_original_id":{"n":""}}} |json}
-  ];
-  let wrapResponseConverterMap = {"response_movie": wrap_response_movie};
-  let convertWrapResponse = v =>
-    v->ReasonRelay.convertObj(
-      wrapResponseConverter,
-      wrapResponseConverterMap,
-      Js.null,
-    );
+  type wrapResponseRaw
+  let wrapResponseConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{"__root":{"movie":{"n":"","u":"response_movie"},"movie_movie":{"f":""},"movie_movie_original_id":{"n":""}}}`
+    )
+  
+  let wrapResponseConverterMap = {
+    "response_movie": wrap_response_movie,
+  }
+  
+  let convertWrapResponse = v => v->RescriptRelay.convertObj(
+    wrapResponseConverter, 
+    wrapResponseConverterMap, 
+    Js.null
+  )
+  type responseRaw
+  let responseConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{"__root":{"movie":{"n":"","u":"response_movie"},"movie_movie":{"f":""},"movie_movie_original_id":{"n":""}}}`
+    )
+  
+  let responseConverterMap = {
+    "response_movie": unwrap_response_movie,
+  }
+  
+  let convertResponse = v => v->RescriptRelay.convertObj(
+    responseConverter, 
+    responseConverterMap, 
+    Js.undefined
+  )
+  type wrapRawResponseRaw = wrapResponseRaw
+  let convertWrapRawResponse = convertWrapResponse
+  type rawResponseRaw = responseRaw
+  let convertRawResponse = convertResponse
+  let variablesConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{}`
+    )
+  
+  let variablesConverterMap = ()
+  let convertVariables = v => v->RescriptRelay.convertObj(
+    variablesConverter, 
+    variablesConverterMap, 
+    Js.undefined
+  )
+}
 
-  type responseRaw;
-  let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"movie":{"n":"","u":"response_movie"},"movie_movie":{"f":""},"movie_movie_original_id":{"n":""}}} |json}
-  ];
-  let responseConverterMap = {"response_movie": unwrap_response_movie};
-  let convertResponse = v =>
-    v->ReasonRelay.convertObj(
-      responseConverter,
-      responseConverterMap,
-      Js.undefined,
-    );
-
-  type wrapRawResponseRaw = wrapResponseRaw;
-  let convertWrapRawResponse = convertWrapResponse;
-
-  type rawResponseRaw = responseRaw;
-  let convertRawResponse = convertResponse;
-
-  let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {} |json}
-  ];
-  let variablesConverterMap = ();
-  let convertVariables = v =>
-    v->ReasonRelay.convertObj(
-      variablesConverter,
-      variablesConverterMap,
-      Js.undefined,
-    );
-};
-
-type queryRef;
+type queryRef
 
 module Utils = {
-  open Types;
-  let makeVariables = (~id, ~genreLimit): variables => {id, genreLimit};
-};
+  open Types
+  let makeVariables = (
+    ~id,
+    ~genreLimit
+  ): variables => {
+    id: id,
+    genreLimit: genreLimit
+  }
+}
+type relayOperationNode
+type operationType = RescriptRelay.queryNode<relayOperationNode>
 
-type relayOperationNode;
 
-type operationType = ReasonRelay.queryNode(relayOperationNode);
-
-
-
-let node: operationType = [%raw {json| (function(){
+let node: operationType = %raw(json` (function(){
 var v0 = {
   "defaultValue": null,
   "kind": "LocalArgument",
@@ -523,13 +526,13 @@ return {
     "text": "query MoviePageQuery(\n  $id: ID!\n  $genreLimit: Int!\n) {\n  movie: node(id: $id) {\n    __typename\n    ... on movie {\n      id\n      original_id\n      title\n      ...MovieOverview_movie\n      ...Cast_movie\n      ...Composer_movie\n      ...Director_movie\n      ...Producer_movie\n      ...Poster_movie\n      ...Ratings_movie\n      ...MovieMeta_movie\n      ...Genres_movie_36mvd1\n      ...WatchDates_movie\n    }\n    id\n  }\n}\n\nfragment Cast_movie on movie {\n  cast: movie_people(where: {job: {_eq: \"cast\"}}, order_by: {person: {movie_people_aggregate: {count: desc}}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Composer_movie on movie {\n  composer: movie_people(where: {job: {_eq: \"composer\"}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Director_movie on movie {\n  director: movie_people(where: {job: {_eq: \"director\"}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment MovieMeta_movie on movie {\n  imdb_id\n  release_date\n  runtime\n  tagline\n}\n\nfragment MovieOverview_movie on movie {\n  overview\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Producer_movie on movie {\n  producer: movie_people(where: {job: {_eq: \"producer\"}}) {\n    person {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n\nfragment WatchDates_movie on movie {\n  dates_watched {\n    date\n    id\n  }\n}\n"
   }
 };
-})() |json}];
+})() `)
 
-include ReasonRelay.MakeLoadQuery({
-    type variables = Types.variables;
-    type loadedQueryRef = queryRef;
-    type response = Types.response;
-    type node = relayOperationNode;
-    let query = node;
-    let convertVariables = Internal.convertVariables;
+include RescriptRelay.MakeLoadQuery({
+    type variables = Types.variables
+    type loadedQueryRef = queryRef
+    type response = Types.response
+    type node = relayOperationNode
+    let query = node
+    let convertVariables = Internal.convertVariables
   });

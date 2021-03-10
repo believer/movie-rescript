@@ -1,92 +1,99 @@
-
 /* @generated */
-
+%%raw("/* @generated */")
 module Types = {
-  [@ocaml.warning "-30"];
-
+  @@ocaml.warning("-30")
+  
   type response = {
-    fragmentRefs: ReasonRelay.fragmentRefs([ | `FeedPage_query]),
-  };
-  type rawResponse = response;
+    fragmentRefs: RescriptRelay.fragmentRefs<[ | #FeedPage_query]>
+  }
+  type rawResponse = response
   type refetchVariables = {
-    genreLimit: option(int),
-    dateGte: option(string),
-    dateLte: option(string),
-  };
-  let makeRefetchVariables =
-      (~genreLimit=?, ~dateGte=?, ~dateLte=?, ()): refetchVariables => {
-    genreLimit,
-    dateGte,
-    dateLte,
-  };
+    genreLimit: option<int>,
+    dateGte: option<string>,
+    dateLte: option<string>,
+  }
+  let makeRefetchVariables = (
+    ~genreLimit=?,
+    ~dateGte=?,
+    ~dateLte=?,
+    ()
+  ): refetchVariables => {
+    genreLimit: genreLimit,
+    dateGte: dateGte,
+    dateLte: dateLte
+  }
+  
   type variables = {
     genreLimit: int,
     dateGte: string,
     dateLte: string,
-  };
-};
+  }
+}
 
 module Internal = {
-  type wrapResponseRaw;
-  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"":{"f":""}}} |json}
-  ];
-  let wrapResponseConverterMap = ();
-  let convertWrapResponse = v =>
-    v->ReasonRelay.convertObj(
-      wrapResponseConverter,
-      wrapResponseConverterMap,
-      Js.null,
-    );
+  type wrapResponseRaw
+  let wrapResponseConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{"__root":{"":{"f":""}}}`
+    )
+  
+  let wrapResponseConverterMap = ()
+  let convertWrapResponse = v => v->RescriptRelay.convertObj(
+    wrapResponseConverter, 
+    wrapResponseConverterMap, 
+    Js.null
+  )
+  type responseRaw
+  let responseConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{"__root":{"":{"f":""}}}`
+    )
+  
+  let responseConverterMap = ()
+  let convertResponse = v => v->RescriptRelay.convertObj(
+    responseConverter, 
+    responseConverterMap, 
+    Js.undefined
+  )
+  type wrapRawResponseRaw = wrapResponseRaw
+  let convertWrapRawResponse = convertWrapResponse
+  type rawResponseRaw = responseRaw
+  let convertRawResponse = convertResponse
+  let variablesConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{}`
+    )
+  
+  let variablesConverterMap = ()
+  let convertVariables = v => v->RescriptRelay.convertObj(
+    variablesConverter, 
+    variablesConverterMap, 
+    Js.undefined
+  )
+}
 
-  type responseRaw;
-  let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {"__root":{"":{"f":""}}} |json}
-  ];
-  let responseConverterMap = ();
-  let convertResponse = v =>
-    v->ReasonRelay.convertObj(
-      responseConverter,
-      responseConverterMap,
-      Js.undefined,
-    );
-
-  type wrapRawResponseRaw = wrapResponseRaw;
-  let convertWrapRawResponse = convertWrapResponse;
-
-  type rawResponseRaw = responseRaw;
-  let convertRawResponse = convertResponse;
-
-  let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {} |json}
-  ];
-  let variablesConverterMap = ();
-  let convertVariables = v =>
-    v->ReasonRelay.convertObj(
-      variablesConverter,
-      variablesConverterMap,
-      Js.undefined,
-    );
-};
-
-type queryRef;
+type queryRef
 
 module Utils = {
-  open Types;
-  let makeVariables = (~genreLimit, ~dateGte, ~dateLte): variables => {
-    genreLimit,
-    dateGte,
-    dateLte,
-  };
-};
+  open Types
+  let makeVariables = (
+    ~genreLimit,
+    ~dateGte,
+    ~dateLte
+  ): variables => {
+    genreLimit: genreLimit,
+    dateGte: dateGte,
+    dateLte: dateLte
+  }
+}
+type relayOperationNode
+type operationType = RescriptRelay.queryNode<relayOperationNode>
 
-type relayOperationNode;
 
-type operationType = ReasonRelay.queryNode(relayOperationNode);
-
-
-
-let node: operationType = [%raw {json| (function(){
+let node: operationType = %raw(json` (function(){
 var v0 = {
   "defaultValue": null,
   "kind": "LocalArgument",
@@ -360,13 +367,13 @@ return {
     "text": "query FeedPageQuery(\n  $genreLimit: Int!\n  $dateGte: timestamp!\n  $dateLte: timestamp!\n) {\n  ...FeedPage_query\n}\n\nfragment FeedPage_query on query_root {\n  feed: seen_connection(first: 16, order_by: {date: desc}, where: {date: {_gte: $dateGte, _lte: $dateLte}}) {\n    edges {\n      node {\n        movie {\n          id\n          year\n          title\n          ...Genres_movie_36mvd1\n          ...Poster_movie\n          ...Ratings_movie\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Genres_movie_36mvd1 on movie {\n  genres: movie_genres(limit: $genreLimit) {\n    genre {\n      id\n      name\n    }\n    id\n  }\n}\n\nfragment Poster_movie on movie {\n  poster\n}\n\nfragment Ratings_movie on movie {\n  ratings {\n    id\n    rating\n  }\n}\n"
   }
 };
-})() |json}];
+})() `)
 
-include ReasonRelay.MakeLoadQuery({
-    type variables = Types.variables;
-    type loadedQueryRef = queryRef;
-    type response = Types.response;
-    type node = relayOperationNode;
-    let query = node;
-    let convertVariables = Internal.convertVariables;
+include RescriptRelay.MakeLoadQuery({
+    type variables = Types.variables
+    type loadedQueryRef = queryRef
+    type response = Types.response
+    type node = relayOperationNode
+    let query = node
+    let convertVariables = Internal.convertVariables
   });

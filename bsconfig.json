@@ -17,10 +17,10 @@
   ],
   "suffix": ".bs.js",
   "namespace": true,
-  "ppx-flags": ["reason-relay/ppx"],
+  "ppx-flags": ["rescript-relay/ppx"],
   "bs-dependencies": [
-    "reason-react",
-    "reason-relay",
+    "@rescript/react",
+    "rescript-relay",
     "reason-promise",
     "bs-fetch",
     "re-classnames",

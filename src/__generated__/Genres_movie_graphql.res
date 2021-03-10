@@ -1,46 +1,51 @@
-
 /* @generated */
-
+%%raw("/* @generated */")
 module Types = {
-  [@ocaml.warning "-30"];
-  type fragment_genres = {genre: fragment_genres_genre}
-  and fragment_genres_genre = {
+  @@ocaml.warning("-30")
+  
+  type rec fragment_genres = {
+    genre: fragment_genres_genre,
+  }
+   and fragment_genres_genre = {
     id: string,
     name: string,
-  };
-
-  type fragment = {genres: array(fragment_genres)};
-};
+  }
+  
+  
+  type fragment = {
+    genres: array<fragment_genres>,
+  }
+}
 
 module Internal = {
-  type fragmentRaw;
-  let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {json| {} |json}
-  ];
-  let fragmentConverterMap = ();
-  let convertFragment = v =>
-    v->ReasonRelay.convertObj(
-      fragmentConverter,
-      fragmentConverterMap,
-      Js.undefined,
-    );
-};
-
-type t;
-type fragmentRef;
+  type fragmentRaw
+  let fragmentConverter: 
+    Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
+    %raw(
+      json`{}`
+    )
+  
+  let fragmentConverterMap = ()
+  let convertFragment = v => v->RescriptRelay.convertObj(
+    fragmentConverter, 
+    fragmentConverterMap, 
+    Js.undefined
+  )
+}
+type t
+type fragmentRef
 external getFragmentRef:
-  ReasonRelay.fragmentRefs([> | `Genres_movie]) => fragmentRef =
-  "%identity";
-
-module Utils = {};
-
-type relayOperationNode;
-
-type operationType = ReasonRelay.fragmentNode(relayOperationNode);
+  RescriptRelay.fragmentRefs<[> | #Genres_movie]> => fragmentRef = "%identity"
 
 
+module Utils = {
 
-let node: operationType = [%raw {json| {
+}
+type relayOperationNode
+type operationType = RescriptRelay.fragmentNode<relayOperationNode>
+
+
+let node: operationType = %raw(json` {
   "argumentDefinitions": [
     {
       "defaultValue": 3,
@@ -97,6 +102,6 @@ let node: operationType = [%raw {json| {
   ],
   "type": "movie",
   "abstractKey": null
-} |json}];
+} `)
 
 

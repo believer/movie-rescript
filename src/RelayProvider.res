@@ -19,8 +19,8 @@ let make = (~children) => {
       </div>
     </div>
   | (false, true) =>
-    <ReasonRelay.Context.Provider environment={RelayEnv.environment(getAccessTokenSilently)}>
+    <RescriptRelay.Context.Provider environment={RelayEnv.environment(getAccessTokenSilently)}>
       children
-    </ReasonRelay.Context.Provider>
+    </RescriptRelay.Context.Provider>
   }
 }

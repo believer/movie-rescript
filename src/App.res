@@ -6,7 +6,7 @@ let searchComp = ReactLazy.lazy_(() => ReactLazy.import_("./pages/SearchPage.bs.
 
 @react.component
 let make = () => {
-  let url = ReasonReactRouter.useUrl()
+  let url = RescriptReactRouter.useUrl()
   let path = Router.Route.fromPath(url.path)
   let {Auth0.loginWithRedirect: loginWithRedirect, isAuthenticated, logout, user} = Auth0.useAuth0()
 
