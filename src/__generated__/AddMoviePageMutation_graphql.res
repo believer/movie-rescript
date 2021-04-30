@@ -88,6 +88,8 @@ module Types = {
   ]
   
   type rec response_insert_movie_one = {
+    id: string,
+    year: option<string>,
     title: string,
   }
    and movie_genre_insert_input = {
@@ -369,7 +371,7 @@ module Internal = {
   let wrapResponseConverter: 
     Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
     %raw(
-      json`{"__root":{"insert_movie_one":{"n":""}}}`
+      json`{"__root":{"insert_movie_one":{"n":""},"insert_movie_one_year":{"n":""}}}`
     )
   
   let wrapResponseConverterMap = ()
@@ -382,7 +384,7 @@ module Internal = {
   let responseConverter: 
     Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
     %raw(
-      json`{"__root":{"insert_movie_one":{"n":""}}}`
+      json`{"__root":{"insert_movie_one":{"n":""},"insert_movie_one_year":{"n":""}}}`
     )
   
   let responseConverterMap = ()
@@ -1050,8 +1052,13 @@ module Utils = {
     watchDates: watchDates
   }
   let make_response_insert_movie_one = (
-    ~title
+    ~id,
+    ~year=?,
+    ~title,
+    ()
   ): response_insert_movie_one => {
+    id: id,
+    year: year,
     title: title
   }
   let makeOptimisticResponse = (
@@ -1123,126 +1130,152 @@ v10 = {
 },
 v11 = [
   {
-    "fields": [
+    "alias": null,
+    "args": [
       {
         "fields": [
           {
-            "kind": "Variable",
-            "name": "data",
-            "variableName": "watchDates"
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "dates_watched"
-      },
-      {
-        "kind": "Variable",
-        "name": "imdb_id",
-        "variableName": "imdbId"
-      },
-      {
-        "fields": [
-          {
-            "kind": "Variable",
-            "name": "data",
-            "variableName": "genres"
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "movie_genres"
-      },
-      {
-        "fields": [
-          {
-            "kind": "Variable",
-            "name": "data",
-            "variableName": "people"
-          },
-          {
-            "kind": "Literal",
-            "name": "on_conflict",
-            "value": {
-              "constraint": "movie_person_movie_id_person_id_job_key",
-              "update_columns": "job"
-            }
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "movie_people"
-      },
-      {
-        "kind": "Variable",
-        "name": "overview",
-        "variableName": "overview"
-      },
-      {
-        "kind": "Variable",
-        "name": "poster",
-        "variableName": "poster"
-      },
-      {
-        "fields": [
-          {
-            "items": [
+            "fields": [
               {
-                "fields": [
-                  {
-                    "kind": "Variable",
-                    "name": "rating",
-                    "variableName": "rating"
-                  }
-                ],
-                "kind": "ObjectValue",
-                "name": "data.0"
+                "kind": "Variable",
+                "name": "data",
+                "variableName": "watchDates"
               }
             ],
-            "kind": "ListValue",
-            "name": "data"
+            "kind": "ObjectValue",
+            "name": "dates_watched"
+          },
+          {
+            "kind": "Variable",
+            "name": "imdb_id",
+            "variableName": "imdbId"
+          },
+          {
+            "fields": [
+              {
+                "kind": "Variable",
+                "name": "data",
+                "variableName": "genres"
+              }
+            ],
+            "kind": "ObjectValue",
+            "name": "movie_genres"
+          },
+          {
+            "fields": [
+              {
+                "kind": "Variable",
+                "name": "data",
+                "variableName": "people"
+              },
+              {
+                "kind": "Literal",
+                "name": "on_conflict",
+                "value": {
+                  "constraint": "movie_person_movie_id_person_id_job_key",
+                  "update_columns": "job"
+                }
+              }
+            ],
+            "kind": "ObjectValue",
+            "name": "movie_people"
+          },
+          {
+            "kind": "Variable",
+            "name": "overview",
+            "variableName": "overview"
+          },
+          {
+            "kind": "Variable",
+            "name": "poster",
+            "variableName": "poster"
+          },
+          {
+            "fields": [
+              {
+                "items": [
+                  {
+                    "fields": [
+                      {
+                        "kind": "Variable",
+                        "name": "rating",
+                        "variableName": "rating"
+                      }
+                    ],
+                    "kind": "ObjectValue",
+                    "name": "data.0"
+                  }
+                ],
+                "kind": "ListValue",
+                "name": "data"
+              }
+            ],
+            "kind": "ObjectValue",
+            "name": "ratings"
+          },
+          {
+            "kind": "Variable",
+            "name": "release_date",
+            "variableName": "releaseDate"
+          },
+          {
+            "kind": "Variable",
+            "name": "runtime",
+            "variableName": "runtime"
+          },
+          {
+            "kind": "Variable",
+            "name": "tagline",
+            "variableName": "tagline"
+          },
+          {
+            "kind": "Variable",
+            "name": "title",
+            "variableName": "title"
           }
         ],
         "kind": "ObjectValue",
-        "name": "ratings"
+        "name": "object"
       },
       {
-        "kind": "Variable",
-        "name": "release_date",
-        "variableName": "releaseDate"
-      },
-      {
-        "kind": "Variable",
-        "name": "runtime",
-        "variableName": "runtime"
-      },
-      {
-        "kind": "Variable",
-        "name": "tagline",
-        "variableName": "tagline"
-      },
-      {
-        "kind": "Variable",
-        "name": "title",
-        "variableName": "title"
+        "kind": "Literal",
+        "name": "on_conflict",
+        "value": {
+          "constraint": "movie_imdb_id_key",
+          "update_columns": "title"
+        }
       }
     ],
-    "kind": "ObjectValue",
-    "name": "object"
-  },
-  {
-    "kind": "Literal",
-    "name": "on_conflict",
-    "value": {
-      "constraint": "movie_imdb_id_key",
-      "update_columns": "title"
-    }
+    "concreteType": "movie",
+    "kind": "LinkedField",
+    "name": "insert_movie_one",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "year",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "title",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
   }
-],
-v12 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -1261,20 +1294,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "AddMoviePageMutation",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v11/*: any*/),
-        "concreteType": "movie",
-        "kind": "LinkedField",
-        "name": "insert_movie_one",
-        "plural": false,
-        "selections": [
-          (v12/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ],
+    "selections": (v11/*: any*/),
     "type": "mutation_root",
     "abstractKey": null
   },
@@ -1295,35 +1315,15 @@ return {
     ],
     "kind": "Operation",
     "name": "AddMoviePageMutation",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v11/*: any*/),
-        "concreteType": "movie",
-        "kind": "LinkedField",
-        "name": "insert_movie_one",
-        "plural": false,
-        "selections": [
-          (v12/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v11/*: any*/)
   },
   "params": {
-    "cacheID": "189e0d7884bf7f5950c012957e140b0d",
+    "cacheID": "f9132ddacb5017b198937b6050bc1fc7",
     "id": null,
     "metadata": {},
     "name": "AddMoviePageMutation",
     "operationKind": "mutation",
-    "text": "mutation AddMoviePageMutation(\n  $imdbId: String\n  $overview: String\n  $runtime: Int\n  $poster: String\n  $releaseDate: date\n  $tagline: String\n  $title: String\n  $rating: Int\n  $genres: [movie_genre_insert_input!]!\n  $people: [movie_person_insert_input!]!\n  $watchDates: [seen_insert_input!]!\n) {\n  insert_movie_one(object: {imdb_id: $imdbId, overview: $overview, runtime: $runtime, poster: $poster, release_date: $releaseDate, tagline: $tagline, title: $title, ratings: {data: [{rating: $rating}]}, movie_genres: {data: $genres}, movie_people: {data: $people, on_conflict: {constraint: movie_person_movie_id_person_id_job_key, update_columns: job}}, dates_watched: {data: $watchDates}}, on_conflict: {constraint: movie_imdb_id_key, update_columns: title}) {\n    title\n    id\n  }\n}\n"
+    "text": "mutation AddMoviePageMutation(\n  $imdbId: String\n  $overview: String\n  $runtime: Int\n  $poster: String\n  $releaseDate: date\n  $tagline: String\n  $title: String\n  $rating: Int\n  $genres: [movie_genre_insert_input!]!\n  $people: [movie_person_insert_input!]!\n  $watchDates: [seen_insert_input!]!\n) {\n  insert_movie_one(object: {imdb_id: $imdbId, overview: $overview, runtime: $runtime, poster: $poster, release_date: $releaseDate, tagline: $tagline, title: $title, ratings: {data: [{rating: $rating}]}, movie_genres: {data: $genres}, movie_people: {data: $people, on_conflict: {constraint: movie_person_movie_id_person_id_job_key, update_columns: job}}, dates_watched: {data: $watchDates}}, on_conflict: {constraint: movie_imdb_id_key, update_columns: title}) {\n    id\n    year\n    title\n  }\n}\n"
   }
 };
 })() `)

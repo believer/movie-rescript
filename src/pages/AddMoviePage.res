@@ -1,6 +1,3 @@
-@val
-external stringify: ('a, Js.Null.t<'b>, int) => string = "JSON.stringify"
-
 module AddMovieMutation = %relay(`
   mutation AddMoviePageMutation(
     $imdbId: String
@@ -37,7 +34,12 @@ module AddMovieMutation = %relay(`
       }
       on_conflict: { constraint: movie_imdb_id_key, update_columns: title }
     ) {
+      id
+      year
       title
+      ...Genres_movie
+      ...Poster_movie
+      ...Ratings_movie
     }
   }
 `)
