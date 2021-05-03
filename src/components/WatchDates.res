@@ -11,6 +11,14 @@ module AddWatchMutation = %relay(`
   mutation WatchDatesMutation($id: Int!, $date: timestamp!) {
     insert_seen_one(object: {movie_id: $id, date: $date}) {
       id
+      movie {
+        id
+        year
+        title
+        ...Genres_movie
+        ...Poster_movie
+        ...Ratings_movie
+      }
     }
   }
 `)

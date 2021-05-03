@@ -47,6 +47,7 @@ external getFragmentRef:
 
 
 module Utils = {
+  @@ocaml.warning("-33")
   open Types
   @inline
   let connectionKey = "FeedPage_query_feed"
@@ -56,7 +57,9 @@ type relayOperationNode
 type operationType = RescriptRelay.fragmentNode<relayOperationNode>
 
 
-let node: operationType = %raw(json` (function(){
+%%private(let makeNode = (node_FeedPageRefetchQuery): operationType => {
+  ignore(node_FeedPageRefetchQuery)
+  %raw(json` (function(){
 var v0 = [
   "feed"
 ];
@@ -105,7 +108,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./FeedPageRefetchQuery_graphql.bs.js').node
+      "operation": node_FeedPageRefetchQuery
     }
   },
   "name": "FeedPage_query",
@@ -270,5 +273,7 @@ return {
   "abstractKey": null
 };
 })() `)
+})
+let node: operationType = makeNode(FeedPageRefetchQuery_graphql.node)
 
 
