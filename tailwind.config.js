@@ -1,5 +1,4 @@
 module.exports = {
-  mode: "jit",
   purge: ["./src/**/*.bs.js", "./src/**/*.css"],
   darkMode: false,
   theme: {

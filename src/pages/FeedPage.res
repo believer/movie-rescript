@@ -74,9 +74,9 @@ let make = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 col-start-3 col-end-3">
         {data.feed.edges
         ->Belt.Array.map(({node: {movie}}) =>
-          <Router.Link key=movie.id to_=Movie(movie.id)>
-            <Poster movie=movie.fragmentRefs />
-            <div className="mt-4">
+          <Router.Link className="grid grid-feed-movie gap-5" key=movie.id to_=Movie(movie.id)>
+            <Poster movie=movie.fragmentRefs size=Poster.Feed />
+            <div>
               <div className="mr-4">
                 <div className="text-xs font-bold text-gray-900"> {React.string(movie.title)} </div>
                 <div className="flex text-xs text-gray-600 space-x-1">
