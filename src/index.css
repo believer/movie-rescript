@@ -29,13 +29,13 @@
     grid-template-columns: var(--t5) 1fr minmax(300px, 960px) 1fr var(--t5);
   }
 
-  .grid-feed-movie {
-    grid-template-rows: 400px auto;
-  }
-
   @media (min-width: 768px) {
     .grid-movie {
       grid-template-columns: 300px 1fr;
+    }
+
+    .grid-feed-movie {
+      grid-template-rows: 400px auto;
     }
   }
 }

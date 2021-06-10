@@ -13,12 +13,12 @@ let make = (~logout: Auth0.logout => unit, ~user: Auth0.user) => {
   let divRef = Hooks.useClickOutside(handleClickOutside)
 
   <div className="mt-8 grid grid-md">
-    <div className="flex col-start-3 col-end-3 items-center">
+    <div className="flex flex-col gap-2 md:gap-0 md:flex-row col-start-3 col-end-3 md:items-center">
       <Link to_=Feed> <Icon.Movie /> </Link>
-      <div className="ml-8">
+      <div className="md:ml-8">
         <Router.Link to_=AddMovie> {React.string("Add movie")} </Router.Link>
       </div>
-      <div className="flex ml-auto">
+      <div className="flex md:ml-auto">
         <SearchField />
         <div className="relative">
           {switch user.picture {
